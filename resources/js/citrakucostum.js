@@ -1563,8 +1563,9 @@ const kecColor = {
     jambiselatan: "#ffa500",
     paalmerah: "#ff0000",
 };
+// TUTUP KECAMATAN
 
-// Kecamatan Maker
+// Kelurahan Maker
 const kelurahan = {
     arabmelayu: [],
     baganpete: [],
@@ -1595,7 +1596,7 @@ const kelurahan = {
     tanjungsari: [],
     wijayapura: [],
 };
-// kecamatan maker
+// Kelurahan maker
 
 const rT = {
     rT01: [],
@@ -1623,183 +1624,84 @@ const rT = {
 const sungai = {};
 // danau
 const danau = {};
-
-// Inisialisasi peta
 // Inisialisasi peta
 var map = L.map("jambi-map").setView([-1.6, 103.6], 12);
 
 // Menambahkan layer Google Maps
-var googleStreet = L.tileLayer(
-    "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
-    { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
-);
-var googleSatellite = L.tileLayer(
-    "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-    { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
-);
-var googleHybrid = L.tileLayer(
-    "https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
-    { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
-);
-var openStreetMap = L.tileLayer(
-    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-    {
-        maxZoom: 19,
-        attribution: "© OpenStreetMap",
-    }
-);
+var baseMaps = {
+    "Google Street": L.tileLayer(
+        "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+    ),
+    "Google Satellite": L.tileLayer(
+        "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+    ),
+    "Google Hybrid": L.tileLayer(
+        "https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
+        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+    ),
+    OpenStreetMap: L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19,
+            attribution: "© OpenStreetMap",
+        }
+    ),
+};
 
 // Layer peta default
-openStreetMap.addTo(map);
-
-// Tambahkan kontrol layer
-var baseMaps = {
-    "Google Street": googleStreet,
-    "Google Satellite": googleSatellite,
-    "Google Hybrid": googleHybrid,
-    OpenStreetMap: openStreetMap,
-};
+baseMaps["OpenStreetMap"].addTo(map);
 
 // Control layer
 L.control.layers(baseMaps).addTo(map);
 
-// Data poligon untuk kecamatan
-var pasarPolygon = L.polygon(
-    kecamatan.pasar.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "blue",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+// Fungsi untuk membuat polygon dan polyline
+function createKecamatanLayer(name, coordinates) {
+    // Membuat polygon
+    var polygon = L.polygon(
+        coordinates.map((coord) => [coord.lat, coord.lng]),
+        {
+            color: kecColor[name], // Menggunakan warna dari objek kecColor
+            weight: 2,
+            opacity: 0.65,
+            fillOpacity: 0.3,
+        }
+    ).addTo(map);
 
-var jelutungPolygon = L.polygon(
-    kecamatan.jelutung.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "red",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+    // Membuat polyline
+    var polyline = L.polyline(
+        coordinates.map((coord) => [coord.lat, coord.lng]),
+        {
+            color: "black",
+            weight: 2,
+            opacity: 1,
+        }
+    ).addTo(map);
 
-var alambarajoPolygon = L.polygon(
-    kecamatan.alambarajo.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "gray",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+    // Event hover untuk polygon
+    polygon.on("mouseover", function () {
+        polyline.setStyle({ color: "white" }); // Ubah warna polyline saat hover
+    });
 
-var jambitimurPolygon = L.polygon(
-    kecamatan.jambitimur.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "green",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+    polygon.on("mouseout", function () {
+        polyline.setStyle({ color: "black" }); // Kembali ke warna asli saat mouse keluar
+    });
+    const marker = L.marker([kecMarker[name].lat, kecMarker[name].lng]).addTo(
+        map
+    );
+    marker.bindPopup(`<b>${name}</b>`).openPopup(); // Popup dengan nama kecamatan
 
-var danautelukPolygon = L.polygon(
-    kecamatan.danauteluk.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "yellow",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+    return polygon; // Kembalikan polygon untuk digunakan dalam perhitungan bounds // Kembalikan polygon untuk digunakan dalam perhitungan bounds
+}
 
-var pelayanganPolygon = L.polygon(
-    kecamatan.pelayangan.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "orange",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
+// Menambahkan poligon ke peta untuk setiap kecamatan dan menghitung bounds
+let bounds = L.latLngBounds();
 
-var kotabarujoPolygon = L.polygon(
-    kecamatan.kotabaru.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "purple",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
-var danausipinPolygon = L.polygon(
-    kecamatan.danausipin.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "black",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
-
-var telanaipuraPolygon = L.polygon(
-    kecamatan.telanaipura.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "green",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
-
-var jambiselatanPolygon = L.polygon(
-    kecamatan.jambiselatan.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "navy",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
-
-var paalmerahPolygon = L.polygon(
-    kecamatan.paalmerah.map((coord) => [coord.lat, coord.lng]),
-    {
-        color: "red",
-        weight: 2,
-        opacity: 0.65,
-        fillOpacity: 0.3,
-    }
-).addTo(map);
-// Menambahkan poligon ke peta untuk setiap kecamatan
-const polygons = {
-    pasar: pasarPolygon,
-    jelutung: jelutungPolygon,
-    jambitimur: jambitimurPolygon,
-    danauteluk: danautelukPolygon,
-    pelayangan: pelayanganPolygon,
-    alambarajo: alambarajoPolygon,
-    kotabaruju: kotabarujoPolygon,
-    danausipin: danausipinPolygon,
-    telanaipura: telanaipuraPolygon,
-    jambiselatan: jambiselatanPolygon,
-    paalmerah: paalmerahPolygon,
-};
-
-// Fokus pada area poligon yang ditambahkan
-let bounds = polygons.pasar.getBounds();
-
-for (const polygon of Object.values(polygons)) {
-    bounds = bounds.extend(polygon.getBounds());
+for (const [name, coordinates] of Object.entries(kecamatan, kecMarker)) {
+    const polygon = createKecamatanLayer(name, coordinates);
+    bounds.extend(polygon.getBounds()); // Ekstensi bounds untuk setiap polygon
 }
 
 // Atur peta untuk memperlihatkan semua kecamatan
 map.fitBounds(bounds);
-
-for (const [kecamatan, coords] of Object.entries(kecMarker)) {
-    L.marker([coords.lat, coords.lng])
-        .addTo(map)
-        .bindPopup(`Kecamatan: ${kecamatan}`)
-        .openPopup(); // Opsional: membuka popup saat marker ditambahkan
-}
