@@ -6,7 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>AdminLTE 3 | Dashboard</title>
         @include('layouts.components.admin.core.css')
+        <style>
+            #jambi-map {
+                width: 100%;
+                /* Atur lebar ke 100% */
+                height: 600px;
+                /* Atur tinggi sesuai kebutuhan */
+            }
 
+        </style>
     </head>
 
     <body class="hold-transition sidebar-mini layout-fixed">

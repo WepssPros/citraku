@@ -25,9 +25,12 @@
 <script src="{{asset('../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/sparklines/sparkline.js')}}"></script>
+
 <script src="{{asset('../adminlte/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
-<script src="{{asset('../adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
+<script src="{{asset('../adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>\
+<script src="{{asset('../adminlte/plugins/jqvmap/maps/jquery.vmap.jambi.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/jquery-knob/jquery.knob.min.js')}}"></script>
+
 <script src="{{asset('../adminlte/plugins/moment/moment.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}">

@@ -1,5 +1,16 @@
 @extends('layouts.admin')
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<style>
+    /* Pastikan peta mengisi div */
+    #jambi-map {
+        height: 550px;
+        /* Tinggi peta */
+        width: 100%;
+        /* Lebar peta */
+    }
 
+</style>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 @section('admin-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -87,6 +98,75 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
+            <section class="col-lg-12 connectedSortable">
+                <!-- Map card -->
+                <div class="card bg-gradient-primary">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">
+                            <i class="fas fa-map-marker-alt mr-1"></i>
+                            Visitors
+                        </h3>
+                        <!-- card tools -->
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
+                                <i class="far fa-calendar-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
+                                title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <div class="card-body">
+                        <div id="jambi-map" style="height: 550px; width: 100%;"></div>
+                    </div>
+
+                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                    <script>
+                        // Inisialisasi peta
+                       // Inisialisasi peta
+    var map = L.map('jambi-map').setView([-1.6000, 103.6000], 12);
+
+    // Menambahkan tile layer dari OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // GeoJSON data (contoh batasan kota Jambi)
+    var geojsonFeature = {
+        "type": "Feature",
+        "properties": {
+            "name": "Kota Jambi"
+        },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [103.6000, -1.6000],
+                    [103.6200, -1.6000],
+                    [103.6200, -1.5900],
+                    [103.6000, -1.5900],
+                    [103.6000, -1.6000]
+                ]
+            ]
+        }
+    };
+
+    // Menambahkan GeoJSON ke peta
+    L.geoJSON(geojsonFeature, {
+        style: function (feature) {
+            return {color: "#ff7800", weight: 5, opacity: 0.65};
+        }
+    }).addTo(map);
+                    </script>
+                    <!-- /.card-body-->
+
+                </div>
+                <!-- /.card -->
+            </section>
+
             <!-- Left col -->
             <section class="col-lg-7 connectedSortable">
                 <!-- Custom tabs (Charts with tabs)-->
@@ -622,4 +702,5 @@
         <!-- /.row (main row) -->
     </div><!-- /.container-fluid -->
 </section>
+
 @endsection
