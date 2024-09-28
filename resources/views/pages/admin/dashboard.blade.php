@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 <style>
     /* Pastikan peta mengisi div */
     #jambi-map {
@@ -10,7 +10,7 @@
     }
 
 </style>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 @section('admin-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -119,48 +119,13 @@
                         <!-- /.card-tools -->
                     </div>
                     <div class="card-body">
-                        <div id="jambi-map" style="height: 550px; width: 100%;"></div>
+                        <div id="jambi-map" style="height: 650px; width: 100%;"></div>
                     </div>
 
-                    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-                    <script>
-                        // Inisialisasi peta
-                       // Inisialisasi peta
-    var map = L.map('jambi-map').setView([-1.6000, 103.6000], 12);
-
-    // Menambahkan tile layer dari OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
-
-    // GeoJSON data (contoh batasan kota Jambi)
-    var geojsonFeature = {
-        "type": "Feature",
-        "properties": {
-            "name": "Kota Jambi"
-        },
-        "geometry": {
-            "type": "Polygon",
-            "coordinates": [
-                [
-                    [103.6000, -1.6000],
-                    [103.6200, -1.6000],
-                    [103.6200, -1.5900],
-                    [103.6000, -1.5900],
-                    [103.6000, -1.6000]
-                ]
-            ]
-        }
-    };
-
-    // Menambahkan GeoJSON ke peta
-    L.geoJSON(geojsonFeature, {
-        style: function (feature) {
-            return {color: "#ff7800", weight: 5, opacity: 0.65};
-        }
-    }).addTo(map);
-                    </script>
+                  
+                  
+                   
+                   
                     <!-- /.card-body-->
 
                 </div>

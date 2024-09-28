@@ -14,6 +14,20 @@
                 /* Atur tinggi sesuai kebutuhan */
             }
 
+            /* CSS untuk kontrol peta */
+            .leaflet-control-layers {
+                background: rgba(255, 255, 255, 0.8);
+                border-radius: 5px;
+                padding: 10px;
+            }
+
+            /* CSS untuk marker */
+            .leaflet-marker-icon {
+                background: rgba(255, 0, 0, 0.7);
+                border-radius: 50%;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            }
+
         </style>
     </head>
 
