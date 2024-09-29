@@ -1633,7 +1633,21 @@ const rT = {
     rT08: [],
     rT09: [],
     rT10: [],
-    rT11: [],
+    rt11: [
+        { lng: 103.61684581672858, lat: -1.5830514993502476 },
+        { lng: 103.6166758229362, lat: -1.5823824041551688 },
+        { lng: 103.61554961406102, lat: -1.5815964825388278 },
+        { lng: 103.61432778367697, lat: -1.5810123514152679 },
+        { lng: 103.61376467924015, lat: -1.5809380074421853 },
+        { lng: 103.61298908256168, lat: -1.5806724932314324 },
+        { lng: 103.61277659032163, lat: -1.5804494612677331 },
+        { lng: 103.61190790335007, lat: -1.5818894651214066 },
+        { lng: 103.61186544685091, lat: -1.5822183775615883 },
+        { lng: 103.61494354301215, lat: -1.582738271312138 },
+        { lng: 103.61572898824062, lat: -1.5835764670848675 },
+        { lng: 103.61688592357598, lat: -1.5831096251317405 },
+    ],
+
     rT12: [],
     rT13: [],
     rT14: [],
@@ -1644,10 +1658,66 @@ const rT = {
     rT19: [],
     rT20: [],
 };
+
+const area = {
+    rt11: [
+        // Area 1
+        [
+            { lng: 103.6172123845812, lat: -1.5825899506678809 },
+            { lng: 103.61709475348073, lat: -1.5824645253525347 },
+            { lng: 103.61725159494722, lat: -1.5822450310327412 },
+            { lng: 103.61701633274754, lat: -1.582064732109302 },
+            { lng: 103.61678891262159, lat: -1.5821901574488209 },
+            { lng: 103.61663207115521, lat: -1.5824096517744977 },
+            { lng: 103.61656149249563, lat: -1.5822215137828124 },
+            { lng: 103.61639680895553, lat: -1.582064732109302 },
+            { lng: 103.61637328273571, lat: -1.581798203236886 },
+            { lng: 103.61611449431626, lat: -1.581806042322171 },
+            { lng: 103.61581649553074, lat: -1.5819236285925484 },
+            { lng: 103.61537733942504, lat: -1.581915789508841 },
+            { lng: 103.61521265588607, lat: -1.58168845604402 },
+            { lng: 103.61533028698528, lat: -1.5812416281295327 },
+            { lng: 103.6150087619788, lat: -1.5812729844778772 },
+            { lng: 103.61464802660629, lat: -1.5817825250673678 },
+            { lng: 103.61469507904718, lat: -1.5819785021834605 },
+            { lng: 103.61506365649217, lat: -1.5821117666123712 },
+            { lng: 103.61527539247191, lat: -1.5823547781949685 },
+            { lng: 103.61510286685939, lat: -1.5827937667893366 },
+            { lng: 103.6153538132051, lat: -1.583115169094711 },
+            { lng: 103.6156596540643, lat: -1.5835698356841732 },
+            { lng: 103.61647522968877, lat: -1.583232755290794 },
+            { lng: 103.61702417482127, lat: -1.5829191920859529 },
+            { lng: 103.6171967004338, lat: -1.582574272504317 },
+        ],
+        // Area 2
+        [
+            { lng: 103.61207582653424, lat: -1.5821901571663375 },
+            { lng: 103.61213856312116, lat: -1.5819001110564699 },
+            { lng: 103.61274240276595, lat: -1.5820333754904539 },
+            { lng: 103.61271887654601, lat: -1.5818922719726913 },
+            { lng: 103.61242871983302, lat: -1.5815943867351479 },
+            { lng: 103.61284434971901, lat: -1.5814768004461257 },
+            { lng: 103.61311882228574, lat: -1.5815159958761456 },
+            { lng: 103.61347171558464, lat: -1.5816649385065062 },
+            { lng: 103.61372266193041, lat: -1.5815473522203547 },
+            { lng: 103.61396576620376, lat: -1.5818609156336976 },
+            { lng: 103.61362855705107, lat: -1.582127444498056 },
+            { lng: 103.61393439791021, lat: -1.5821979962501729 },
+            { lng: 103.61414613389002, lat: -1.5822450307502152 },
+            { lng: 103.61434218572248, lat: -1.58187659380269 },
+            { lng: 103.61463234243553, lat: -1.5819863409855657 },
+            { lng: 103.61499307780798, lat: -1.582260708916266 },
+            { lng: 103.61468723694878, lat: -1.582676180285759 },
+            { lng: 103.61207582653424, lat: -1.5821979962501729 },
+        ],
+    ],
+};
 // sungai
 const sungai = {};
 // danau
 const danau = {};
+
+// TIPE DATA
 
 // Inisialisasi peta
 var map = L.map("jambi-map").setView([-1.6, 103.6], 12);
@@ -1681,10 +1751,13 @@ baseMaps["OpenStreetMap"].addTo(map);
 // Control layer
 L.control.layers(baseMaps).addTo(map);
 
-// Fungsi untuk membuat polygon dan polyline
+// Tambah Menu
+// Menambahkan kontrol menu ke peta
+
+// Fungsi untuk membuat polygon dan polyline Kecamatan
 function createKecamatanLayer(name, coordinates) {
     // Membuat polygon
-    var polygon = L.polygon(
+    var kecPolygon = L.polygon(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
             color: kecColor[name], // Menggunakan warna dari objek kecColor
@@ -1699,17 +1772,17 @@ function createKecamatanLayer(name, coordinates) {
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
             color: "black",
-            weight: 2,
+            weight: 1,
             opacity: 1,
         }
     ).addTo(map);
 
     // Event hover untuk polygon
-    polygon.on("mouseover", function () {
-        polyline.setStyle({ color: "white" }); // Ubah warna polyline saat hover
+    kecPolygon.on("mouseover", function () {
+        polyline.setStyle({ color: "blue" }); // Ubah warna polyline saat hover
     });
 
-    polygon.on("mouseout", function () {
+    kecPolygon.on("mouseout", function () {
         polyline.setStyle({ color: "black" }); // Kembali ke warna asli saat mouse keluar
     });
 
@@ -1717,37 +1790,23 @@ function createKecamatanLayer(name, coordinates) {
     const marker = L.marker([kecMarker[name].lat, kecMarker[name].lng]).addTo(
         map
     );
-    marker.bindPopup(`<b>${name}</b>`).openPopup(); // Popup dengan nama kecamatan
+    marker.bindPopup(`<b>Kecamatan: ${name}</b>`).openPopup(); // Popup dengan nama kecamatan
 
     // Event click untuk polygon
-    polygon.on("click", function () {
-        map.fitBounds(polygon.getBounds()); // Zoom ke polygon
+    kecPolygon.on("click", function () {
+        map.fitBounds(kecPolygon.getBounds()); // Zoom ke polygon
         const popupContent = `<b>Kecamatan: ${name}</b>`;
         L.popup()
-            .setLatLng(polygon.getBounds().getCenter())
+            .setLatLng(kecPolygon.getBounds().getCenter())
             .setContent(popupContent)
             .openOn(map);
     });
 
-    return polygon; // Kembalikan polygon untuk digunakan dalam perhitungan bounds
+    return kecPolygon; // Kembalikan polygon untuk digunakan dalam perhitungan bounds
 }
 
-// Menambahkan poligon ke peta untuk setiap kecamatan dan menghitung bounds
-let bounds = L.latLngBounds();
+// Array untuk menyimpan poligon kecamatan
 
-for (const [name, coordinates] of Object.entries(kecamatan)) {
-    const polygon = createKecamatanLayer(name, coordinates);
-    bounds.extend(polygon.getBounds()); // Ekstensi bounds untuk setiap polygon
-}
-
-// Atur peta untuk memperlihatkan semua kecamatan
-map.fitBounds(bounds);
-
-// Variabel untuk menyimpan referensi polygon kelurahan dan RT
-const kelurahanPolygons = [];
-const rTPolygons = [];
-
-// Kelurahan dan RT
 function createKelurahanLayer(name, coordinates) {
     const polygon = L.polygon(
         coordinates.map((coord) => [coord.lat, coord.lng]),
@@ -1772,53 +1831,131 @@ function createKelurahanLayer(name, coordinates) {
     return polygon;
 }
 
-// Menambahkan poligon kelurahan ke peta
-for (const [name, coordinates] of Object.entries(kelurahan)) {
-    createKelurahanLayer(name, coordinates);
-}
+function createRTLayer(rtName, rtCoordinates, areaCoordinates) {
+    // Loop untuk menambahkan polygon untuk setiap area
+    areaCoordinates.forEach((coords, index) => {
+        const polygon = L.polygon(
+            coords.map((coord) => [coord.lat, coord.lng]), // Mengonversi ke format [lat, lng]
+            {
+                color: "red",
+                weight: 1,
+                opacity: 0.65,
+                fillOpacity: 0.3,
+            }
+        ).addTo(map);
 
-// Fungsi untuk membuat polygon untuk RT
-function createRTLayer(name, coordinates) {
-    const polygon = L.polygon(
-        coordinates.map((coord) => [coord.lat, coord.lng]),
+        // Menambahkan event listener untuk polygon
+        polygon.on("click", function () {
+            map.fitBounds(polygon.getBounds());
+            const popupContent = `<b>RT: ${rtName} Area ${index + 1}</b>`;
+            L.popup()
+                .setLatLng(polygon.getBounds().getCenter())
+                .setContent(popupContent)
+                .openOn(map);
+        });
+    });
+
+    // Menambahkan polyline untuk RT
+    const polyline = L.polyline(
+        rtCoordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: "blue", // Warna polygon RT
+            color: "black",
             weight: 2,
             opacity: 0.65,
             fillOpacity: 0.3,
         }
     ).addTo(map);
-
-    polygon.on("click", function () {
-        map.fitBounds(polygon.getBounds()); // Zoom ke polygon
-        const popupContent = `<b>RT: ${name}</b>`;
-        L.popup()
-            .setLatLng(polygon.getBounds().getCenter())
-            .setContent(popupContent)
-            .openOn(map);
-    });
-
-    rTPolygons.push(polygon); // Simpan polygon ke array
-    return polygon;
+    polyline
+        .bindTooltip(rtName, { permanent: false, direction: "top" })
+        .openTooltip(); // Tooltip permanen di atas polyline
 }
 
-// Menambahkan poligon RT ke peta
-for (const [name, coordinates] of Object.entries(rT)) {
-    createRTLayer(name, coordinates);
+// Fungsi untuk membuat polygon dan polyline Kecamatan
+const kelurahanPolygons = [];
+const rTPolygons = [];
+var kecPolygons = [];
+var kecPolylines = [];
+
+// Menambahkan poligon ke peta untuk setiap kecamatan dan menghitung bounds
+for (const [name, coordinates] of Object.entries(kecamatan)) {
+    const kecPolygon = createKecamatanLayer(name, coordinates);
+    kecPolygons.push(kecPolygon); // Simpan setiap poligon ke dalam array
+}
+
+// Membuat bounds berdasarkan semua kecamatan
+var bounds = L.latLngBounds();
+
+kecPolygons.forEach(function (polygon) {
+    bounds.extend(polygon.getBounds());
+});
+
+// Atur peta untuk memperlihatkan semua kecamatan
+map.fitBounds(bounds);
+
+for (const [name, coordinates] of Object.entries(kelurahan)) {
+    createKelurahanLayer(name, coordinates);
+}
+
+// Fungsi untuk membuat polygon dan polyline RT
+
+// Menambahkan poligon dan polyline RT ke peta
+for (const [name, areaCoordinates] of Object.entries(area)) {
+    const rtCoordinates = rT[name]; // Ambil koordinat RT berdasarkan nama
+    if (rtCoordinates) {
+        // Pastikan RT Coordinates ada
+        createRTLayer(name, rtCoordinates, areaCoordinates);
+    } else {
+        console.error(`RT coordinates not found for: ${name}`);
+    }
 }
 
 // Fungsi untuk mengatur visibilitas polygon berdasarkan level zoom
 function updatePolygonVisibility() {
     const zoomLevel = map.getZoom();
 
+    // Set opacity secara halus berdasarkan level zoom
     if (zoomLevel < 12) {
-        // Jika zoom level kurang dari 12, sembunyikan polygon
-        kelurahanPolygons.forEach((polygon) => map.removeLayer(polygon));
-        rTPolygons.forEach((polygon) => map.removeLayer(polygon));
-    } else {
-        // Jika zoom level 12 atau lebih, tampilkan polygon
-        kelurahanPolygons.forEach((polygon) => polygon.addTo(map));
-        rTPolygons.forEach((polygon) => polygon.addTo(map));
+        // Jika zoom level kurang dari 12, tampilkan kecamatan dengan opacity penuh
+        kecPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.6 })
+        );
+        kecPolylines.forEach((polyline) => polyline.setStyle({ opacity: 1 }));
+
+        // Sembunyikan kelurahan dan RT dengan mengurangi opacity
+        kelurahanPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+        rTPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+    } else if (zoomLevel >= 12 && zoomLevel < 15) {
+        // Antara 12 dan 15, tampilkan kelurahan
+        kecPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+        kecPolylines.forEach((polyline) => polyline.setStyle({ opacity: 0 }));
+
+        kelurahanPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.6 })
+        );
+
+        // Sembunyikan RT dengan opacity 0
+        rTPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+    } else if (zoomLevel >= 15) {
+        // Jika zoom level lebih dari 15, tampilkan RT
+        kecPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+        kecPolylines.forEach((polyline) => polyline.setStyle({ opacity: 0 }));
+        kelurahanPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 })
+        );
+
+        rTPolygons.forEach((polygon) =>
+            polygon.setStyle({ opacity: 0, fillOpacity: 0.6 })
+        );
     }
 }
 
