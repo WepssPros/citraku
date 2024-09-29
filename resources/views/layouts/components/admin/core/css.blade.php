@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/fontawesome-free/css/all.min.css')}}">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+
 {{-- <!-- DataTables -->  --}}
 <link rel="stylesheet" href="{{asset('../../adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet"

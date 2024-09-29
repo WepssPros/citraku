@@ -1,16 +1,5 @@
 @extends('layouts.admin')
 
-<style>
-    /* Pastikan peta mengisi div */
-    #jambi-map {
-        height: 550px;
-        /* Tinggi peta */
-        width: 100%;
-        /* Lebar peta */
-    }
-
-</style>
-
 @section('admin-header')
 <div class="content-header">
     <div class="container-fluid">

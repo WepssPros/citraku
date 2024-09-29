@@ -1718,7 +1718,6 @@ const sungai = {};
 const danau = {};
 
 // TIPE DATA
-
 // Inisialisasi peta
 var map = L.map("jambi-map").setView([-1.6, 103.6], 12);
 
@@ -1726,15 +1725,24 @@ var map = L.map("jambi-map").setView([-1.6, 103.6], 12);
 var baseMaps = {
     "Google Street": L.tileLayer(
         "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
-        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+        {
+            maxZoom: 20,
+            subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        }
     ),
     "Google Satellite": L.tileLayer(
         "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
-        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+        {
+            maxZoom: 20,
+            subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        }
     ),
     "Google Hybrid": L.tileLayer(
         "https://{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}",
-        { maxZoom: 20, subdomains: ["mt0", "mt1", "mt2", "mt3"] }
+        {
+            maxZoom: 20,
+            subdomains: ["mt0", "mt1", "mt2", "mt3"],
+        }
     ),
     OpenStreetMap: L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -1748,10 +1756,163 @@ var baseMaps = {
 // Layer peta default
 baseMaps["OpenStreetMap"].addTo(map);
 
-// Control layer
-L.control.layers(baseMaps).addTo(map);
+// Menambahkan kontrol layer dengan tampilan sederhana
+var layerControl = L.control({ position: "topright" });
+
+layerControl.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "leaflet-control-layers");
+
+    for (var key in baseMaps) {
+        // Buat elemen untuk setiap layer
+        var imgSrc =
+            key === "Google Street"
+                ? "https://upload.wikimedia.org/wikipedia/commons/f/f6/Street_View_logo.png"
+                : key === "Google Satellite"
+                ? "https://upload.wikimedia.org/wikipedia/commons/f/f6/Street_View_logo.png"
+                : key === "Google Hybrid"
+                ? "https://example.com/icons/google-hybrid.png"
+                : "https://upload.wikimedia.org/wikipedia/commons/b/b3/OpenStreetMap_logo.png";
+
+        var label = L.DomUtil.create("label");
+        label.innerHTML = `<img src="${imgSrc}" width="30" height="30" title="${key}" style="cursor:pointer;">`;
+        label.onclick = (function (layer) {
+            return function () {
+                // Hapus layer sebelumnya
+                map.eachLayer(function (layer) {
+                    if (layer instanceof L.TileLayer) {
+                        map.removeLayer(layer);
+                    }
+                });
+                // Tambahkan layer yang diklik
+                baseMaps[layer].addTo(map);
+            };
+        })(key);
+
+        div.appendChild(label);
+    }
+
+    return div;
+};
+
+layerControl.addTo(map);
 
 // Tambah Menu
+// Button
+
+// Menambahkan kontrol fokus kecamatan dengan collapse
+var kecControl = L.control({ position: "bottomright" });
+
+kecControl.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "leaflet-control-kecamatan");
+    div.style.background = "rgba(255, 255, 255, 0.9)";
+    div.style.borderRadius = "5px";
+    div.style.padding = "5px";
+    div.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.5)";
+
+    var toggleButton = L.DomUtil.create("button", "kec-toggle");
+    toggleButton.innerHTML = "Focus Kecamatan";
+    toggleButton.style.width = "100%";
+    toggleButton.style.cursor = "pointer";
+    toggleButton.style.marginBottom = "5px";
+    toggleButton.onclick = function () {
+        // Toggle visibilitas daftar kecamatan
+        var list = div.querySelector(".kec-list");
+        if (list.style.display === "none" || list.style.display === "") {
+            list.style.display = "block";
+        } else {
+            list.style.display = "none";
+        }
+    };
+
+    var listDiv = L.DomUtil.create("div", "kec-list");
+    listDiv.style.display = "none"; // Awalnya disembunyikan
+
+    for (var kec in kecMarker) {
+        var button = L.DomUtil.create("button", "kec-button");
+        button.innerHTML = kec.charAt(0).toUpperCase() + kec.slice(1); // Menampilkan nama kecamatan dengan huruf kapital
+        button.style.cursor = "pointer";
+        button.style.margin = "2px 0";
+        button.onclick = (function (kecamatan) {
+            return function () {
+                // Fokus peta pada kecamatan yang diklik
+                map.setView(
+                    [kecMarker[kecamatan].lat, kecMarker[kecamatan].lng],
+                    14
+                );
+            };
+        })(kec);
+
+        listDiv.appendChild(button);
+    }
+
+    div.appendChild(toggleButton);
+    div.appendChild(listDiv);
+
+    return div;
+};
+
+kecControl.addTo(map);
+// Kumuh
+
+// Menambahkan kontrol fokus RT dengan collapse
+var rtControl = L.control({ position: "bottomright" });
+
+rtControl.onAdd = function (map) {
+    var div = L.DomUtil.create("div", "leaflet-control-rt");
+    div.style.background = "rgba(255, 255, 255, 0.9)";
+    div.style.borderRadius = "5px";
+    div.style.padding = "5px";
+    div.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.5)";
+
+    var toggleButton = L.DomUtil.create("button", "rt-toggle");
+    toggleButton.innerHTML = "Focus RT";
+    toggleButton.style.width = "100%";
+    toggleButton.style.cursor = "pointer";
+    toggleButton.style.marginBottom = "5px";
+    toggleButton.onclick = function () {
+        // Toggle visibilitas daftar RT
+        var list = div.querySelector(".rt-list");
+        if (list.style.display === "none" || list.style.display === "") {
+            list.style.display = "block";
+        } else {
+            list.style.display = "none";
+        }
+    };
+
+    var listDiv = L.DomUtil.create("div", "rt-list");
+    listDiv.style.display = "none"; // Awalnya disembunyikan
+
+    for (var rt in rT) {
+        // Hanya menampilkan RT yang memiliki data
+        if (rT[rt].length > 0) {
+            var button = L.DomUtil.create("button", "rt-button");
+            button.innerHTML = `RT ${rt.replace("rT", "")}`; // Menampilkan nama RT
+            button.style.cursor = "pointer";
+            button.style.margin = "2px 0";
+            button.onclick = (function (rtData) {
+                return function () {
+                    // Fokus peta pada lokasi RT yang diklik
+                    const avgLat =
+                        rtData.reduce((sum, coord) => sum + coord.lat, 0) /
+                        rtData.length;
+                    const avgLng =
+                        rtData.reduce((sum, coord) => sum + coord.lng, 0) /
+                        rtData.length;
+                    map.setView([avgLat, avgLng], 14); // Fokus pada titik tengah RT
+                };
+            })(rT[rt]);
+
+            listDiv.appendChild(button);
+        }
+    }
+
+    div.appendChild(toggleButton);
+    div.appendChild(listDiv);
+
+    return div;
+};
+
+rtControl.addTo(map);
 // Menambahkan kontrol menu ke peta
 
 // Fungsi untuk membuat polygon dan polyline Kecamatan
@@ -1895,8 +2056,6 @@ map.fitBounds(bounds);
 for (const [name, coordinates] of Object.entries(kelurahan)) {
     createKelurahanLayer(name, coordinates);
 }
-
-// Fungsi untuk membuat polygon dan polyline RT
 
 // Menambahkan poligon dan polyline RT ke peta
 for (const [name, areaCoordinates] of Object.entries(area)) {
