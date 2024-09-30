@@ -1,7 +1,6 @@
 <script src="{{asset('../adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
-{{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>  --}}
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet.gesture.handling.js"></script>
 <script src="https://unpkg.com/leaflet-google/dist/leaflet-google.js"></script>

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // Main Frontend
