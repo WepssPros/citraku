@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,6 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $kecamatans = Kecamatan::all();
+        $kelurahans = Kelurahan::with('kecamatan')->get();
 
         // Mengubah format data
         $formattedData = [
@@ -19,11 +21,10 @@ class DashboardController extends Controller
 
         foreach ($kecamatans as $kecamatan) {
             $koordinat = json_decode($kecamatan->koordinat); // Mengambil dan mendecode koordinat
-            $formattedData['pasar'] = array_merge($formattedData['pasar'], $koordinat); // Menambahkan koordinat ke dalam array pasar
+
         }
 
         // Mengirim data ke view
-        return view('pages.admin.dashboard', compact('formattedData','kecamatans'));
-        
+        return view('pages.admin.dashboard', compact('formattedData', 'kecamatans', 'kelurahans'));
     }
 }

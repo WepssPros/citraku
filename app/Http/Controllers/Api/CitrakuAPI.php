@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 use Illuminate\Http\Request;
 
 class CitrakuAPI extends Controller
@@ -12,5 +13,10 @@ class CitrakuAPI extends Controller
     {
         $kecamatan = Kecamatan::all(); // Contoh mengambil semua data kecamatan
         return response()->json($kecamatan);
+    }
+
+    public function getAllKelurahan(){
+        $kelurahan = Kelurahan::all();
+        return response()->json($kelurahan);
     }
 }

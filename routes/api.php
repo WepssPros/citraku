@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/kecamatan', [CitrakuAPI::class, 'getAllKecamatan']);
+Route::get('/kelurahan', [CitrakuAPI::class, 'getAllKelurahan']);

@@ -522,12 +522,13 @@
     @endforeach
 
     <!-- Modal untuk Kelurahan -->
-    <div class="modal fade" id="kelurahanModal" tabindex="-1" role="dialog" aria-labelledby="kelurahanModalLabel"
-        aria-hidden="true">
+    @foreach ($kelurahans as $kel)
+    <div class="modal fade" id="kelurahanModal{{$kel->id}}" tabindex="-1" role="dialog"
+        aria-labelledby="kelurahanModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl " role="document">
             <div class="modal-content ">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="kelurahanModalLabel">Informasi Kelurahan</h5>
+                    <h5 class="modal-title" id="kelurahanModalLabel">Informasi Kelurahan {{$kel->nama}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -577,25 +578,27 @@
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#KeLpermasalahanUtamaRT"
+                                        <li class="nav-item"><a class="nav-link active"
+                                                href="#KeLpermasalahanUtamaRT{{$kel->id}}"
                                                 data-toggle="tab">Permasalahan Utama</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#KeLtimelinepermasalahanUtamaRT"
+                                        <li class="nav-item"><a class="nav-link"
+                                                href="#KeLtimelinepermasalahanUtamaRT{{$kel->id}}"
                                                 data-toggle="tab">Timeline Permasalahan</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#KeLlingkupAdministrasi"
-                                                data-toggle="tab">Lingkup
+                                        <li class="nav-item"><a class="nav-link"
+                                                href="#KeLlingkupAdministrasi{{$kel->id}}" data-toggle="tab">Lingkup
                                                 Administrasi</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#KeLkarekteristikPemukiman"
-                                                data-toggle="tab">
+                                        <li class="nav-item"><a class="nav-link"
+                                                href="#KeLkarekteristikPemukiman{{$kel->id}}" data-toggle="tab">
                                                 Kategori, Tipologi & Karekteristik</a>
                                         </li>
                                     </ul>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="tab-content">
-                                        <div class="active tab-pane" id="KeLpermasalahanUtamaRT">
+                                        <div class="active tab-pane" id="KeLpermasalahanUtamaRT{{$kel->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -678,7 +681,7 @@
                                             <!-- /.post -->
                                         </div>
                                         <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="KeLtimelinepermasalahanUtamaRT">
+                                        <div class="tab-pane" id="KeLtimelinepermasalahanUtamaRT{{$kel->id}}">
                                             <!-- The timeline -->
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
@@ -895,7 +898,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class=" tab-pane" id="KeLlingkupAdministrasi">
+                                        <div class=" tab-pane" id="KeLlingkupAdministrasi{{$kel->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -963,7 +966,7 @@
                                             </div>
                                             <!-- /.post -->
                                         </div>
-                                        <div class=" tab-pane" id="KeLkarekteristikPemukiman">
+                                        <div class=" tab-pane" id="KeLkarekteristikPemukiman{{$kel->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -1016,6 +1019,7 @@
             </div>
         </div>
     </div>
+    @endforeach
 
     <!-- Modal untuk RT -->
     <div class="modal fade" id="rtModal" tabindex="-1" role="dialog" aria-labelledby="rtModalLabel" aria-hidden="true">

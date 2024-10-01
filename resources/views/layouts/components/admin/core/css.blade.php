@@ -15,11 +15,10 @@
 <link rel="stylesheet"
     href="{{asset('../adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{asset('../adminlte/plugins/jqvmap/jqvmap.min.css')}}">
+
 <link rel="stylesheet" href="{{asset('../adminlte/dist/css/adminlte.min.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/daterangepicker/daterangepicker.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/summernote/summernote-bs4.min.css')}}">
-
 
 <link rel="stylesheet" href="{{asset('../../adminlte/plugins/bs-stepper/css/bs-stepper.min.css')}}">
