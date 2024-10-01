@@ -1,3 +1,5 @@
+const kecamatanApiUrl = "http://citraku.test/api/kecamatan";
+const kelurahanApiUrl = "http://citraku.test/api/kelurahan"; // URL API untuk kelurahan
 const kecMarker = {
     alambarajo: { lat: -1.6473906, lng: 103.55709 },
     kotabaru: { lat: -1.6473206, lng: 103.601456 },
@@ -9,7 +11,7 @@ const kecMarker = {
     pasar: { lat: -1.5945256, lng: 103.61002 },
     jambitimur: { lat: -1.5873176, lng: 103.633583 },
     jambiselatan: { lat: -1.6181206, lng: 103.630278 },
-    paalmerah: { lat: -1.6369376, lng: 103.648698 },
+    palmerah: { lat: -1.6369376, lng: 103.648698 },
 };
 const kecColor = {
     alambarajo: "#008000",
@@ -27,9 +29,7 @@ const kecColor = {
 // TUTUP KECAMATAN
 
 // Kelurahan Maker
-const kelurahan = {
-    
-};
+const kelurahan = {};
 // Kelurahan maker
 
 const rT = {
@@ -130,6 +130,7 @@ const area = {
         ],
     ],
 };
+
 // sungai
 const sungai = {};
 // danau
@@ -214,127 +215,6 @@ layerControl.onAdd = function (map) {
 
 layerControl.addTo(map);
 
-// Tambah Menu
-// Button
-
-// Menambahkan kontrol fokus kecamatan dengan collapse
-var kecControl = L.control({ position: "bottomright" });
-
-kecControl.onAdd = function (map) {
-    var div = L.DomUtil.create("div", "leaflet-control-kecamatan");
-    div.style.background = "rgba(255, 255, 255, 0.9)";
-    div.style.borderRadius = "5px";
-    div.style.padding = "5px";
-    div.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.5)";
-
-    var toggleButton = L.DomUtil.create("button", "kec-toggle");
-    toggleButton.innerHTML = "Focus Kecamatan";
-    toggleButton.style.width = "100%";
-    toggleButton.style.cursor = "pointer";
-    toggleButton.style.marginBottom = "5px";
-    toggleButton.onclick = function () {
-        // Toggle visibilitas daftar kecamatan
-        var list = div.querySelector(".kec-list");
-        if (list.style.display === "none" || list.style.display === "") {
-            list.style.display = "block";
-        } else {
-            list.style.display = "none";
-        }
-    };
-
-    var listDiv = L.DomUtil.create("div", "kec-list");
-    listDiv.style.display = "none"; // Awalnya disembunyikan
-
-    for (var kec in kecMarker) {
-        var button = L.DomUtil.create("button", "kec-button");
-        button.innerHTML = kec.charAt(0).toUpperCase() + kec.slice(1); // Menampilkan nama kecamatan dengan huruf kapital
-        button.style.cursor = "pointer";
-        button.style.margin = "2px 0";
-        button.onclick = (function (kecamatan) {
-            return function () {
-                // Fokus peta pada kecamatan yang diklik
-                map.setView(
-                    [kecMarker[kecamatan].lat, kecMarker[kecamatan].lng],
-                    14
-                );
-            };
-        })(kec);
-
-        listDiv.appendChild(button);
-    }
-
-    div.appendChild(toggleButton);
-    div.appendChild(listDiv);
-
-    return div;
-};
-
-kecControl.addTo(map);
-// Kumuh
-
-// Menambahkan kontrol fokus RT dengan collapse
-var rtControl = L.control({ position: "bottomright" });
-
-rtControl.onAdd = function (map) {
-    var div = L.DomUtil.create("div", "leaflet-control-rt");
-    div.style.background = "rgba(255, 255, 255, 0.9)";
-    div.style.borderRadius = "5px";
-    div.style.padding = "5px";
-    div.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.5)";
-
-    var toggleButton = L.DomUtil.create("button", "rt-toggle");
-    toggleButton.innerHTML = "Focus RT";
-    toggleButton.style.width = "100%";
-    toggleButton.style.cursor = "pointer";
-    toggleButton.style.marginBottom = "5px";
-    toggleButton.onclick = function () {
-        // Toggle visibilitas daftar RT
-        var list = div.querySelector(".rt-list");
-        if (list.style.display === "none" || list.style.display === "") {
-            list.style.display = "block";
-        } else {
-            list.style.display = "none";
-        }
-    };
-
-    var listDiv = L.DomUtil.create("div", "rt-list");
-    listDiv.style.display = "none"; // Awalnya disembunyikan
-
-    for (var rt in rT) {
-        // Hanya menampilkan RT yang memiliki data
-        if (rT[rt].length > 0) {
-            var button = L.DomUtil.create("button", "rt-button");
-            button.innerHTML = `RT ${rt.replace("rT", "")}`; // Menampilkan nama RT
-            button.style.cursor = "pointer";
-            button.style.margin = "2px 0";
-            button.onclick = (function (rtData) {
-                return function () {
-                    // Fokus peta pada lokasi RT yang diklik
-                    const avgLat =
-                        rtData.reduce((sum, coord) => sum + coord.lat, 0) /
-                        rtData.length;
-                    const avgLng =
-                        rtData.reduce((sum, coord) => sum + coord.lng, 0) /
-                        rtData.length;
-                    map.setView([avgLat, avgLng], 14); // Fokus pada titik tengah RT
-                };
-            })(rT[rt]);
-
-            listDiv.appendChild(button);
-        }
-    }
-
-    div.appendChild(toggleButton);
-    div.appendChild(listDiv);
-
-    return div;
-};
-
-rtControl.addTo(map);
-// Menambahkan kontrol menu ke peta
-// API URL untuk kecamatan
-const kecamatanApiUrl = "http://citraku.test/api/kecamatan";
-
 // Array untuk menyimpan polygon dan polyline
 const rTPolygons = [];
 const kelurahanPolygons = [];
@@ -387,7 +267,7 @@ function createKecamatanLayer(name, coordinates, id) {
     var polyline = L.polyline(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: "black",
+            color: "white",
             weight: 1,
             opacity: 1,
         }
@@ -399,15 +279,26 @@ function createKecamatanLayer(name, coordinates, id) {
     });
 
     kecPolygon.on("mouseout", function () {
-        polyline.setStyle({ color: "black" }); // Kembalikan warna polyline saat mouse keluar
+        polyline.setStyle({ color: "white" }); // Kembalikan warna polyline saat mouse keluar
     });
 
-    // Marker untuk kecamatan
-    const marker = L.marker([coordinates[0].lat, coordinates[0].lng]).addTo(
-        map
-    );
-    marker.bindPopup(`<b>Kecamatan: ${name}</b>`).openPopup();
-    kecMarker[name] = marker;
+    // Cek apakah kecamatan memiliki marker di kecMarker
+    if (kecMarker[name.toLowerCase()]) {
+        // Ambil koordinat dari kecMarker berdasarkan nama kecamatan
+        const markerCoordinates = kecMarker[name.toLowerCase()];
+
+        // Membuat marker untuk kecamatan
+        const marker = L.marker([
+            markerCoordinates.lat,
+            markerCoordinates.lng,
+        ]).addTo(map);
+        marker.bindPopup(`<b>Kecamatan: ${name}</b>`).openPopup();
+
+        // Menyimpan marker ke objek kecMarker
+        kecMarker[name.toLowerCase()] = marker;
+    } else {
+        console.error(`Marker not found for kecamatan: ${name}`);
+    }
 
     // Event click untuk menampilkan modal kecamatan
     kecPolygon.on("click", function () {
@@ -419,7 +310,6 @@ function createKecamatanLayer(name, coordinates, id) {
 }
 
 // Fungsi untuk membuat polygon dan polyline Kelurahan
-const kelurahanApiUrl = "http://citraku.test/api/kelurahan"; // URL API untuk kelurahan
 
 // Mengambil data kelurahan dari API
 fetch(kelurahanApiUrl)
@@ -447,8 +337,6 @@ fetch(kelurahanApiUrl)
             bounds.extend(polygon.getBounds());
         });
         map.fitBounds(bounds);
-
-        console.log("Data Kelurahan:", data); // Debugging untuk memeriksa data kelurahan
     })
     .catch((error) => {
         console.error("Error fetching kelurahan data:", error);
@@ -456,10 +344,11 @@ fetch(kelurahanApiUrl)
 
 // Fungsi untuk membuat layer polygon kelurahan
 function createKelurahanLayer(name, coordinates, id) {
+    // Membuat polygon untuk kelurahan
     const polygon = L.polygon(
         coordinates.map((coord) => [coord.lat, coord.lng]), // Mapping lat/lng
         {
-            color: "green",
+            color: "green", // Warna polygon default
             weight: 2,
             opacity: 0.65,
             fillOpacity: 0.3,
@@ -469,13 +358,41 @@ function createKelurahanLayer(name, coordinates, id) {
 
     polygon.bringToFront(); // Memastikan kelurahan di depan
 
+    // Membuat polyline untuk kelurahan
+    const polyline = L.polyline(
+        coordinates.map((coord) => [coord.lat, coord.lng]), // Mapping lat/lng
+        {
+            color: "white",
+            weight: 1,
+            opacity: 1,
+        }
+    ).addTo(map);
+
+    // Event hover untuk polygon kelurahan
+    polygon.on("mouseover", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polyline.setStyle({ color: "blue" }); // Ubah warna polyline saat hover
+            polygon.setStyle({ color: "blue", fillOpacity: 0.5 }); // Ubah warna polygon saat hover
+        }
+    });
+
+    polygon.on("mouseout", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polyline.setStyle({ color: "white" }); // Kembalikan warna polyline saat mouse keluar
+            polygon.setStyle({ color: "green", fillOpacity: 0.3 }); // Kembalikan warna polygon saat mouse keluar
+        }
+    });
+
     // Event click untuk kelurahan
     polygon.on("click", function () {
         map.fitBounds(polygon.getBounds());
         $("#kelurahanModal" + id).modal("show"); // Pastikan modal ini ada di HTML
     });
 
-    kelurahanPolygons.push(polygon); // Menyimpan polygon kelurahan ke dalam array
+    // Menyimpan polygon kelurahan ke dalam array kelurahanPolygons
+    kelurahanPolygons.push(polygon);
 }
 
 // Fungsi untuk membuat polygon dan polyline RT
@@ -529,7 +446,7 @@ function updatePolygonVisibility() {
     if (zoomLevel < 12) {
         // Tampilkan kecamatan, sembunyikan kelurahan dan RT
         kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.6 }); // Kec. terlihat
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // Kecamatan terlihat
             polygon.interactive = true; // Pastikan polygon dapat di-klik
             polygon.bringToBack(); // Pastikan kecamatan di belakang
         });
@@ -542,19 +459,21 @@ function updatePolygonVisibility() {
             polygon.interactive = false; // Nonaktifkan interaksi
         });
 
-        // Disable polyline kecamatan jika ada
+        // Sembunyikan polyline kelurahan dan kecamatan
         kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 1, weight: 0 });
-            polyline.interactive = false; // Menyembunyikan polyline
+            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
+        });
+        kelurahanPolylines.forEach((polyline) => {
+            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kelurahan
         });
     } else if (zoomLevel >= 12 && zoomLevel < 15) {
         // Tampilkan kelurahan, sembunyikan kecamatan dan RT
         kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kec. tersembunyi
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
         kelurahanPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.6 }); // Kelurahan terlihat
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // Kelurahan terlihat
             polygon.interactive = true; // Pastikan polygon dapat di-klik
             polygon.bringToFront(); // Pastikan kelurahan di depan
         });
@@ -563,14 +482,17 @@ function updatePolygonVisibility() {
             polygon.interactive = false; // Nonaktifkan interaksi
         });
 
-        // Disable polyline kecamatan jika ada
+        // Sembunyikan polyline kecamatan, tampilkan polyline kelurahan
         kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Menyembunyikan polyline
+            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
+        });
+        kelurahanPolylines.forEach((polyline) => {
+            polyline.setStyle({ opacity: 1, weight: 1 }); // Tampilkan polyline kelurahan
         });
     } else if (zoomLevel >= 15) {
         // Tampilkan RT, sembunyikan kecamatan dan kelurahan
         kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kec. tersembunyi
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
         kelurahanPolygons.forEach((polygon) => {
@@ -578,17 +500,17 @@ function updatePolygonVisibility() {
             polygon.interactive = false; // Nonaktifkan interaksi
         });
         rTPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.6 }); // RT terlihat
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // RT terlihat
             polygon.interactive = true; // Pastikan polygon dapat di-klik
             polygon.bringToFront(); // Pastikan RT di depan
         });
 
-        // Disable polyline kelurahan dan kecamatan
-        kelurahanPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Menyembunyikan polyline
-        });
+        // Sembunyikan polyline kecamatan dan kelurahan
         kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Menyembunyikan polyline
+            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
+        });
+        kelurahanPolylines.forEach((polyline) => {
+            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kelurahan
         });
     }
 }

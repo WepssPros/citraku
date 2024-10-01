@@ -7,6 +7,8 @@
         <title>AdminLTE 3 | Dashboard</title>
         @include('layouts.components.admin.core.css')
         <style>
+           
+
             #jambi-map {
                 width: 100%;
                 /* Atur lebar ke 100% */
@@ -176,6 +178,7 @@
             }
 
         </style>
+     
     </head>
 
     <body class="hold-transition sidebar-mini layout-fixed">

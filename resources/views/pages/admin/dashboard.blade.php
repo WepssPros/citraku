@@ -1608,6 +1608,7 @@
                         <!-- /.card-tools -->
                     </div>
                     <div class="card-body">
+
                         <div id="jambi-map" style="height: 650px; width: 100%;"></div>
                     </div>
                 </div>

@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('kecamatans', function (Blueprint $table) {
             $table->id();
-            $table->string('nama'); // Nama Kecamatan
-            $table->json('koordinat'); // Koordinat dalam format JSON
+            $table->string('nama'); 
+            $table->json('koordinat');
+            $table->json('marker')->nullable(); 
+            $table->string('color')->nullable(); 
+            $table->string('luas_wilayah')->nullable();
+            $table->string('persentase')->nullable();
+            $table->string('jml_kelurahan')->nullable();
+            $table->string('jumlah_rt')->nullable();
+
             $table->softDeletes();
+
             $table->timestamps();
         });
     }
