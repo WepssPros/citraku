@@ -7,8 +7,6 @@
         <title>AdminLTE 3 | Dashboard</title>
         @include('layouts.components.admin.core.css')
         <style>
-           
-
             #jambi-map {
                 width: 100%;
                 /* Atur lebar ke 100% */
@@ -178,7 +176,7 @@
             }
 
         </style>
-     
+
     </head>
 
     <body class="hold-transition sidebar-mini layout-fixed">
@@ -216,30 +214,8 @@
         <!-- ./wrapper -->
 
         @include('layouts.components.admin.core.js')
-
-
-
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            });
-        });
-        </script>
-
-
-
         @yield('js-script')
+        @include('sweetalert::alert')
     </body>
 
 </html>

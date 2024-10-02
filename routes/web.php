@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\RTController;
 use App\Http\Controllers\front\FrontendController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::middleware(['admin'])->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
+
+            Route::resource('rt', RTController::class);
          
         });
     });

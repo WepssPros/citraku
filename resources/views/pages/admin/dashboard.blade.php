@@ -1022,16 +1022,18 @@
     @endforeach
 
     <!-- Modal untuk RT -->
-    <div class="modal fade" id="rtModal" tabindex="-1" role="dialog" aria-labelledby="rtModalLabel" aria-hidden="true">
+    @foreach ($rts as $rt)
+    <div class="modal fade" id="rtModal{{$rt->id}}" tabindex="-1" role="dialog" aria-labelledby="rtModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="rtModalLabel">Detail RT</h5>
+                    <h5 class="modal-title" id="rtModalLabel">Detail {{$rt->nomor}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body" id="rtModalContent">
+                <div class="modal-body" id="rtModalContent{{$rt->id}}">
                     <div class="row">
                         <div class="col-md-3">
                             <!-- Profile Image -->
@@ -1043,28 +1045,40 @@
                                             alt="User profile picture">
                                     </div>
 
-                                    <h3 class="profile-username text-center">RT NO</h3>
+                                    <h3 class="profile-username text-center">{{$rt->nomor}} <span
+                                            class="badge bg-warning float-end">{{$rt->tingkat_status}}</span></h3>
 
-                                    <p class="text-muted text-center">Kawasan Kecamatanyu</p>
+                                    <p class="text-muted text-center">Kawasan Kelurahan <br>{{$rt->kelurahan->nama}}</p>
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
-                                            <b>Luas (HA)</b> <a class="float-right">1,322</a>
+                                            <b>Luas (HA)</b> <a class="float-right">{{$rt->luas_ha}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>RT</b> <a class="float-right">543</a>
+                                            <b>Jumlah KK</b> <a class="float-right">{{$rt->jumlah_kk}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Kelurahan</b> <a class="float-right">13,287</a>
+                                            <b>Kelurahan</b> <a class="float-right">{{$rt->kelurahan->nama}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Kecamatan</b> <a class="float-right">13,287</a>
+                                            <b>Kecamatan</b> <a class="float-right">{{$rt->kecamatan->nama}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Nilai</b> <a class="float-right">13,287</a>
+                                            <b>Nilai</b> <a class="float-right">{{$rt->nilai}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Tingkat</b> <a class="float-right">Kumuh Ringan</a>
+                                            <b>Tingkat</b> <a class="float-right">{{$rt->tingkat}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <b>prioritas</b> <a class="float-right">{{$rt->prioritas}}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <strong> Legalitas</strong>
+                                                <span class="badge bg-success float-end">{{$rt->legalitas}}</span>
+                                                {{-- <span class="badge bg-danger float-end">Kumuh Ringan</span>
+                                                <span class="badge bg-info float-end">Kumuh Ringan</span>  --}}
+                                            </div>
                                         </li>
                                     </ul>
 
@@ -1076,24 +1090,26 @@
                             <div class="card">
                                 <div class="card-header p-2">
                                     <ul class="nav nav-pills">
-                                        <li class="nav-item"><a class="nav-link active" href="#permasalahanUtamaRT"
-                                                data-toggle="tab">Permasalahan Utama</a>
+                                        <li class="nav-item"><a class="nav-link active"
+                                                href="#permasalahanUtamaRT{{$rt->id}}" data-toggle="tab">Permasalahan
+                                                Utama</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#timelinepermasalahanUtamaRT"
+                                        <li class="nav-item"><a class="nav-link"
+                                                href="#timelinepermasalahanUtamaRT{{$rt->id}}"
                                                 data-toggle="tab">Timeline Permasalahan</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#lingkupAdministrasi"
+                                        <li class="nav-item"><a class="nav-link" href="#lingkupAdministrasi{{$rt->id}}"
                                                 data-toggle="tab">Lingkup Administrasi</a>
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href="#karekteristikPemukiman"
-                                                data-toggle="tab">
+                                        <li class="nav-item"><a class="nav-link"
+                                                href="#karekteristikPemukiman{{$rt->id}}" data-toggle="tab">
                                                 Kategori, Tipologi & Karekteristik</a>
                                         </li>
                                     </ul>
                                 </div><!-- /.card-header -->
                                 <div class="card-body">
                                     <div class="tab-content">
-                                        <div class="active tab-pane" id="permasalahanUtamaRT">
+                                        <div class="active tab-pane" id="permasalahanUtamaRT{{$rt->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -1176,7 +1192,7 @@
                                             <!-- /.post -->
                                         </div>
                                         <!-- /.tab-pane -->
-                                        <div class="tab-pane" id="timelinepermasalahanUtamaRT">
+                                        <div class="tab-pane" id="timelinepermasalahanUtamaRT{{$rt->id}}">
                                             <!-- The timeline -->
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
@@ -1393,7 +1409,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class=" tab-pane" id="lingkupAdministrasi">
+                                        <div class=" tab-pane" id="lingkupAdministrasi{{$rt->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -1461,7 +1477,7 @@
                                             </div>
                                             <!-- /.post -->
                                         </div>
-                                        <div class=" tab-pane" id="karekteristikPemukiman">
+                                        <div class=" tab-pane" id="karekteristikPemukiman{{$rt->id}}">
                                             <!-- Post -->
                                             <div class="post">
                                                 <div class="user-block">
@@ -1520,6 +1536,7 @@
             </div>
         </div>
     </div>
+    @endforeach
     {{-- Modal--}}
 
     <div class="container-fluid">

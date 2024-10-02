@@ -11,11 +11,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{asset('../adminlte/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2"
-                    alt="User Image">
+                <img src="{{Auth::user()->profile_photo_url}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">{{Auth::user()->name}}</a>
             </div>
         </div>
 
@@ -67,7 +66,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/tables/jsgrid.html" class="nav-link">
+                            <a href="{{route('dashboard.rt.index')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Data RT</p>
                             </a>
@@ -75,8 +74,17 @@
                     </ul>
                 </li>
 
-
-                <li class="nav-header">INPUT FORM</li>
+                <li class="nav-header">Data View </li>
+                <li class="nav-item">
+                    <a href="pages/calendar.html" class="nav-link">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Calendar
+                            <span class="badge badge-info right">2</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-header">Input Form</li>
                 <li class="nav-item">
                     <a href="pages/calendar.html" class="nav-link">
                         <i class="nav-icon far fa-calendar-alt"></i>
@@ -354,9 +362,31 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">MISCELLANEOUS</li>
-                
-                
+                <li class="nav-header">Artikel / Berita</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-search"></i>
+                        <p>
+                            Search
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="pages/search/simple.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Simple Search</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/search/enhanced.html" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Enhanced</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

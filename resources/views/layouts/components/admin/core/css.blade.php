@@ -11,7 +11,7 @@
 <link rel="stylesheet"
     href="{{asset('../../adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('../../adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
+<link rel="stylesheet" href="{{asset('../../adminlte/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet"
     href="{{asset('../adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">

@@ -46,3 +46,4 @@
 <script src="{{asset('../adminlte/dist/js/adminlte.js')}}"></script>
 <script src="{{asset('../adminlte/dist/js/demo.js')}}"></script>
 <script src="{{asset('../adminlte/dist/js/pages/dashboard.js')}}"></script>
+<script src="{{asset('../../adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
