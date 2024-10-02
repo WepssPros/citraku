@@ -20,6 +20,9 @@
 @endsection
 @section('admin-content')
 <section class="content">
+    <label>
+        <input type="checkbox" id="kawasanKumuhCheckbox"> Kawasan Kumuh
+    </label>
     {{-- --}}
     <!-- Modal -->
     @foreach ($kecamatans as $kec)

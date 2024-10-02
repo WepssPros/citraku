@@ -20,5 +20,4 @@
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/daterangepicker/daterangepicker.css')}}">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/summernote/summernote-bs4.min.css')}}">
-
 <link rel="stylesheet" href="{{asset('../../adminlte/plugins/bs-stepper/css/bs-stepper.min.css')}}">

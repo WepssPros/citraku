@@ -16,7 +16,8 @@ class CitrakuAPI extends Controller
         return response()->json($kecamatan);
     }
 
-    public function getAllKelurahan(){
+    public function getAllKelurahan()
+    {
         $kelurahan = Kelurahan::all();
         return response()->json($kelurahan);
     }
@@ -27,5 +28,13 @@ class CitrakuAPI extends Controller
         return response()->json($rt);
     }
 
+    public function getKawasanKumuh()
+    {
+        // Query untuk mengambil data RT yang tingkat_status-nya KUMUH RINGAN, KUMUH SEDANG, atau KUMUH TINGGI
+        $kawasanKumuh = Rt::whereIn('tingkat_status', ['KUMUH RINGAN', 'KUMUH SEDANG', 'KUMUH TINGGI'])
+            ->get();
 
+        // Mengembalikan data dalam format JSON
+        return response()->json($kawasanKumuh);
+    }
 }

@@ -187,14 +187,7 @@
 
 @section('js-script')
 
-<script>
-    function toggleVerification(checkbox) {
-        // Ubah nilai verified berdasarkan status tombol switch
-        var verifiedValue = checkbox.checked ? '1' : '0';
-        // Update nilai input hidden atau kirim nilai ke server
-        document.getElementById('verified').value = verifiedValue;
-    }
-</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Initialize the stepper
@@ -210,15 +203,16 @@
         });
     });
 </script>
-
 // Update the label of the custom file input with the selected file name
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-
 <script>
-    // Inisialisasi CKEditor pada textarea dengan ID 'hasil_inspeksi'
-    CKEDITOR.replace('hasil_inspeksi');
-</script>
+    $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
 
+  })
+  
+  // DropzoneJS Demo Code End
+</script>
 @endsection
 
 @endsection

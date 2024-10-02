@@ -10,9 +10,18 @@ class Kelurahan extends Model
 {
 
     use HasFactory, SoftDeletes;
-    protected $fillable = ['nama', 'koordinat', 'kecamatan_id',]; // Kolom yang bisa diisi
+    protected $fillable = [
+        'nama',
+        'koordinat',
+        'marker',
+        'color',
+        'luas_wilayah',
+        'persentase',
+        'jml_kelurahan',
+        'jumlah_rt',
+    ];
 
-     public function kecamatan()
+    public function kecamatan()
     {
         return $this->belongsTo(Kecamatan::class);
     }

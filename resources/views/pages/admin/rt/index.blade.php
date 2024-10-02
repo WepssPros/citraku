@@ -9,6 +9,15 @@
                     <div class="card-header">
                         <h3 class="card-title">Database BAPEDA Master Rukun Tetang (RT)</h3>
                     </div>
+
+                    <div class="card-header">
+
+                        <div class="card-tools">
+                            <a href="{{ route('dashboard.rt.create') }}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Tambah RT Baru
+                            </a>
+                        </div>
+                    </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">

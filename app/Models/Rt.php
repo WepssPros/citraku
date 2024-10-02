@@ -21,6 +21,7 @@ class Rt extends Model
         'tingkat_status',
         'prioritas',
         'legalitas',
+        'luas_ha'
     ];
 
     // protected $casts = [

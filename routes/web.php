@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\KecamatanController;
+use App\Http\Controllers\admin\KelurahanController;
 use App\Http\Controllers\admin\RTController;
 use App\Http\Controllers\front\FrontendController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +27,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
 
             Route::resource('rt', RTController::class);
-         
+            Route::resource('kelurahan', KelurahanController::class);
+            Route::resource('kecamatan', KecamatanController::class);
         });
     });
 });

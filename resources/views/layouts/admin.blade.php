@@ -7,6 +7,90 @@
         <title>AdminLTE 3 | Dashboard</title>
         @include('layouts.components.admin.core.css')
         <style>
+            .rt-tooltip {
+                background-color: #ffffff;
+                /* Warna latar belakang tooltip */
+                color: #000;
+                /* Warna teks */
+                padding: 5px;
+                /* Padding di dalam tooltip */
+                border-radius: 4px;
+                /* Sudut membulat */
+                border: 1px solid #e0e0e0;
+                /* Garis batas */
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                /* Bayangan */
+            }
+
+            .layer-control-card {
+                margin-bottom: 15px;
+                /* Spasi antara card */
+                border: 1px solid #e0e0e0;
+                /* Garis batas */
+                border-radius: 8px;
+                /* Sudut membulat */
+                background-color: #ffffff;
+                /* Warna latar belakang */
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                /* Bayangan yang lebih halus */
+                color: #333;
+                /* Warna teks yang lebih gelap untuk kontras yang lebih baik */
+                font-family: Arial, sans-serif;
+                /* Font yang lebih profesional */
+            }
+
+            .layer-control-header {
+                display: flex;
+                justify-content: space-between;
+                /* Spasi antara teks dan ikon */
+                align-items: center;
+                cursor: pointer;
+                /* Mengubah kursor untuk menunjukkan bahwa bisa diklik */
+                padding: 12px 15px;
+                /* Padding yang sedikit lebih besar */
+                background-color: #f1f1f1;
+                /* Warna latar belakang header yang lebih lembut */
+                border-bottom: 2px solid #e0e0e0;
+                /* Garis bawah yang lebih tebal */
+                transition: background-color 0.3s;
+                /* Transisi untuk perubahan warna latar belakang */
+            }
+
+            .layer-control-header:hover {
+                background-color: #e0e0e0;
+                /* Perubahan warna saat hover */
+            }
+
+            .toggle-icon {
+                font-size: 20px;
+                /* Ukuran ikon lebih besar untuk keterbacaan */
+                color: #007bff;
+                /* Warna ikon */
+            }
+
+            .layer-control-body {
+                padding: 10px 15px;
+                /* Padding dalam body */
+                border-top: 1px solid #e0e0e0;
+                /* Garis atas untuk pemisah yang jelas */
+            }
+
+            .layer-control-body label {
+                display: block;
+                /* Setiap label menjadi block untuk spasi yang lebih baik */
+                margin-bottom: 8px;
+                /* Spasi antara label */
+                cursor: pointer;
+                /* Menunjukkan bahwa label bisa diklik */
+                font-size: 10px;
+                /* Ukuran font label */
+            }
+
+            .layer-control-body input[type="checkbox"] {
+                margin-right: 8px;
+                /* Spasi antara checkbox dan label */
+            }
+
             #jambi-map {
                 width: 100%;
                 /* Atur lebar ke 100% */
@@ -88,7 +172,7 @@
                 background: #4285F4;
                 border-radius: 50%;
                 color: white;
-                font-size: 18px;
+                font-size: 10px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -101,78 +185,6 @@
             .leaflet-control-kecamatan {
                 display: flex;
                 flex-direction: column;
-            }
-
-            .kec-toggle {
-                background-color: #4285F4;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .kec-toggle:hover {
-                background-color: #357AE8;
-            }
-
-            .kec-list {
-                display: none;
-                /* Awalnya disembunyikan */
-            }
-
-            .kec-button {
-                background-color: #f8f8f8;
-                border: none;
-                border-radius: 5px;
-                padding: 5px;
-                margin: 2px 0;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .kec-button:hover {
-                background-color: #e0e0e0;
-            }
-
-            .leaflet-control-rt {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .rt-toggle {
-                background-color: #2196F3;
-                /* Ubah warna sesuai preferensi */
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .rt-toggle:hover {
-                background-color: #1976D2;
-            }
-
-            .rt-list {
-                display: none;
-                /* Awalnya disembunyikan */
-            }
-
-            .rt-button {
-                background-color: #f8f8f8;
-                border: none;
-                border-radius: 5px;
-                padding: 5px;
-                margin: 2px 0;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .rt-button:hover {
-                background-color: #e0e0e0;
             }
 
         </style>
