@@ -16,16 +16,10 @@ class DashboardController extends Controller
         $kelurahans = Kelurahan::with('kecamatan')->get();
         $rts = Rt::with('kelurahan', 'kecamatan')->get();
         // Mengubah format data
-        $formattedData = [
-            'pasar' => [],
-        ];
 
-        foreach ($kecamatans as $kecamatan) {
-            $koordinat = json_decode($kecamatan->koordinat); // Mengambil dan mendecode koordinat
 
-        }
 
         // Mengirim data ke view
-        return view('pages.admin.dashboard', compact('formattedData', 'kecamatans', 'kelurahans', 'rts'));
+        return view('pages.admin.dashboard', compact('kecamatans', 'kelurahans', 'rts',));
     }
 }

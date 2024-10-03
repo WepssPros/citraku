@@ -15,8 +15,13 @@ class Rt extends Model
         'nomor',
         'koordinat',
         'color',
+
+        
+        'jumlah_jiwa',
+        'kepadatan',
+        'nilai_kekumuhan',
+        'nilai_pertimbangan_lain',
         'jumlah_kk',
-        'nilai',
         'tingkat',
         'tingkat_status',
         'prioritas',

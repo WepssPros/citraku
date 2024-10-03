@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\KawasanKumuhController;
 use App\Http\Controllers\admin\KecamatanController;
 use App\Http\Controllers\admin\KelurahanController;
 use App\Http\Controllers\admin\RTController;
@@ -25,7 +26,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::name('dashboard.')->prefix('dashboard')->group(function () {
         Route::middleware(['admin'])->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
-
+            Route::resource('kawasankumuh', KawasanKumuhController::class);
             Route::resource('rt', RTController::class);
             Route::resource('kelurahan', KelurahanController::class);
             Route::resource('kecamatan', KecamatanController::class);

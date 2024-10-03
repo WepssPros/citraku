@@ -18,13 +18,19 @@ return new class extends Migration
             $table->string('nomor')->nullable(); // Nama Kecamatan
             $table->json('koordinat'); // Koordinat dalam format JSON
             $table->string('color')->nullable(); // Koordinat dalam format JSON
-            $table->string('jumlah_kk')->nullable();
-            $table->string('nilai')->nullable();
+
+
+
+            $table->biginteger('jumlah_jiwa')->nullable();
+            $table->string('kepadatan')->nullable();
+            $table->biginteger('nilai_kekumuhan')->nullable();
+            $table->biginteger('nilai_pertimbangan_lain')->nullable();
+            $table->bigInteger('jumlah_kk')->nullable();
             $table->string('tingkat')->nullable();
             $table->string('tingkat_status')->nullable();
             $table->string('prioritas')->nullable();
             $table->string('legalitas')->nullable();
-            $table->string('luas_ha')->nullable();
+            $table->decimal('luas_ha', 5, 2)->nullable();
 
 
             $table->softDeletes();

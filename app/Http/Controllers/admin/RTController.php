@@ -40,14 +40,19 @@ class RTController extends Controller
             'kelurahan_id' => 'required|integer',
             'nomor' => 'required|string',
             'color' => 'nullable|string',
+            'geojson_file' => 'required|file|mimes:json',
+
+            'jumlah_jiwa' => 'nullable|integer',
+            'kepadatan' => 'nullable|string',
+            'nilai_kekumuhan' => 'nullable|string',
+            'nilai_pertimbangan_lain' => 'nullable|string',
             'jumlah_kk' => 'nullable|string',
-            'nilai' => 'nullable|string',
-            'tingkat_status' => 'nullable|string',
             'tingkat' => 'nullable|string',
-            'luas_ha' => 'nullable|string',
+            'tingkat_status' => 'nullable|string',
+            'luas_ha' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
             'prioritas' => 'nullable|string',
             'legalitas' => 'nullable|string',
-            'geojson_file' => 'required|file|mimes:json', // Pastikan file GeoJSON diupload
+            // Pastikan file GeoJSON diupload
         ]);
 
         // Membaca file GeoJSON
@@ -71,15 +76,18 @@ class RTController extends Controller
                 'type' => 'Polygon', // Anda bisa mengubahnya sesuai jenis geometrinya
                 'coordinates' => $coordinates,
             ]), // Pastikan ini tidak ter-escape
-
             'color' => $validatedData['color'],
+
+            'jumlah_jiwa' => $validatedData['jumlah_jiwa'],
+            'kepadatan' => $validatedData['kepadatan'],
+            'nilai_kekumuhan' => $validatedData['nilai_kekumuhan'],
+            'nilai_pertimbangan_lain' => $validatedData['nilai_pertimbangan_lain'],
             'jumlah_kk' => $validatedData['jumlah_kk'],
-            'nilai' => $validatedData['nilai'],
             'tingkat' => $validatedData['tingkat'],
+            'tingkat_status' => $validatedData['tingkat_status'],
             'prioritas' => $validatedData['prioritas'],
             'legalitas' => $validatedData['legalitas'],
             'luas_ha' => $validatedData['luas_ha'],
-            'tingkat_status' => $validatedData['tingkat_status'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -122,14 +130,19 @@ class RTController extends Controller
             'kelurahan_id' => 'required|integer',
             'nomor' => 'required|string',
             'color' => 'nullable|string',
+            'geojson_file' => 'nullable|file|mimes:json',
+
+            'jumlah_jiwa' => 'nullable|integer',
+            'kepadatan' => 'nullable|string',
+            'nilai_kekumuhan' => 'nullable|string',
+            'nilai_pertimbangan_lain' => 'nullable|string',
             'jumlah_kk' => 'nullable|string',
-            'nilai' => 'nullable|string',
-            'tingkat_status' => 'nullable|string',
             'tingkat' => 'nullable|string',
-            'luas_ha' => 'nullable|string',
+            'tingkat_status' => 'nullable|string',
             'prioritas' => 'nullable|string',
             'legalitas' => 'nullable|string',
-            'geojson_file' => 'nullable|file|mimes:json', // Pastikan file GeoJSON diupload
+            'luas_ha' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
+            // Pastikan file GeoJSON diupload
         ]);
 
         // Mencari RT berdasarkan ID
@@ -160,8 +173,12 @@ class RTController extends Controller
         $rt->kelurahan_id = $validatedData['kelurahan_id'];
         $rt->nomor = $validatedData['nomor'];
         $rt->color = $validatedData['color'];
+
+        $rt->jumlah_jiwa = $validatedData['jumlah_jiwa'];
+        $rt->kepadatan = $validatedData['kepadatan'];
+        $rt->nilai_kekumuhan = $validatedData['nilai_kekumuhan'];
+        $rt->nilai_pertimbangan_lain = $validatedData['nilai_pertimbangan_lain'];
         $rt->jumlah_kk = $validatedData['jumlah_kk'];
-        $rt->nilai = $validatedData['nilai'];
         $rt->tingkat = $validatedData['tingkat'];
         $rt->tingkat_status = $validatedData['tingkat_status'];
         $rt->prioritas = $validatedData['prioritas'];

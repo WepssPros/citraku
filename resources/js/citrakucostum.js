@@ -536,7 +536,7 @@ const controlKawasanKumuh = L.Control.extend({
                     <label>
                         <input type="checkbox" id="toggleKecamatan" checked>
                         <span>Batas Administrasi Kecamatan</span>
-                    </label><br>
+                    </label>
                     <label>
                         <input type="checkbox" id="toggleKelurahan" checked>
                         <span>Batas Administrasi Kelurahan</span>
@@ -553,10 +553,14 @@ const controlKawasanKumuh = L.Control.extend({
                     <label>
                         <input type="checkbox" id="toggleKawasanKumuh" checked>
                         <span>Kawasan Kumuh</span>
-                    </label><br>
+                    </label>
                     <label>
                         <input type="checkbox" id="toggleKawasanBanjir">
                         <span>Kawasan Banjir</span>
+                    </label>
+                     <label>
+                        <input type="checkbox" id="toggleKawasanBanjir">
+                        <span>Kawasan Rentan Kebakaran</span>
                     </label>
                 </div>
             </div>

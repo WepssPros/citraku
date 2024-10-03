@@ -20,9 +20,7 @@
 @endsection
 @section('admin-content')
 <section class="content">
-    <label>
-        <input type="checkbox" id="kawasanKumuhCheckbox"> Kawasan Kumuh
-    </label>
+
     {{-- --}}
     <!-- Modal -->
     @foreach ($kecamatans as $kec)
@@ -548,29 +546,28 @@
                                             alt="User profile picture">
                                     </div>
 
-                                    <h3 class="profile-username text-center">Kelurahan </h3>
+                                    <h3 class="profile-username text-center">{{$kel->nama}} </h3>
 
-                                    <p class="text-muted text-center">Kawasan Kecamatan</p>
+                                    <p class="text-muted text-center">{{$kel->kecamatan->nama}}</p>
 
                                     <ul class="list-group list-group-unbordered mb-3">
                                         <li class="list-group-item">
-                                            <b>Luas (HA)</b> <a class="float-right">1,322</a>
+                                            <b> Kawasan Kumuh</b> <a class="float-right">
+                                                <b> {{$kel->rt->sum(function ($rt) {
+                                                // Mengganti koma dengan titik dan mengonversi ke float
+                                                return (float) str_replace(',', '.', $rt->luas_ha);
+                                            })}} (HA)</b>
+                                            </a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>RT</b> <a class="float-right">543</a>
+                                            <b>Jumlah RT Kumuh</b> <a class="float-right">{{$kel->rt->count()}} RT</a>
                                         </li>
+
                                         <li class="list-group-item">
-                                            <b>Kelurahan</b> <a class="float-right">13,287</a>
+                                            <b>Kecamatan</b> <a class="float-right">{{$kel->kecamatan->nama}}</a>
                                         </li>
-                                        <li class="list-group-item">
-                                            <b>Kecamatan</b> <a class="float-right">13,287</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <b>Nilai</b> <a class="float-right">13,287</a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <b>Tingkat</b> <a class="float-right">Kumuh Ringan</a>
-                                        </li>
+
+
                                     </ul>
 
                                 </div>
@@ -586,8 +583,8 @@
                                                 data-toggle="tab">Permasalahan Utama</a>
                                         </li>
                                         <li class="nav-item"><a class="nav-link"
-                                                href="#KeLtimelinepermasalahanUtamaRT{{$kel->id}}"
-                                                data-toggle="tab">Timeline Permasalahan</a>
+                                                href="#KeLtimelinepermasalahanUtamaRT{{$kel->id}}" data-toggle="tab">Sub
+                                                Permasalahan</a>
                                         </li>
                                         <li class="nav-item"><a class="nav-link"
                                                 href="#KeLlingkupAdministrasi{{$kel->id}}" data-toggle="tab">Lingkup
@@ -689,213 +686,143 @@
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
-                                                    <span class="bg-danger">
-                                                        10 Feb. 2014
-                                                    </span>
+                                                    <span class="bg-danger">10 Feb. 2014</span>
                                                 </div>
                                                 <!-- /.timeline-label -->
+                                        
+                                                <!-- Timeline Items -->
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-home bg-warning"></i> <!-- Ganti icon untuk Bangunan Hunian -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">1.</a> Bangunan Hunian</h3>
                                                         <div class="timeline-body">
-                                                            Jumlah Bangunan 202 Unit
-                                                            <br>
-                                                            Bangunan tidakteratur 0 Unit
-                                                            <br>
-                                                            bangunan tidaksesuaipersyaratan
-                                                            <br>
-                                                            teknis 5 Unit
+                                                            Jumlah Bangunan 202 Unit<br>
+                                                            Bangunan tidak teratur 0 Unit<br>
+                                                            Bangunan tidak sesuai persyaratan teknis 5 Unit
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-road bg-warning"></i> <!-- Ganti icon untuk Jalan Lingkungan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">2.</a> Jalan Lingkungan</h3>
                                                         <div class="timeline-body">
-                                                            Panjang jalaneksisting 6.086
-                                                            meter
-                                                            <br>
-                                                            Panjang jalandenganpermukaan
-                                                            rusak 2.898 meter
-                                                            <br>
-
+                                                            Panjang jalan eksisting 6.086 meter<br>
+                                                            Panjang jalan dengan permukaan rusak 2.898 meter
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-tint bg-warning"></i> <!-- Ganti icon untuk Air Minum -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">3.</a> Air Minum
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">3.</a> Air Minum</h3>
                                                         <div class="timeline-body">
-                                                            175 KK tidak terakses air minum
-                                                            aman
-
-                                                            <br>
-                                                            31 KK tidak terpenuhi kebutuhan air
-                                                            minum minima
-                                                            <br>
-
+                                                            175 KK tidak terakses air minum aman<br>
+                                                            31 KK tidak terpenuhi kebutuhan air minum minima
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-water bg-warning"></i> <!-- Ganti icon untuk Drainase Lingkungan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">4.</a> Drainase
-                                                            Lingkungan
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">4.</a> Drainase Lingkungan</h3>
                                                         <div class="timeline-body">
-                                                            5,73 Ha kawasantergenang
-                                                            <br>
-                                                            100 meterdrainaseeksisting
-                                                            <br>
-                                                            942 meterdrainaserusak
-
+                                                            5,73 Ha kawasan tergenang<br>
+                                                            100 meter drainase eksisting<br>
+                                                            942 meter drainase rusak
                                                         </div>
-
                                                     </div>
                                                 </div>
-
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-trash bg-warning"></i> <!-- Ganti icon untuk Persampahan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">5.</a> Persampahan
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">5.</a> Persampahan</h3>
                                                         <div class="timeline-body">
-                                                            223 KK sapraspengolahansampah
-                                                            tidaksesuaipersyaratanteknis
-                                                            <br>
-                                                            73 KK sistem pengolahan sampahtidak
-                                                            sesuai standar teknis
-
+                                                            223 KK sarana pengolahan sampah tidak sesuai persyaratan teknis<br>
+                                                            73 KK sistem pengolahan sampah tidak sesuai standar teknis
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-fire bg-warning"></i> <!-- Ganti icon untuk Proteksi Kebakaran -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
-                                                            Kebakaran
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">6.</a> Proteksi Kebakaran</h3>
                                                         <div class="timeline-body">
-                                                            0 Unit bangunantidakterlayani
-                                                            prasaranaproteksi kebakaran
-                                                            <br>
-                                                            0 Unit bangunantidakterlayanisarana
-                                                            proteksikebakaran
-
+                                                            0 Unit bangunan tidak terlayani prasarana proteksi kebakaran<br>
+                                                            0 Unit bangunan tidak layani sarana proteksi kebakaran
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-warning"></i>
+                                                    <i class="fas fa-recycle bg-warning"></i> <!-- Ganti icon untuk Air Limbah -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-primary"><a href="#">7.</a> Air Limbah</h3>
                                                         <div class="timeline-body">
-                                                            4 KK akses air limbahtidaksesuaistandar
-                                                            teknis
-                                                            <br>
-                                                            4 KK sistem saprasair limbahtidaksesuai
-                                                            persyaratan teknis
-
+                                                            4 KK akses air limbah tidak sesuai standar teknis<br>
+                                                            4 KK sistem sarana air limbah tidak sesuai persyaratan teknis
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-success"></i>
+                                                    <i class="fas fa-file-alt bg-success"></i> <!-- Ganti icon untuk Legalitas dan Status Lahan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
-                                                            Status Lahan
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-success"><a href="#">8.</a> Legalitas dan Status Lahan</h3>
                                                         <div class="timeline-body">
-                                                            0 Unit bangunanhunian memiliki IMB
-                                                            <br>
-                                                            202 unit bangunantidak memiliki IMB
-                                                            <br>
-                                                            13 Unit bangunantidak memiliki
-                                                            SHM/HGB/Surat yang diakuipemerintah
+                                                            0 Unit bangunan hunian memiliki IMB<br>
+                                                            202 unit bangunan tidak memiliki IMB<br>
+                                                            13 Unit bangunan tidak memiliki SHM/HGB/Surat yang diakui pemerintah
                                                         </div>
-
                                                     </div>
                                                 </div>
+                                        
                                                 <div>
-                                                    <i class="fas fa-info bg-success"></i>
+                                                    <i class="fas fa-users bg-success"></i> <!-- Ganti icon untuk Sosial Ekonomi -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
-
-                                                        <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
-                                                        </h3>
-
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-success"><a href="#">9.</a> Sosial Ekonomi</h3>
                                                         <div class="timeline-body">
-                                                            Jumlah Penduduk
-                                                            dikawasan Kumuh 812
-                                                            Jiwa
-                                                            <br>
-                                                            Jumlah KK dikawasan
-                                                            Kumuh 223 KK
-                                                            <br>
-                                                            Lokasi "memiliki" Potensi
-                                                            Sosial, ekonomi, buday
+                                                            Jumlah Penduduk di kawasan Kumuh 812 Jiwa<br>
+                                                            Jumlah KK di kawasan Kumuh 223 KK<br>
+                                                            Lokasi "memiliki" Potensi Sosial, ekonomi, budaya
                                                         </div>
-
+                                                    </div>
+                                                </div>
+                                        
+                                                <div>
+                                                    <i class="fas fa-clipboard-list bg-success"></i> <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                    <div class="timeline-item">
+                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
+                                                        <h3 class="timeline-header bg-success"><a href="#">10.</a> Pertimbangan Lain</h3>
+                                                        <div class="timeline-body">
+                                                            Jumlah Penduduk di kawasan Kumuh 812 Jiwa<br>
+                                                            Jumlah KK di kawasan Kumuh 223 KK<br>
+                                                            Lokasi "memiliki" Potensi Sosial, ekonomi, budaya
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
+                                        
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
-                                                    <span class="bg-success">
-                                                        3 Jan. 2014
-                                                    </span>
+                                                    <span class="bg-success">3 Jan. 2014</span>
                                                 </div>
                                                 <!-- /.timeline-label -->
-                                                <!-- timeline item -->
-
-                                                <!-- END timeline item -->
+                                        
                                                 <div>
                                                     <i class="far fa-clock bg-gray"></i>
                                                 </div>
@@ -921,49 +848,67 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr>
+                                                                <th>No</th>
                                                                 <th>Nama Lokasi</th>
-                                                                <th>Luas</th>
+                                                                <th>Luas (HA)</th>
                                                                 <th>Lingkup Administrasi</th>
                                                                 <th>Kekumuhan</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($kel->rt as $index => $rtkumuh)
                                                             <tr>
-                                                                <td>Lokasi 1</td>
-                                                                <td>100 m²</td>
+                                                                <td>{{ $index + 1 }}</td>
+                                                                <td>{{ $rtkumuh->nomor }}</td>
+                                                                <td>{{ $rtkumuh->luas_ha }}</td>
                                                                 <td>
                                                                     <ul>
-                                                                        <li>RT: 01</li>
-                                                                        <li>Kelurahan: A</li>
-                                                                        <li>Kecamatan: X</li>
+                                                                        <li>Kelurahan: {{ $rtkumuh->kelurahan->nama }}
+                                                                        </li>
+                                                                        <li>Kecamatan: {{ $rtkumuh->kecamatan->nama }}
+                                                                        </li>
                                                                     </ul>
                                                                 </td>
                                                                 <td>
                                                                     <ul>
-                                                                        <li>Nilai: 75</li>
-                                                                        <li>Tingkat: Sedang</li>
+                                                                        <li>Nilai: {{ $rtkumuh->nilai }}</li>
+                                                                        <li>
+                                                                            Tingkat:
+                                                                            <span class="badge 
+                                                                                @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
+                                                                                    bg-success 
+                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                                    bg-warning 
+                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
+                                                                                    bg-danger 
+                                                                                @else 
+                                                                                    bg-secondary 
+                                                                                @endif">
+                                                                                {{ $rtkumuh->tingkat_status }}
+                                                                            </span>
+                                                                        </li>
                                                                     </ul>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>Lokasi 2</td>
-                                                                <td>150 m²</td>
-                                                                <td>
-                                                                    <ul>
-                                                                        <li>RT: 02</li>
-                                                                        <li>Kelurahan: B</li>
-                                                                        <li>Kecamatan: Y</li>
-                                                                    </ul>
-                                                                </td>
-                                                                <td>
-                                                                    <ul>
-                                                                        <li>Nilai: 85</li>
-                                                                        <li>Tingkat: Tinggi</li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
+                                                            @endforeach
                                                         </tbody>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <td colspan="2"><strong>Total Luas Kawasan:</strong>
+                                                                </td>
+                                                                <td>
+                                                                    <b>
+                                                                        {{$kel->rt->sum(function ($rt) {
+                                                                                          return (float) str_replace(',', '.', $rt->luas_ha);
+                                                                                  })}}
+                                                                        (HA)
+                                                                    </b>
+                                                                </td>
+                                                                <!-- Menjumlahkan luas_ha -->
+                                                                <td colspan="2"></td>
+                                                                <!-- Mengisi kolom kosong jika diperlukan -->
+                                                            </tr>
+                                                        </tfoot>
                                                     </table>
                                                 </div>
                                             </div>
@@ -988,18 +933,37 @@
                                                 <!-- /.row -->
 
                                                 <div id="permasalahanList">
-                                                    <div class="permasalahan-item">
-                                                        <p>Kategori Kumuh : Kumuh Ringan
-                                                            Tipologi Kumuh : Permukiman kumuh
-                                                            dataran rendah
-                                                            Karakteristik Permukiman :Kumuh pada Perkotaan
-                                                            yang terletak pada
-                                                            kawasan perekonomian
-                                                            Jumlah Penduduk dikawasan Kumuh 812 Jiwa
-                                                            Jumlah KK dikawasan Kumuh 223 KK</p>
-
-                                                    </div>
-
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Kategori</th>
+                                                                <th>Informasi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Kategori Kumuh</td>
+                                                                <td>Kumuh Ringan</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tipologi Kumuh</td>
+                                                                <td>Permukiman Kumuh Dataran Rendah</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Karakteristik Permukiman</td>
+                                                                <td>Kumuh pada Perkotaan yang terletak pada kawasan
+                                                                    perekonomian</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jumlah Penduduk di Kawasan Kumuh</td>
+                                                                <td>812 Jiwa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jumlah KK di Kawasan Kumuh</td>
+                                                                <td>223 KK</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                             <!-- /.post -->
@@ -1613,13 +1577,11 @@
                     <div class="card-header border-0">
                         <h3 class="card-title">
                             <i class="fas fa-map-marker-alt mr-1"></i>
-                            Visitors
+                            Map Administrasi Kota Jambi
                         </h3>
                         <!-- card tools -->
                         <div class="card-tools">
-                            <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                                <i class="far fa-calendar-alt"></i>
-                            </button>
+
                             <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse"
                                 title="Collapse">
                                 <i class="fas fa-minus"></i>

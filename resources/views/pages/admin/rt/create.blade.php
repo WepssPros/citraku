@@ -63,7 +63,11 @@
                                     </select>
                                 </div>
 
-
+                                <div class="form-group">
+                                    <label for="nomor">Nomor RT</label>
+                                    <input type="text" name="nomor" id="nomor" class="form-control"
+                                        placeholder="Masukan Nomor RT" value="" required>
+                                </div>
                                 <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
                             </div>
 
@@ -71,10 +75,35 @@
                             <div id="information-part" class="content" role="tabpanel"
                                 aria-labelledby="information-part-trigger">
                                 <div class="form-group">
-                                    <label for="nomor">Nomor RT</label>
-                                    <input type="text" name="nomor" id="nomor" class="form-control"
-                                        placeholder="Masukan Nomor RT" value="" required>
+                                    <label for="geojson_file">Upload File GeoJSON</label>
+                                    <input type="file" name="geojson_file" id="geojson_file" class="form-control"
+                                        required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="color">Warna Polygon / MultiPolygon</label>
+                                    <input type="color" name="color" id="color" class="form-control" value="#000000">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="jumlah_jiwa">Jumlah Jiwa</label>
+                                    <input type="text" name="jumlah_jiwa" id="jumlah_jiwa"
+                                        placeholder="Masukan Jumlah Kepala Keluarga (KK)" value="" class="form-control"
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="tingkat">Pilih Tingkat Kepadatan</label>
+                                    <select name="kepadatan" id="kepadatan" class="form-control select2"
+                                        style="width: 100%;">
+                                        <option value="">Pilih Tingkat Kepadatan</option>
+
+                                        <option value="< 150">Rendah < 150 Jiwa / HA</option>
+                                        <option value="150 - 200">Sedang Jiwa / HA</option>
+                                        <option value="> 200">Tinggi Jiwa / HA</option>
+
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="jumlah_kk">Jumlah KK</label>
                                     <input type="text" name="jumlah_kk" id="jumlah_kk"
@@ -84,18 +113,7 @@
                                 <div class="form-group">
                                     <label for="luas_ha">Luas (HA)</label>
                                     <input type="text" name="luas_ha" id="luas_ha" placeholder="Masukan Luas RT (HA)"
-                                        value="" class="form-control" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="color">Warna Polygon / MultiPolygon</label>
-                                    <input type="color" name="color" id="color" class="form-control" value="#000000">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="geojson_file">Upload File GeoJSON</label>
-                                    <input type="file" name="geojson_file" id="geojson_file" class="form-control"
-                                        required>
+                                        class="form-control" required>
                                 </div>
 
                                 <button type="button" class="btn btn-primary"
@@ -107,10 +125,16 @@
                             <div id="information-part-1" class="content" role="tabpanel"
                                 aria-labelledby="information-part-1-trigger">
                                 <div class="form-group">
-                                    <label for="Nilai">Nilai Ambang Pemukiman</label>
-                                    <input type="text" name="nilai" id="nilai" value=""
+                                    <label for="Nilai">Nilai Kekumuhan</label>
+                                    <input type="text" name="nilai_kekumuhan" id="nilai_kekumuhan" value=""
                                         placeholder="Masukan Nilai Ambang" class="form-control" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="Nilai">Nilai Pertimbangan Lain</label>
+                                    <input type="text" name="nilai_pertimbangan_lain" id="nilai_pertimbangan_lain"
+                                        value="" placeholder="Masukan Nilai Ambang" class="form-control" required>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="tingkat">Pilih Tingkat Pemukiman</label>
                                     <select name="tingkat" id="tingkat" class="form-control select2"
@@ -187,7 +211,7 @@
         });
     });
 </script>
-// Update the label of the custom file input with the selected file name
+
 <script>
     $(function () {
     //Initialize Select2 Elements
