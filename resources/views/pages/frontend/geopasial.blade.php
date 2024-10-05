@@ -7,188 +7,41 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 <link rel="stylesheet" href="{{asset('../../adminlte/dist/css/adminlte.min.css')}}">
-<style>
-    .rt-tooltip {
-        background-color: #ffffff;
-        /* Warna latar belakang tooltip */
-        color: #000;
-        /* Warna teks */
-        padding: 5px;
-        /* Padding di dalam tooltip */
-        border-radius: 4px;
-        /* Sudut membulat */
-        border: 1px solid #e0e0e0;
-        /* Garis batas */
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        /* Bayangan */
-    }
 
-    .layer-control-card {
-        margin-bottom: 15px;
-        /* Spasi antara card */
-        border: 1px solid #e0e0e0;
-        /* Garis batas */
-        border-radius: 8px;
-        /* Sudut membulat */
-        background-color: #ffffff;
-        /* Warna latar belakang */
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        /* Bayangan yang lebih halus */
-        color: #333;
-        /* Warna teks yang lebih gelap untuk kontras yang lebih baik */
-        font-family: Arial, sans-serif;
-        /* Font yang lebih profesional */
-    }
 
-    .layer-control-header {
-        display: flex;
-        justify-content: space-between;
-        /* Spasi antara teks dan ikon */
-        align-items: center;
-        cursor: pointer;
-        /* Mengubah kursor untuk menunjukkan bahwa bisa diklik */
-        padding: 12px 15px;
-        /* Padding yang sedikit lebih besar */
-        background-color: #f1f1f1;
-        /* Warna latar belakang header yang lebih lembut */
-        border-bottom: 2px solid #e0e0e0;
-        /* Garis bawah yang lebih tebal */
-        transition: background-color 0.3s;
-        /* Transisi untuk perubahan warna latar belakang */
-    }
+@section('navbar-geopasial')
+<nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 navbar-geopasial ">
+    <a href="" class="navbar-brand p-0">
+        <img id="navbar-logo" src="{{ asset('frontend/img/logobapeda.png') }}"
+            data-scroll-logo="{{ asset('../frontend/img/logobapeda.png') }}"
+            data-default-logo="{{ asset('../frontend/img/logobapeda.png') }}" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseGeo">
+        <span class="fa fa-bars"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapseGeo">
+        <div class="navbar-nav ms-auto py-0">
+            <a href="{{route('index')}}" class="nav-item nav-link">Beranda</a>
+            <a href="{{route('geopasial-map')}}" class="nav-item nav-link active">Peta</a>
+            <a href="blog.html" class="nav-item nav-link">Berita & Artikel</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dokumen Perencanaan Daerah</a>
+                <div class="dropdown-menu m-0">
+                    <a href="destination.html" class="dropdown-item">Rencana Tata Ruang Wilayah Kota Jambi (2013 -
+                        2033)</a>
+                    <a href="tour.html" class="dropdown-item">RPJMD Perubahan 2018-2023</a>
+                    <a href="booking.html" class="dropdown-item">RIPPDA KOTA JAMBI</a>
+                    <a href="gallery.html" class="dropdown-item">RIPPDA KOTA JAMBI</a>
+                </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+        </div>
+        <a href="{{route('index')}}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Kembali </a>
+    </div>
+</nav>
+@endsection
 
-    .layer-control-header:hover {
-        background-color: #e0e0e0;
-        /* Perubahan warna saat hover */
-    }
 
-    .toggle-icon {
-        font-size: 20px;
-        /* Ukuran ikon lebih besar untuk keterbacaan */
-        color: #007bff;
-        /* Warna ikon */
-    }
-
-    .layer-control-body {
-        padding: 10px 15px;
-        /* Padding dalam body */
-        border-top: 1px solid #e0e0e0;
-        /* Garis atas untuk pemisah yang jelas */
-    }
-
-    .layer-control-body label {
-        display: block;
-        /* Setiap label menjadi block untuk spasi yang lebih baik */
-        margin-bottom: 8px;
-        /* Spasi antara label */
-        cursor: pointer;
-        /* Menunjukkan bahwa label bisa diklik */
-        font-size: 10px;
-        /* Ukuran font label */
-    }
-
-    .layer-control-body input[type="checkbox"] {
-        margin-right: 8px;
-        /* Spasi antara checkbox dan label */
-    }
-
-    #jambi-map {
-        width: 100%;
-        /* Atur lebar ke 100% */
-        height: 600px;
-        /* Atur tinggi sesuai kebutuhan */
-    }
-
-    /* Menyembunyikan kontrol layer selector */
-    .leaflet-control-layers-selector {
-        display: none;
-        /* Sembunyikan kontrol layer selector */
-    }
-
-    /* Kontrol layer kecil */
-    .leaflet-control-layers {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 5px;
-        padding: 5px;
-        max-width: 200px;
-        max-height: 50px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        display: flex;
-        flex-direction: row;
-        /* Mengatur tampilan horizontal */
-        justify-content: space-between;
-        /* Rata kiri dan kanan */
-    }
-
-    /* Ikon gambar di kontrol layer */
-    .leaflet-control-layers img {
-        width: 40px;
-        /* Ukuran gambar */
-        height: 40px;
-        margin-bottom: 6px;
-        border-radius: 5px;
-        object-fit: cover;
-    }
-
-    /* Style untuk kontrol layer saat hover */
-    .leaflet-control-layers img:hover {
-        border-width: 10px;
-        opacity: 0.7;
-        /* Efek transparansi saat hover */
-    }
-
-    /* Mengatur agar kontrol layer terlihat horizontal seperti grid */
-    .leaflet-control-layers-expanded {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 8px;
-        padding: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        display: flex;
-        flex-wrap: wrap;
-        /* Agar tampil seperti grid */
-        justify-content: space-around;
-        /* Posisi diatur rata */
-    }
-
-    /* Mengatur label */
-    .leaflet-control-layers-base label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        cursor: pointer;
-        padding: 10px;
-        width: 80px;
-        /* Ukuran kotak */
-        height: 80px;
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        margin: 5px;
-    }
-
-    .leaflet-control-layers-toggle {
-        width: 36px;
-        height: 36px;
-        background: #4285F4;
-        border-radius: 50%;
-        color: white;
-        font-size: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .leaflet-control-layers-toggle:hover {
-        background: #357AE8;
-    }
-
-    .leaflet-control-kecamatan {
-        display: flex;
-        flex-direction: column;
-    }
-
-</style>
 
 @section('frontend-content')
 
@@ -1755,8 +1608,8 @@
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet.gesture.handling.js"></script>
-<script src="https://unpkg.com/leaflet-google/dist/leaflet-google.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+{{-- <script src="https://unpkg.com/leaflet-google/dist/leaflet-google.js"></script>  --}}
+
 <script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
 
 

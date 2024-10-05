@@ -12,20 +12,43 @@
     spinner(0);
 
     // Sticky Navbar
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 45) {
-            $(".navbar").addClass("sticky-top shadow-sm");
-            $("#navbar-logo").attr(
-                "src",
-                $("#navbar-logo").data("scroll-logo") // Ganti dengan data-scroll-logo
-            );
-        } else {
-            $(".navbar").removeClass("sticky-top shadow-sm");
-            $("#navbar-logo").attr(
-                "src",
-                $("#navbar-logo").data("default-logo") // Ganti dengan data-default-logo
-            );
+    $(document).ready(function () {
+        // Set logo default saat halaman dimuat
+        $("#navbar-logo").attr("src", $("#navbar-logo").data("default-logo"));
+
+        // Mengatur logo berdasarkan ukuran layar
+        function updateLogo() {
+            if ($(window).width() < 992) {
+                // Ganti nilai 992 sesuai dengan breakpoint tablet yang Anda gunakan
+                $("#navbar-logo").attr("src", "/frontend/img/logobapeda.png"); // Ganti dengan path yang sesuai
+            } else {
+                $("#navbar-logo").attr(
+                    "src",
+                    $("#navbar-logo").data("default-logo")
+                );
+            }
         }
+
+        // Panggil fungsi saat halaman dimuat
+        updateLogo();
+
+        // Panggil fungsi saat jendela diubah ukurannya
+        $(window).resize(function () {
+            updateLogo();
+        });
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 45) {
+                $(".navbar").addClass("sticky-top shadow-sm");
+                $("#navbar-logo").attr(
+                    "src",
+                    $("#navbar-logo").data("scroll-logo") // Ganti dengan data-scroll-logo
+                );
+            } else {
+                $(".navbar").removeClass("sticky-top shadow-sm");
+                updateLogo(); // Menggunakan fungsi updateLogo untuk mengatur logo kembali
+            }
+        });
     });
 
     // International Tour carousel
