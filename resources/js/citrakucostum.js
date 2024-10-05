@@ -156,6 +156,40 @@ var baseMaps = {
     ),
 };
 
+//
+// Fungsi untuk menangani scroll zoom hanya di area peta
+// Variabel untuk mengecek apakah Ctrl ditekan
+let isCtrlPressed = false;
+
+// Event listener untuk mendeteksi penekanan tombol
+window.addEventListener("keydown", function (e) {
+    if (e.ctrlKey) {
+        isCtrlPressed = true;
+    }
+});
+
+window.addEventListener("keyup", function (e) {
+    if (e.key === "Control") {
+        isCtrlPressed = false;
+    }
+});
+
+// Mencegah perilaku scroll default
+map.scrollWheelZoom.disable(); // Nonaktifkan zoom dengan scroll
+
+// Event listener untuk mouse wheel
+map.getContainer().addEventListener("wheel", function (e) {
+    if (isCtrlPressed) {
+        e.preventDefault(); // Cegah scroll halaman
+
+        if (e.deltaY < 0) {
+            map.zoomIn(); // Zoom in
+        } else {
+            map.zoomOut(); // Zoom out
+        }
+    }
+});
+
 // Layer peta default
 baseMaps["OpenStreetMap"].addTo(map);
 

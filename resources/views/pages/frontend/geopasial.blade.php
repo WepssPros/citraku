@@ -1,0 +1,1764 @@
+@extends('layouts.frontend')
+@vite(['resources/css/citrakucostum.css', 'resources/js/citrakucostum.js'])
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" href="{{asset('../adminlte/plugins/fontawesome-free/css/all.min.css')}}">
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
+<link rel="stylesheet" href="{{asset('../../adminlte/dist/css/adminlte.min.css')}}">
+<style>
+    .rt-tooltip {
+        background-color: #ffffff;
+        /* Warna latar belakang tooltip */
+        color: #000;
+        /* Warna teks */
+        padding: 5px;
+        /* Padding di dalam tooltip */
+        border-radius: 4px;
+        /* Sudut membulat */
+        border: 1px solid #e0e0e0;
+        /* Garis batas */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        /* Bayangan */
+    }
+
+    .layer-control-card {
+        margin-bottom: 15px;
+        /* Spasi antara card */
+        border: 1px solid #e0e0e0;
+        /* Garis batas */
+        border-radius: 8px;
+        /* Sudut membulat */
+        background-color: #ffffff;
+        /* Warna latar belakang */
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        /* Bayangan yang lebih halus */
+        color: #333;
+        /* Warna teks yang lebih gelap untuk kontras yang lebih baik */
+        font-family: Arial, sans-serif;
+        /* Font yang lebih profesional */
+    }
+
+    .layer-control-header {
+        display: flex;
+        justify-content: space-between;
+        /* Spasi antara teks dan ikon */
+        align-items: center;
+        cursor: pointer;
+        /* Mengubah kursor untuk menunjukkan bahwa bisa diklik */
+        padding: 12px 15px;
+        /* Padding yang sedikit lebih besar */
+        background-color: #f1f1f1;
+        /* Warna latar belakang header yang lebih lembut */
+        border-bottom: 2px solid #e0e0e0;
+        /* Garis bawah yang lebih tebal */
+        transition: background-color 0.3s;
+        /* Transisi untuk perubahan warna latar belakang */
+    }
+
+    .layer-control-header:hover {
+        background-color: #e0e0e0;
+        /* Perubahan warna saat hover */
+    }
+
+    .toggle-icon {
+        font-size: 20px;
+        /* Ukuran ikon lebih besar untuk keterbacaan */
+        color: #007bff;
+        /* Warna ikon */
+    }
+
+    .layer-control-body {
+        padding: 10px 15px;
+        /* Padding dalam body */
+        border-top: 1px solid #e0e0e0;
+        /* Garis atas untuk pemisah yang jelas */
+    }
+
+    .layer-control-body label {
+        display: block;
+        /* Setiap label menjadi block untuk spasi yang lebih baik */
+        margin-bottom: 8px;
+        /* Spasi antara label */
+        cursor: pointer;
+        /* Menunjukkan bahwa label bisa diklik */
+        font-size: 10px;
+        /* Ukuran font label */
+    }
+
+    .layer-control-body input[type="checkbox"] {
+        margin-right: 8px;
+        /* Spasi antara checkbox dan label */
+    }
+
+    #jambi-map {
+        width: 100%;
+        /* Atur lebar ke 100% */
+        height: 600px;
+        /* Atur tinggi sesuai kebutuhan */
+    }
+
+    /* Menyembunyikan kontrol layer selector */
+    .leaflet-control-layers-selector {
+        display: none;
+        /* Sembunyikan kontrol layer selector */
+    }
+
+    /* Kontrol layer kecil */
+    .leaflet-control-layers {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 5px;
+        padding: 5px;
+        max-width: 200px;
+        max-height: 50px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        display: flex;
+        flex-direction: row;
+        /* Mengatur tampilan horizontal */
+        justify-content: space-between;
+        /* Rata kiri dan kanan */
+    }
+
+    /* Ikon gambar di kontrol layer */
+    .leaflet-control-layers img {
+        width: 40px;
+        /* Ukuran gambar */
+        height: 40px;
+        margin-bottom: 6px;
+        border-radius: 5px;
+        object-fit: cover;
+    }
+
+    /* Style untuk kontrol layer saat hover */
+    .leaflet-control-layers img:hover {
+        border-width: 10px;
+        opacity: 0.7;
+        /* Efek transparansi saat hover */
+    }
+
+    /* Mengatur agar kontrol layer terlihat horizontal seperti grid */
+    .leaflet-control-layers-expanded {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+        padding: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-wrap: wrap;
+        /* Agar tampil seperti grid */
+        justify-content: space-around;
+        /* Posisi diatur rata */
+    }
+
+    /* Mengatur label */
+    .leaflet-control-layers-base label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 10px;
+        width: 80px;
+        /* Ukuran kotak */
+        height: 80px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin: 5px;
+    }
+
+    .leaflet-control-layers-toggle {
+        width: 36px;
+        height: 36px;
+        background: #4285F4;
+        border-radius: 50%;
+        color: white;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .leaflet-control-layers-toggle:hover {
+        background: #357AE8;
+    }
+
+    .leaflet-control-kecamatan {
+        display: flex;
+        flex-direction: column;
+    }
+
+</style>
+
+@section('frontend-content')
+
+<div class="container-fluid" style="padding-top: 100px;">
+    <!-- Tambahkan padding-top untuk mencegah overlap dengan navbar -->
+    <div id="jambi-map" style="width: 100%; min-height: 750px; z-index: 9; position: relative; outline: none;"></div>
+</div>
+
+<!-- Modal -->
+@foreach ($kecamatans as $kec)
+<div class="modal fade" id="kecamatanModal{{$kec->id}}" tabindex="-1" role="dialog"
+    aria-labelledby="kecamatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="kelurahanModalLabel">Informasi Kecamatan {{$kec->nama}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="kecModelContent">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{asset('../../adminlte/dist/img/logopemprovjambi.png')}}"
+                                        alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center">Kelurahan </h3>
+
+                                <p class="text-muted text-center">Kawasan Kecamatan</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Luas (HA)</b> <a class="float-right">1,322</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>RT</b> <a class="float-right">543</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Kelurahan</b> <a class="float-right">13,287</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Kecamatan</b> <a class="float-right">13,287</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Nilai</b> <a class="float-right">13,287</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Tingkat</b> <a class="float-right">Kumuh Ringan</a>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active"
+                                            href="#KecLpermasalahanUtamaRT{{$kec->id}}" data-toggle="tab">Permasalahan
+                                            Utama</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="#KectimelinepermasalahanUtamaRT{{$kec->id}}"
+                                            data-toggle="tab">Timeline Permasalahan</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#KeclingkupAdministrasi{{$kec->id}}"
+                                            data-toggle="tab">Lingkup
+                                            Administrasi</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="#KeckarekteristikPemukiman{{$kec->id}}" data-toggle="tab">
+                                            Kategori, Tipologi & Karekteristik</a>
+                                    </li>
+                                </ul>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="KecLpermasalahanUtamaRT{{$kec->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <div class="row mb-3">
+                                                <div class="col-sm-6">
+                                                    <img class="img-fluid"
+                                                        src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                        alt="Photo">
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{asset('../../adminlte/dist/img/photo2.png')}}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{asset('../../adminlte/dist/img/photo3.jpg')}}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{asset('../..//adminlte/dist/img/photo4.jpg')}}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    <p>
+                                                        • Ketidak sesuaian dengan Persyaratan Teknis Bangunan serta
+                                                        Ketidak
+                                                        teraturan Bangunan;
+                                                    </p>
+                                                    <p>• Kualitas Permukaan Jalan lingkungan;
+
+                                                    </p>
+                                                    <p>• Ketersediaan Akses Aman Air Minum serta Tidak terpenuhinya
+                                                        Kebutuhan Air
+                                                        Minum
+                                                    </p>
+                                                    <p>• Kualitas Konstruksi Drainase Serta Ketidak tersediaan
+                                                        Drainase;</p>
+                                                    <p>• Sistem Pengelolaan Air Limbah Tidak Sesuai Standar Teknis
+                                                        serta Prasarana
+                                                        dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan
+                                                        Persyaratan Teknis
+                                                    </p>
+                                                    <p>
+                                                        • Sistem Pengelolaan Persampahanyang tidak sesuai
+                                                        StandarTeknis
+                                                        dan
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="KectimelinepermasalahanUtamaRT{{$kec->id}}">
+                                        <!-- The timeline -->
+                                        <div class="timeline timeline-inverse">
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-danger">
+                                                    10 Feb. 2014
+                                                </span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Jumlah Bangunan 202 Unit
+                                                        <br>
+                                                        Bangunan tidakteratur 0 Unit
+                                                        <br>
+                                                        bangunan tidaksesuaipersyaratan
+                                                        <br>
+                                                        teknis 5 Unit
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Panjang jalaneksisting 6.086
+                                                        meter
+                                                        <br>
+                                                        Panjang jalandenganpermukaan
+                                                        rusak 2.898 meter
+                                                        <br>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">3.</a> Air Minum
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        175 KK tidak terakses air minum
+                                                        aman
+
+                                                        <br>
+                                                        31 KK tidak terpenuhi kebutuhan air
+                                                        minum minima
+                                                        <br>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">4.</a> Drainase
+                                                        Lingkungan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        5,73 Ha kawasantergenang
+                                                        <br>
+                                                        100 meterdrainaseeksisting
+                                                        <br>
+                                                        942 meterdrainaserusak
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">5.</a> Persampahan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        223 KK sapraspengolahansampah
+                                                        tidaksesuaipersyaratanteknis
+                                                        <br>
+                                                        73 KK sistem pengolahan sampahtidak
+                                                        sesuai standar teknis
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
+                                                        Kebakaran
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        0 Unit bangunantidakterlayani
+                                                        prasaranaproteksi kebakaran
+                                                        <br>
+                                                        0 Unit bangunantidakterlayanisarana
+                                                        proteksikebakaran
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        4 KK akses air limbahtidaksesuaistandar
+                                                        teknis
+                                                        <br>
+                                                        4 KK sistem saprasair limbahtidaksesuai
+                                                        persyaratan teknis
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-success"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
+                                                        Status Lahan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        0 Unit bangunanhunian memiliki IMB
+                                                        <br>
+                                                        202 unit bangunantidak memiliki IMB
+                                                        <br>
+                                                        13 Unit bangunantidak memiliki
+                                                        SHM/HGB/Surat yang diakuipemerintah
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-success"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Jumlah Penduduk
+                                                        dikawasan Kumuh 812
+                                                        Jiwa
+                                                        <br>
+                                                        Jumlah KK dikawasan
+                                                        Kumuh 223 KK
+                                                        <br>
+                                                        Lokasi "memiliki" Potensi
+                                                        Sosial, ekonomi, buday
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- END timeline item -->
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-success">
+                                                    3 Jan. 2014
+                                                </span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <!-- timeline item -->
+
+                                            <!-- END timeline item -->
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" tab-pane" id="KeclingkupAdministrasi{{$kec->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+
+
+                                            <div id="permasalahanList">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nama Lokasi</th>
+                                                            <th>Luas</th>
+                                                            <th>Lingkup Administrasi</th>
+                                                            <th>Kekumuhan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Lokasi 1</td>
+                                                            <td>100 m²</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>RT: 01</li>
+                                                                    <li>Kelurahan: A</li>
+                                                                    <li>Kecamatan: X</li>
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Nilai: 75</li>
+                                                                    <li>Tingkat: Sedang</li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Lokasi 2</td>
+                                                            <td>150 m²</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>RT: 02</li>
+                                                                    <li>Kelurahan: B</li>
+                                                                    <li>Kecamatan: Y</li>
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Nilai: 85</li>
+                                                                    <li>Tingkat: Tinggi</li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <div class=" tab-pane" id="KeckarekteristikPemukiman{{$kec->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    <p>Kategori Kumuh : Kumuh Ringan
+                                                        Tipologi Kumuh : Permukiman kumuh
+                                                        dataran rendah
+                                                        Karakteristik Permukiman :Kumuh pada Perkotaan
+                                                        yang terletak pada
+                                                        kawasan perekonomian
+                                                        Jumlah Penduduk dikawasan Kumuh 812 Jiwa
+                                                        Jumlah KK dikawasan Kumuh 223 KK</p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+<!-- Modal untuk Kelurahan -->
+@foreach ($kelurahans as $kel)
+<div class="modal fade" id="kelurahanModal{{$kel->id}}" tabindex="-1" role="dialog"
+    aria-labelledby="kelurahanModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl " role="document">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="kelurahanModalLabel">Informasi Kelurahan {{$kel->nama}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="kelurahanModalContent">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{asset('../../adminlte/dist/img/logopemprovjambi.png')}}"
+                                        alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center">{{$kel->nama}} </h3>
+
+                                <p class="text-muted text-center">{{$kel->kecamatan->nama}}</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b> Kawasan Kumuh</b> <a class="float-right">
+                                            <b> {{$kel->rt->sum(function ($rt) {
+                                                // Mengganti koma dengan titik dan mengonversi ke float
+                                                return (float) str_replace(',', '.', $rt->luas_ha);
+                                            })}} (HA)</b>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Jumlah RT Kumuh</b> <a class="float-right">{{$kel->rt->count()}} RT</a>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <b>Kecamatan</b> <a class="float-right">{{$kel->kecamatan->nama}}</a>
+                                    </li>
+
+
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active"
+                                            href="#KeLpermasalahanUtamaRT{{$kel->id}}" data-toggle="tab">Permasalahan
+                                            Utama</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="#KeLtimelinepermasalahanUtamaRT{{$kel->id}}" data-toggle="tab">Sub
+                                            Permasalahan</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#KeLlingkupAdministrasi{{$kel->id}}"
+                                            data-toggle="tab">Lingkup
+                                            Administrasi</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="#KeLkarekteristikPemukiman{{$kel->id}}" data-toggle="tab">
+                                            Kategori, Tipologi & Karekteristik</a>
+                                    </li>
+                                </ul>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="KeLpermasalahanUtamaRT{{$kel->id}}">
+                                        <!-- Post -->
+
+                                        @forelse ($kel->permasalahan as $permasalahan)
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <div class="row mb-3">
+
+                                                <div class="col-sm-6">
+                                                    <img class="img-fluid"
+                                                        src="{{ asset('storage/' . $permasalahan->foto_1) }}"
+                                                        alt="Photo">
+                                                </div>
+
+
+                                                <!-- /.col -->
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_2) }}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_3) }}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_4) }}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_5) }}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    {!! $permasalahan->permasalahan_utama !!}
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <div class="row mb-3">
+
+                                                <div class="col-sm-6">
+                                                    <img class="img-fluid"
+                                                        src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
+                                                        alt="Photo">
+                                                </div>
+
+
+                                                <!-- /.col -->
+
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    Tidak ada Permasalahan
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        @endforelse
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="KeLtimelinepermasalahanUtamaRT{{$kel->id}}">
+                                        <!-- The timeline -->
+                                        @forelse ($kel->subpermasalahan as $sps)
+                                        <div class="timeline timeline-inverse">
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-danger">{{ $sps->formatted_created_at }}</span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+
+                                            <!-- Timeline Items -->
+                                            <div>
+                                                <i class="fas fa-home bg-warning"></i>
+                                                <!-- Ganti icon untuk Bangunan Hunian -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">1.</a>
+                                                        {{$sps->header_no_1}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_1 !!}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-road bg-warning"></i>
+                                                <!-- Ganti icon untuk Jalan Lingkungan -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">2.</a>
+                                                        {{$sps->header_no_2}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_2 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-tint bg-warning"></i>
+                                                <!-- Ganti icon untuk Air Minum -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">3.</a>
+                                                        {{$sps->header_no_3}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_3 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-water bg-warning"></i>
+                                                <!-- Ganti icon untuk Drainase Lingkungan -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">4.</a>
+                                                        {{$sps->header_no_4}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_4 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-trash bg-warning"></i>
+                                                <!-- Ganti icon untuk Persampahan -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">5.</a>
+                                                        {{$sps->header_no_5}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_5 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-fire bg-warning"></i>
+                                                <!-- Ganti icon untuk Proteksi Kebakaran -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">6.</a>
+                                                        {{$sps->header_no_6}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_7 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-recycle bg-warning"></i>
+                                                <!-- Ganti icon untuk Air Limbah -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-primary"><a href="#">7.</a>
+                                                        {{$sps->header_no_7}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_7 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-file-alt bg-success"></i>
+                                                <!-- Ganti icon untuk Legalitas dan Status Lahan -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-success"><a href="#">8.</a>
+                                                        {{$sps->header_no_8}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_8 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-users bg-success"></i>
+                                                <!-- Ganti icon untuk Sosial Ekonomi -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-success"><a href="#">9.</a>
+                                                        {{$sps->header_no_9}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_9 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-clipboard-list bg-success"></i>
+                                                <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timelne-header bg-success"><a href="#">10.</a>
+                                                        {{$sps->header_no_10}}
+                                                    </h3>
+                                                    <div class="timeline-body">
+                                                        {!! $sps->text_10 !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END timeline item -->
+
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-success">{{ $sps->formatted_updated_at }}</span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <div class="timeline timeline-inverse">
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-danger">Maaf Data Tidak Ada.</span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+
+                                            <!-- Timeline Items -->
+
+
+                                            <div>
+                                                <i class="fas fa-clipboard-list bg-success"></i>
+                                                <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                <div class="timeline-item">
+
+                                                    <h3 class="timeline-header bg-success"><a href="#">10.</a>
+                                                        Pertimbangan Lain</h3>
+                                                    <div class="timeline-body">
+                                                        Belum ada Timeline Permasalahan
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END timeline item -->
+
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-success">Admin CS Akan Segera Memberikan informasi
+                                                    Lebih Lanjut.</span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                        </div>
+                                        @endforelse
+                                    </div>
+                                    <div class=" tab-pane" id="KeLlingkupAdministrasi{{$kel->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+
+
+                                            <div id="permasalahanList">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama Lokasi</th>
+                                                            <th>Luas (HA)</th>
+                                                            <th>Lingkup Administrasi</th>
+                                                            <th>Kekumuhan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($kel->rt as $index => $rtkumuh)
+                                                        <tr>
+                                                            <td>{{ $index + 1 }}</td>
+                                                            <td>{{ $rtkumuh->nomor }}</td>
+                                                            <td>{{ $rtkumuh->luas_ha }}</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Kelurahan: {{ $rtkumuh->kelurahan->nama }}
+                                                                    </li>
+                                                                    <li>Kecamatan: {{ $rtkumuh->kecamatan->nama }}
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Nilai: {{ $rtkumuh->nilai }}</li>
+                                                                    <li>
+                                                                        Tingkat:
+                                                                        <span class="badge 
+                                                                                @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
+                                                                                    bg-warning 
+                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                                    bg-success 
+                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
+                                                                                    bg-danger 
+                                                                                @else 
+                                                                                    bg-secondary 
+                                                                                @endif">
+                                                                            {{ $rtkumuh->tingkat_status }}
+                                                                        </span>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        @endforeach
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <td colspan="2"><strong>Total Luas Kawasan:</strong>
+                                                            </td>
+                                                            <td>
+                                                                <b>
+                                                                    {{$kel->rt->sum(function ($rt) {
+                                                                                          return (float) str_replace(',', '.', $rt->luas_ha);
+                                                                                  })}}
+                                                                    (HA)
+                                                                </b>
+                                                            </td>
+                                                            <!-- Menjumlahkan luas_ha -->
+                                                            <td colspan="2"></td>
+                                                            <!-- Mengisi kolom kosong jika diperlukan -->
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <div class=" tab-pane" id="KeLkarekteristikPemukiman{{$kel->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Kategori</th>
+                                                            <th>Informasi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($kel->permasalahan as $permasalahanItem)
+                                                        <tr>
+                                                            <td>Kategori Kumuh</td>
+                                                            <td>
+                                                                <span class="badge 
+                                                                    @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
+                                                                        bg-warning 
+                                                                    @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                        bg-success 
+                                                                    @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
+                                                                        bg-danger 
+                                                                    @else 
+                                                                        bg-secondary 
+                                                                    @endif">
+                                                                    {{ $rtkumuh->tingkat_status }}
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Tipologi Kumuh</td>
+                                                            <td>Permukiman Kumuh
+                                                                {{$permasalahanItem->tipologi_kumuh}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Karakteristik Permukiman</td>
+                                                            <td>{!!$permasalahanItem->karakteristik!!}</td>
+                                                        </tr>
+                                                        @endforeach
+                                                        <tr>
+                                                            <td>Jumlah Penduduk di Kawasan Kumuh</td>
+                                                            <td>{{$kel->rt->sum('jumlah_jiwa')}} Jiwa</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Jumlah KK di Kawasan Kumuh</td>
+                                                            <td>{{$kel->rt->sum('jumlah_kk')}} KK</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+<!-- Modal untuk RT -->
+@foreach ($rts as $rt)
+<div class="modal fade" id="rtModal{{$rt->id}}" tabindex="-1" role="dialog" aria-labelledby="rtModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="rtModalLabel">Informasi Rukun Tetangga ({{$rt->nomor}})</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="rtModalContent{{$rt->id}}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Profile Image -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center">
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{asset('../../adminlte/dist/img/logopemprovjambi.png')}}"
+                                        alt="User profile picture">
+                                </div>
+
+                                <h3 class="profile-username text-center">{{$rt->nomor}} <span
+                                        class="badge bg-warning float-end">{{$rt->tingkat_status}}</span></h3>
+
+                                <p class="text-muted text-center">Kawasan Kelurahan <br>{{$rt->kelurahan->nama}}</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Luas (HA)</b> <a class="float-right">{{$rt->luas_ha}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Jumlah KK</b> <a class="float-right">{{$rt->jumlah_kk}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Kelurahan</b> <a class="float-right">{{$rt->kelurahan->nama}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Kecamatan</b> <a class="float-right">{{$rt->kecamatan->nama}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Nilai</b> <a class="float-right">{{$rt->nilai}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Tingkat</b> <a class="float-right">{{$rt->tingkat}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>prioritas</b> <a class="float-right">{{$rt->prioritas}}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <strong> Legalitas</strong>
+                                            <span class="badge bg-success float-end">{{$rt->legalitas}}</span>
+                                            {{-- <span class="badge bg-danger float-end">Kumuh Ringan</span>
+                                                <span class="badge bg-info float-end">Kumuh Ringan</span>  --}}
+                                        </div>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <ul class="nav nav-pills">
+                                    <li class="nav-item"><a class="nav-link active"
+                                            href="#permasalahanUtamaRT{{$rt->id}}" data-toggle="tab">Permasalahan
+                                            Utama</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="#timelinepermasalahanUtamaRT{{$rt->id}}" data-toggle="tab">Timeline
+                                            Permasalahan</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#lingkupAdministrasi{{$rt->id}}"
+                                            data-toggle="tab">Lingkup Administrasi</a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#karekteristikPemukiman{{$rt->id}}"
+                                            data-toggle="tab">
+                                            Kategori, Tipologi & Karekteristik</a>
+                                    </li>
+                                </ul>
+                            </div><!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <div class="active tab-pane" id="permasalahanUtamaRT{{$rt->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+                                            <div class="row mb-3">
+                                                <div class="col-sm-6">
+                                                    <img class="img-fluid"
+                                                        src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                        alt="Photo">
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-6">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{asset('../../adminlte/dist/img/photo2.png')}}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{asset('../../adminlte/dist/img/photo3.jpg')}}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                        <div class="col-sm-6">
+                                                            <img class="img-fluid mb-3"
+                                                                src="{{asset('../..//adminlte/dist/img/photo4.jpg')}}"
+                                                                alt="Photo">
+                                                            <img class="img-fluid"
+                                                                src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                                alt="Photo">
+                                                        </div>
+                                                        <!-- /.col -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    <p>
+                                                        • Ketidak sesuaian dengan Persyaratan Teknis Bangunan serta
+                                                        Ketidak
+                                                        teraturan Bangunan;
+                                                    </p>
+                                                    <p>• Kualitas Permukaan Jalan lingkungan;
+
+                                                    </p>
+                                                    <p>• Ketersediaan Akses Aman Air Minum serta Tidak terpenuhinya
+                                                        Kebutuhan Air
+                                                        Minum
+                                                    </p>
+                                                    <p>• Kualitas Konstruksi Drainase Serta Ketidak tersediaan
+                                                        Drainase;</p>
+                                                    <p>• Sistem Pengelolaan Air Limbah Tidak Sesuai Standar Teknis
+                                                        serta Prasarana
+                                                        dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan
+                                                        Persyaratan Teknis
+                                                    </p>
+                                                    <p>
+                                                        • Sistem Pengelolaan Persampahanyang tidak sesuai
+                                                        StandarTeknis
+                                                        dan
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+                                    <div class="tab-pane" id="timelinepermasalahanUtamaRT{{$rt->id}}">
+                                        <!-- The timeline -->
+                                        <div class="timeline timeline-inverse">
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-danger">
+                                                    10 Feb. 2014
+                                                </span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Jumlah Bangunan 202 Unit
+                                                        <br>
+                                                        Bangunan tidakteratur 0 Unit
+                                                        <br>
+                                                        bangunan tidaksesuaipersyaratan
+                                                        <br>
+                                                        teknis 5 Unit
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Panjang jalaneksisting 6.086
+                                                        meter
+                                                        <br>
+                                                        Panjang jalandenganpermukaan
+                                                        rusak 2.898 meter
+                                                        <br>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">3.</a> Air Minum
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        175 KK tidak terakses air minum
+                                                        aman
+
+                                                        <br>
+                                                        31 KK tidak terpenuhi kebutuhan air
+                                                        minum minima
+                                                        <br>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">4.</a> Drainase
+                                                        Lingkungan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        5,73 Ha kawasantergenang
+                                                        <br>
+                                                        100 meterdrainaseeksisting
+                                                        <br>
+                                                        942 meterdrainaserusak
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">5.</a> Persampahan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        223 KK sapraspengolahansampah
+                                                        tidaksesuaipersyaratanteknis
+                                                        <br>
+                                                        73 KK sistem pengolahan sampahtidak
+                                                        sesuai standar teknis
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
+                                                        Kebakaran
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        0 Unit bangunantidakterlayani
+                                                        prasaranaproteksi kebakaran
+                                                        <br>
+                                                        0 Unit bangunantidakterlayanisarana
+                                                        proteksikebakaran
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-warning"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        4 KK akses air limbahtidaksesuaistandar
+                                                        teknis
+                                                        <br>
+                                                        4 KK sistem saprasair limbahtidaksesuai
+                                                        persyaratan teknis
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-success"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
+                                                        Status Lahan
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        0 Unit bangunanhunian memiliki IMB
+                                                        <br>
+                                                        202 unit bangunantidak memiliki IMB
+                                                        <br>
+                                                        13 Unit bangunantidak memiliki
+                                                        SHM/HGB/Surat yang diakuipemerintah
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-info bg-success"></i>
+                                                <div class="timeline-item">
+
+
+                                                    <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
+                                                    </h3>
+
+                                                    <div class="timeline-body">
+                                                        Jumlah Penduduk
+                                                        dikawasan Kumuh 812
+                                                        Jiwa
+                                                        <br>
+                                                        Jumlah KK dikawasan
+                                                        Kumuh 223 KK
+                                                        <br>
+                                                        Lokasi "memiliki" Potensi
+                                                        Sosial, ekonomi, buday
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <!-- END timeline item -->
+                                            <!-- timeline time label -->
+                                            <div class="time-label">
+                                                <span class="bg-success">
+                                                    3 Jan. 2014
+                                                </span>
+                                            </div>
+                                            <!-- /.timeline-label -->
+                                            <!-- timeline item -->
+
+                                            <!-- END timeline item -->
+                                            <div>
+                                                <i class="far fa-clock bg-gray"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" tab-pane" id="lingkupAdministrasi{{$rt->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+
+
+                                            <div id="permasalahanList">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nama Lokasi</th>
+                                                            <th>Luas</th>
+                                                            <th>Lingkup Administrasi</th>
+                                                            <th>Kekumuhan</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Lokasi 1</td>
+                                                            <td>100 m²</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>RT: 01</li>
+                                                                    <li>Kelurahan: A</li>
+                                                                    <li>Kecamatan: X</li>
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Nilai: 75</li>
+                                                                    <li>Tingkat: Sedang</li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Lokasi 2</td>
+                                                            <td>150 m²</td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>RT: 02</li>
+                                                                    <li>Kelurahan: B</li>
+                                                                    <li>Kecamatan: Y</li>
+                                                                </ul>
+                                                            </td>
+                                                            <td>
+                                                                <ul>
+                                                                    <li>Nilai: 85</li>
+                                                                    <li>Tingkat: Tinggi</li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <div class=" tab-pane" id="karekteristikPemukiman{{$rt->id}}">
+                                        <!-- Post -->
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <!-- /.user-block -->
+
+                                            <!-- /.row -->
+
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    <p>
+                                                        <b>Kategori Kumuh : Kumuh Ringan</b>
+                                                        <br>
+                                                        <b>Tipologi Kumuh : Permukiman kumuh dataran rendah</b>
+                                                        <br>
+                                                        <b>Karakteristik Permukiman :Kumuh pada Perkotaan
+                                                            yang terletak pada
+                                                            kawasan perekonomian
+                                                        </b>
+                                                        <br>
+                                                        <b>Jumlah Penduduk dikawasan Kumuh 812 Jiwa</b>
+                                                        <br>
+                                                        <b>Jumlah KK dikawasan Kumuh 223 KK</b>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!-- /.post -->
+                                    </div>
+                                    <!-- /.tab-pane -->
+
+
+                                    <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                            </div><!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+
+<script src="{{asset('../../adminlte/plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{asset('../../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('../../adminlte/dist/js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-gesture-handling/dist/leaflet.gesture.handling.js"></script>
+<script src="https://unpkg.com/leaflet-google/dist/leaflet-google.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.js"></script>
+
+
+
+@endsection

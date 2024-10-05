@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('/geopasial-map', [FrontendController::class, 'geopasial'])->name('geopasial-map');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     // Main Frontend
 
