@@ -195,8 +195,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
                                                         </h3>
@@ -216,8 +215,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
                                                         </h3>
@@ -237,8 +235,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">3.</a> Air Minum
                                                         </h3>
@@ -259,8 +256,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">4.</a> Drainase
                                                             Lingkungan
@@ -281,8 +277,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">5.</a> Persampahan
                                                         </h3>
@@ -301,8 +296,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
                                                             Kebakaran
@@ -322,8 +316,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
                                                         </h3>
@@ -342,8 +335,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-success"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
                                                             Status Lahan
@@ -363,8 +355,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-success"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
                                                         </h3>
@@ -600,6 +591,8 @@
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="KeLpermasalahanUtamaRT{{$kel->id}}">
                                             <!-- Post -->
+
+                                            @forelse ($kel->permasalahan as $permasalahan)
                                             <div class="post">
                                                 <div class="user-block">
                                                     <img class="img-circle img-bordered-sm"
@@ -614,29 +607,32 @@
                                                 </div>
                                                 <!-- /.user-block -->
                                                 <div class="row mb-3">
+
                                                     <div class="col-sm-6">
                                                         <img class="img-fluid"
-                                                            src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                            src="{{ asset('storage/' . $permasalahan->foto_1) }}"
                                                             alt="Photo">
                                                     </div>
+
+
                                                     <!-- /.col -->
                                                     <div class="col-sm-6">
                                                         <div class="row">
                                                             <div class="col-sm-6">
                                                                 <img class="img-fluid mb-3"
-                                                                    src="{{asset('../../adminlte/dist/img/photo2.png')}}"
+                                                                    src="{{ asset('storage/' . $permasalahan->foto_2) }}"
                                                                     alt="Photo">
                                                                 <img class="img-fluid"
-                                                                    src="{{asset('../../adminlte/dist/img/photo3.jpg')}}"
+                                                                    src="{{ asset('storage/' . $permasalahan->foto_3) }}"
                                                                     alt="Photo">
                                                             </div>
                                                             <!-- /.col -->
                                                             <div class="col-sm-6">
                                                                 <img class="img-fluid mb-3"
-                                                                    src="{{asset('../..//adminlte/dist/img/photo4.jpg')}}"
+                                                                    src="{{ asset('storage/' . $permasalahan->foto_4) }}"
                                                                     alt="Photo">
                                                                 <img class="img-fluid"
-                                                                    src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                                    src="{{ asset('storage/' . $permasalahan->foto_5) }}"
                                                                     alt="Photo">
                                                             </div>
                                                             <!-- /.col -->
@@ -649,184 +645,252 @@
 
                                                 <div id="permasalahanList">
                                                     <div class="permasalahan-item">
-                                                        <p>
-                                                            • Ketidak sesuaian dengan Persyaratan Teknis Bangunan serta
-                                                            Ketidak
-                                                            teraturan Bangunan;
-                                                        </p>
-                                                        <p>• Kualitas Permukaan Jalan lingkungan;
-
-                                                        </p>
-                                                        <p>• Ketersediaan Akses Aman Air Minum serta Tidak terpenuhinya
-                                                            Kebutuhan Air
-                                                            Minum
-                                                        </p>
-                                                        <p>• Kualitas Konstruksi Drainase Serta Ketidak tersediaan
-                                                            Drainase;</p>
-                                                        <p>• Sistem Pengelolaan Air Limbah Tidak Sesuai Standar Teknis
-                                                            serta Prasarana
-                                                            dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan
-                                                            Persyaratan Teknis
-                                                        </p>
-                                                        <p>
-                                                            • Sistem Pengelolaan Persampahanyang tidak sesuai
-                                                            StandarTeknis
-                                                            dan
-                                                        </p>
+                                                        {!! $permasalahan->permasalahan_utama !!}
 
                                                     </div>
 
                                                 </div>
                                             </div>
+                                            @empty
+                                            <div class="post">
+                                                <div class="user-block">
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                        alt="User Image">
+                                                    <span class="username">
+                                                        <a href="#">Admin Bapeda</a>
+                                                        <a href="#" class="float-right btn-tool"><i
+                                                                class="fas fa-times"></i></a>
+                                                    </span>
+                                                    <span class="description">Posted 5 photos - 5 days ago</span>
+                                                </div>
+                                                <!-- /.user-block -->
+                                                <div class="row mb-3">
+
+                                                    <div class="col-sm-6">
+                                                        <img class="img-fluid"
+                                                            src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
+                                                            alt="Photo">
+                                                    </div>
+
+
+                                                    <!-- /.col -->
+
+                                                    <!-- /.col -->
+                                                </div>
+                                                <!-- /.row -->
+
+                                                <div id="permasalahanList">
+                                                    <div class="permasalahan-item">
+                                                        Tidak ada Permasalahan
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            @endforelse
                                             <!-- /.post -->
                                         </div>
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane" id="KeLtimelinepermasalahanUtamaRT{{$kel->id}}">
                                             <!-- The timeline -->
+                                            @forelse ($kel->subpermasalahan as $sps)
                                             <div class="timeline timeline-inverse">
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
-                                                    <span class="bg-danger">10 Feb. 2014</span>
+                                                    <span class="bg-danger">{{ $sps->formatted_created_at }}</span>
                                                 </div>
                                                 <!-- /.timeline-label -->
-                                        
+
                                                 <!-- Timeline Items -->
                                                 <div>
-                                                    <i class="fas fa-home bg-warning"></i> <!-- Ganti icon untuk Bangunan Hunian -->
+                                                    <i class="fas fa-home bg-warning"></i>
+                                                    <!-- Ganti icon untuk Bangunan Hunian -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">1.</a> Bangunan Hunian</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">1.</a>
+                                                            {{$sps->header_no_1}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            Jumlah Bangunan 202 Unit<br>
-                                                            Bangunan tidak teratur 0 Unit<br>
-                                                            Bangunan tidak sesuai persyaratan teknis 5 Unit
+                                                            {!! $sps->text_1 !!}
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-road bg-warning"></i> <!-- Ganti icon untuk Jalan Lingkungan -->
+                                                    <i class="fas fa-road bg-warning"></i>
+                                                    <!-- Ganti icon untuk Jalan Lingkungan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">2.</a> Jalan Lingkungan</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">2.</a>
+                                                            {{$sps->header_no_2}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            Panjang jalan eksisting 6.086 meter<br>
-                                                            Panjang jalan dengan permukaan rusak 2.898 meter
+                                                            {!! $sps->text_2 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-tint bg-warning"></i> <!-- Ganti icon untuk Air Minum -->
+                                                    <i class="fas fa-tint bg-warning"></i>
+                                                    <!-- Ganti icon untuk Air Minum -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">3.</a> Air Minum</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">3.</a>
+                                                            {{$sps->header_no_3}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            175 KK tidak terakses air minum aman<br>
-                                                            31 KK tidak terpenuhi kebutuhan air minum minima
+                                                            {!! $sps->text_3 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-water bg-warning"></i> <!-- Ganti icon untuk Drainase Lingkungan -->
+                                                    <i class="fas fa-water bg-warning"></i>
+                                                    <!-- Ganti icon untuk Drainase Lingkungan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">4.</a> Drainase Lingkungan</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">4.</a>
+                                                            {{$sps->header_no_4}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            5,73 Ha kawasan tergenang<br>
-                                                            100 meter drainase eksisting<br>
-                                                            942 meter drainase rusak
+                                                            {!! $sps->text_4 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-trash bg-warning"></i> <!-- Ganti icon untuk Persampahan -->
+                                                    <i class="fas fa-trash bg-warning"></i>
+                                                    <!-- Ganti icon untuk Persampahan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">5.</a> Persampahan</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">5.</a>
+                                                            {{$sps->header_no_5}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            223 KK sarana pengolahan sampah tidak sesuai persyaratan teknis<br>
-                                                            73 KK sistem pengolahan sampah tidak sesuai standar teknis
+                                                            {!! $sps->text_5 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-fire bg-warning"></i> <!-- Ganti icon untuk Proteksi Kebakaran -->
+                                                    <i class="fas fa-fire bg-warning"></i>
+                                                    <!-- Ganti icon untuk Proteksi Kebakaran -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">6.</a> Proteksi Kebakaran</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">6.</a>
+                                                            {{$sps->header_no_6}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            0 Unit bangunan tidak terlayani prasarana proteksi kebakaran<br>
-                                                            0 Unit bangunan tidak layani sarana proteksi kebakaran
+                                                            {!! $sps->text_7 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-recycle bg-warning"></i> <!-- Ganti icon untuk Air Limbah -->
+                                                    <i class="fas fa-recycle bg-warning"></i>
+                                                    <!-- Ganti icon untuk Air Limbah -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-primary"><a href="#">7.</a> Air Limbah</h3>
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">7.</a>
+                                                            {{$sps->header_no_7}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            4 KK akses air limbah tidak sesuai standar teknis<br>
-                                                            4 KK sistem sarana air limbah tidak sesuai persyaratan teknis
+                                                            {!! $sps->text_7 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-file-alt bg-success"></i> <!-- Ganti icon untuk Legalitas dan Status Lahan -->
+                                                    <i class="fas fa-file-alt bg-success"></i>
+                                                    <!-- Ganti icon untuk Legalitas dan Status Lahan -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-success"><a href="#">8.</a> Legalitas dan Status Lahan</h3>
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">8.</a>
+                                                            {{$sps->header_no_8}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            0 Unit bangunan hunian memiliki IMB<br>
-                                                            202 unit bangunan tidak memiliki IMB<br>
-                                                            13 Unit bangunan tidak memiliki SHM/HGB/Surat yang diakui pemerintah
+                                                            {!! $sps->text_8 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-users bg-success"></i> <!-- Ganti icon untuk Sosial Ekonomi -->
+                                                    <i class="fas fa-users bg-success"></i>
+                                                    <!-- Ganti icon untuk Sosial Ekonomi -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-success"><a href="#">9.</a> Sosial Ekonomi</h3>
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">9.</a>
+                                                            {{$sps->header_no_9}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            Jumlah Penduduk di kawasan Kumuh 812 Jiwa<br>
-                                                            Jumlah KK di kawasan Kumuh 223 KK<br>
-                                                            Lokasi "memiliki" Potensi Sosial, ekonomi, budaya
+                                                            {!! $sps->text_9 !!}
                                                         </div>
                                                     </div>
                                                 </div>
-                                        
+
                                                 <div>
-                                                    <i class="fas fa-clipboard-list bg-success"></i> <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                    <i class="fas fa-clipboard-list bg-success"></i>
+                                                    <!-- Ganti icon untuk Pertimbangan Lain -->
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                                                        <h3 class="timeline-header bg-success"><a href="#">10.</a> Pertimbangan Lain</h3>
+
+                                                        <h3 class="timelne-header bg-success"><a href="#">10.</a>
+                                                            {{$sps->header_no_10}}
+                                                        </h3>
                                                         <div class="timeline-body">
-                                                            Jumlah Penduduk di kawasan Kumuh 812 Jiwa<br>
-                                                            Jumlah KK di kawasan Kumuh 223 KK<br>
-                                                            Lokasi "memiliki" Potensi Sosial, ekonomi, budaya
+                                                            {!! $sps->text_10 !!}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- END timeline item -->
-                                        
+
                                                 <!-- timeline time label -->
                                                 <div class="time-label">
-                                                    <span class="bg-success">3 Jan. 2014</span>
+                                                    <span class="bg-success">{{ $sps->formatted_updated_at }}</span>
                                                 </div>
                                                 <!-- /.timeline-label -->
-                                        
+
                                                 <div>
                                                     <i class="far fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
+                                            @empty
+                                            <div class="timeline timeline-inverse">
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-danger">Maaf Data Tidak Ada.</span>
+                                                </div>
+                                                <!-- /.timeline-label -->
+
+                                                <!-- Timeline Items -->
+
+
+                                                <div>
+                                                    <i class="fas fa-clipboard-list bg-success"></i>
+                                                    <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">10.</a>
+                                                            Pertimbangan Lain</h3>
+                                                        <div class="timeline-body">
+                                                            Belum ada Timeline Permasalahan
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END timeline item -->
+
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-success">Admin CS Akan Segera Memberikan informasi
+                                                        Lebih Lanjut.</span>
+                                                </div>
+                                                <!-- /.timeline-label -->
+
+                                                <div>
+                                                    <i class="far fa-clock bg-gray"></i>
+                                                </div>
+                                            </div>
+                                            @endforelse
                                         </div>
                                         <div class=" tab-pane" id="KeLlingkupAdministrasi{{$kel->id}}">
                                             <!-- Post -->
@@ -876,9 +940,9 @@
                                                                             Tingkat:
                                                                             <span class="badge 
                                                                                 @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
-                                                                                    bg-success 
-                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
                                                                                     bg-warning 
+                                                                                @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                                    bg-success 
                                                                                 @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
                                                                                     bg-danger 
                                                                                 @else 
@@ -941,26 +1005,42 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @foreach ($kel->permasalahan as $permasalahanItem)
                                                             <tr>
                                                                 <td>Kategori Kumuh</td>
-                                                                <td>Kumuh Ringan</td>
+                                                                <td>
+                                                                    <span class="badge 
+                                                                    @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
+                                                                        bg-warning 
+                                                                    @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                        bg-success 
+                                                                    @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
+                                                                        bg-danger 
+                                                                    @else 
+                                                                        bg-secondary 
+                                                                    @endif">
+                                                                        {{ $rtkumuh->tingkat_status }}
+                                                                    </span>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Tipologi Kumuh</td>
-                                                                <td>Permukiman Kumuh Dataran Rendah</td>
+                                                                <td>Permukiman Kumuh
+                                                                    {{$permasalahanItem->tipologi_kumuh}}
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Karakteristik Permukiman</td>
-                                                                <td>Kumuh pada Perkotaan yang terletak pada kawasan
-                                                                    perekonomian</td>
+                                                                <td>{!!$permasalahanItem->karakteristik!!}</td>
                                                             </tr>
+                                                            @endforeach
                                                             <tr>
                                                                 <td>Jumlah Penduduk di Kawasan Kumuh</td>
-                                                                <td>812 Jiwa</td>
+                                                                <td>{{$kel->rt->sum('jumlah_jiwa')}} Jiwa</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Jumlah KK di Kawasan Kumuh</td>
-                                                                <td>223 KK</td>
+                                                                <td>{{$kel->rt->sum('jumlah_kk')}} KK</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -1172,8 +1252,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
                                                         </h3>
@@ -1193,8 +1272,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
                                                         </h3>
@@ -1214,8 +1292,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">3.</a> Air Minum
                                                         </h3>
@@ -1236,8 +1313,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">4.</a> Drainase
                                                             Lingkungan
@@ -1258,8 +1334,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">5.</a> Persampahan
                                                         </h3>
@@ -1278,8 +1353,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
                                                             Kebakaran
@@ -1299,8 +1373,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-warning"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
                                                         </h3>
@@ -1319,8 +1392,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-success"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
                                                             Status Lahan
@@ -1340,8 +1412,7 @@
                                                 <div>
                                                     <i class="fas fa-info bg-success"></i>
                                                     <div class="timeline-item">
-                                                        <span class="time"><i class="far fa-clock"></i> 27 mins
-                                                            ago</span>
+
 
                                                         <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
                                                         </h3>

@@ -11,7 +11,7 @@ class PermasalahanUtama extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'permasalahan_utamas';
+
 
     protected $fillable = [
         'kelurahan_id',
@@ -21,10 +21,9 @@ class PermasalahanUtama extends Model
         'foto_3',
         'foto_4',
         'foto_5',
-
         'kategori_kumuh',
         'tipologi_kumuh',
-        'karakteristik_pemukimans',
+        'karakteristik',
     ];
 
     /**
@@ -72,6 +71,3 @@ class PermasalahanUtama extends Model
         return $this->belongsTo(Kelurahan::class);
     }
 }
-
-
-    

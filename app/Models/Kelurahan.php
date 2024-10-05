@@ -30,4 +30,13 @@ class Kelurahan extends Model
     {
         return $this->hasMany(Rt::class);
     }
+
+    public function permasalahan()
+    {
+        return $this->hasMany(PermasalahanUtama::class);
+    }
+    public function subpermasalahan()
+    {
+        return $this->hasMany(SubPermasalahan::class);
+    }
 }

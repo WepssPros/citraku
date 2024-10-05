@@ -3,7 +3,7 @@
     <a href="index3.html" class="brand-link">
         <img src="{{asset('../adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Citraku.Com </span>
     </a>
 
     <!-- Sidebar -->
@@ -74,33 +74,40 @@
                     <a href="{{route('dashboard.kawasankumuh.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-map-marker-alt"></i>
                         <p>Data Kawasan Kumuh</p>
-                        <span class="badge badge-info right">2</span>
+
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>Data Profile</p>
-                        <span class="badge badge-info right">2</span>
+                    <a href="{{route('dashboard.permasalahan.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-map"></i>
+                        <p>Data Survey</p>
+
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('dashboard.subpermasalahan.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-map"></i>
+                        <p>Data Sub Survey</p>
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('dashboard.tematik.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-map"></i>
                         <p>Data Tematik Map</p>
-                        <span class="badge badge-info right">2</span>
+
                     </a>
                 </li>
 
                 <li class="nav-header">Input Profile Pemutakhiran</li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{route('dashboard.permasalahan.create')}}" class="nav-link">
                         <i class="nav-icon fas fa-plus-circle"></i>
                         <p>Buat Permasalahan</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{route('dashboard.subpermasalahan.create')}}" class="nav-link">
                         <i class="nav-icon fas fa-plus-circle"></i>
                         <p>Buat Sub Permasalahan</p>
                     </a>
@@ -108,7 +115,7 @@
 
                 <li class="nav-header">Import Data Tematik</li>
                 <li class="nav-item">
-                    <a href="pages/calendar.html" class="nav-link">
+                    <a href="{{route('dashboard.tematik.create')}}" class="nav-link">
                         <i class="nav-icon fas fa-file-import"></i>
                         <p>Import Data Tematik Map</p>
                     </a>
@@ -116,7 +123,7 @@
 
                 <li class="nav-header">Artikel / Berita</li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('dashboard.blog.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Berita / Artikel
@@ -125,7 +132,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/search/simple.html" class="nav-link">
+                            <a href="{{route('dashboard.blog.create')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Buat Berita / Artikel</p>
                             </a>

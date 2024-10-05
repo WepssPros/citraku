@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,10 +37,24 @@ class SubPermasalahan extends Model
         'text_9',
         'header_no_10',
         'text_10',
+        'created_at',
+        'updated_at'
     ];
 
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class);
+    }
+
+    // Accessor untuk memformat created_at
+    public function getFormattedCreatedAtAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('d M. Y');
+    }
+
+    // Accessor untuk memformat updated_at
+    public function getFormattedUpdatedAtAttribute()
+    {
+        return Carbon::parse($this->updated_at)->format('d M. Y');
     }
 }

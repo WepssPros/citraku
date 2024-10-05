@@ -10,7 +10,7 @@
 
 
 <script>
-    $.widget.bridge('uibutton', $.ui.button)
+  $.widget.bridge('uibutton', $.ui.button)
 </script>
 
 
@@ -45,9 +45,9 @@
 <script src="{{asset('../adminlte/dist/js/demo.js')}}"></script>
 <script src="{{asset('../adminlte/dist/js/pages/dashboard.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/select2/js/select2.full.min.js')}}"></script>
-
+<script src="{{asset('../../adminlte/plugins/summernote/summernote-bs4.min.js')}}"></script>
 <script>
-    $(function () {
+  $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

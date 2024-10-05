@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('kategori_kumuh')->nullable();
             $table->string('tipologi_kumuh')->nullable();
-            $table->string('karakteristik_pemukiman')->nullable();
+            $table->string('karakteristik')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
