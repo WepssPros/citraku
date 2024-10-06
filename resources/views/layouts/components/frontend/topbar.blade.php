@@ -16,15 +16,20 @@
         </div>
         <div class="col-lg-4 text-center text-lg-end">
             <div class="d-inline-flex align-items-center" style="height: 45px;">
+
+
                 @auth
+                @if(Auth::user()->roles =="ADMIN")
                 <div class="dropdown">
                     <a href="{{ route('dashboard.index') }}" class="dropdown-toggle text-light"
                         data-bs-toggle="dropdown">
                         <small><i class="fa fa-home me-2"></i> My Dashboard</small>
                     </a>
                     <div class="dropdown-menu rounded">
-                        <a href="#" class="dropdown-item"><i class="fas fa-user-alt me-2"></i> My Profile</a>
-                        <a href="#" class="dropdown-item"><i class="fas fa-cog me-2"></i> Account Settings</a>
+                        <a href="{{ route('dashboard.index') }}" class="dropdown-item"><i
+                                class="fas fa-user-alt me-2"></i> Dashboard
+                            Admin</a>
+
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('logout') }}" class="dropdown-item"
@@ -34,6 +39,25 @@
                         </form>
                     </div>
                 </div>
+                @else
+                <div class="dropdown">
+                    <a href="{{ route('dashboard.index') }}" class="dropdown-toggle text-light"
+                        data-bs-toggle="dropdown">
+                        <small><i class="fa fa-home me-2"></i> My Profile</small>
+                    </a>
+                    <div class="dropdown-menu rounded">
+
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}" class="dropdown-item"
+                                onclick="event.preventDefault(); this.closest('form').submit();">
+                                <i class="fas fa-power-off me-2"></i> Log Out
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                @endif
                 @else
                 <a href="{{ route('register') }}"><small class="me-3 text-light"><i
                             class="fa fa-user me-2"></i>Register</small></a>
