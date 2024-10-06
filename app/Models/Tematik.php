@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TematikMap extends Model
+class Tematik extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = [
-        'tipe_tematik',
+
+        'nama_tipe',
         'koordinat',
-        'color',  
+        'color',
     ];
 }

@@ -100,8 +100,6 @@ fetch(rtApiUrl)
         console.error("Error fetching RT data:", error);
     });
 
-// batas fetch
-
 const kecColor = {
     alambarajo: "#008000",
     kotabaru: "#004080",
@@ -285,11 +283,6 @@ function createKecamatanLayer(name, coordinates, id) {
     return kecPolygon;
 }
 
-// Fungsi untuk membuat polygon dan polyline Kelurahan
-
-// Mengambil data kelurahan dari API
-
-// Fungsi untuk membuat layer polygon kelurahan
 function createKelurahanLayer(name, coordinates, id, color) {
     // Pastikan warna valid
     const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
@@ -358,9 +351,6 @@ function createKelurahanLayer(name, coordinates, id, color) {
     kelurahanPolygons.push(polygon);
 }
 
-// Fungsi untuk membuat polygon dan polyline RT
-
-// Fungsi untuk membuat layer polygon RT
 function createRTLayer(nomor, coordinates, id, color) {
     // Membuat polygon untuk RT
     const polygon = L.polygon(
@@ -442,9 +432,6 @@ function createRTLayer(nomor, coordinates, id, color) {
     // Menyimpan polygon RT ke dalam array rTPolygons
     rTPolygons.push(polygon);
 }
-
-// Memanggil fungsi untuk kelurahan
-// Membuat layer untuk kecamatan, kelurahan, dan RT
 function createLayers(kelurahan, rT, area) {
     // Loop untuk membuat layer kelurahan
     for (const [name, coordinates] of Object.entries(kelurahan)) {
@@ -459,12 +446,9 @@ function createLayers(kelurahan, rT, area) {
         }
     }
 }
-
-// Event untuk memperbarui visibilitas polygon berdasarkan level zoom
-
-// Fungsi untuk mengatur visibilitas berdasarkan zoom level
 function updatePolygonVisibility() {
     const zoomLevel = map.getZoom();
+    // Memastikan tampilan default
 
     if (zoomLevel < 12) {
         // Tampilkan kecamatan, sembunyikan kelurahan dan RT
@@ -481,7 +465,19 @@ function updatePolygonVisibility() {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+        kawasanKumuhPolygons.forEach((polygon) => {
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan kumuh tersembunyi
+            polygon.interactive = false; // Nonaktifkan interaksi
+        });
 
+        kawasanBanjirPolygons.forEach((polygon) => {
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan banjir tersembunyi
+            polygon.interactive = false; // Nonaktifkan interaksi
+        });
+        kawasanBanjirPolygons.forEach((polygon) => {
+            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan banjir tersembunyi
+            polygon.interactive = false; // Nonaktifkan interaksi
+        });
         // Sembunyikan polyline kelurahan dan kecamatan
         kecPolylines.forEach((polyline) => {
             polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
@@ -504,7 +500,6 @@ function updatePolygonVisibility() {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
-
         // Sembunyikan polyline kecamatan, tampilkan polyline kelurahan
         kecPolylines.forEach((polyline) => {
             polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
@@ -538,19 +533,18 @@ function updatePolygonVisibility() {
     }
 }
 
-// batas
-// Event listener untuk perubahan zoom
 map.on("zoomend", updatePolygonVisibility);
 
 // Memanggil fungsi awal untuk mengatur visibilitas
 updatePolygonVisibility();
-
-let isKawasanKumuhVisible = true; // Status untuk tampilan kawasan kumuh
-let isKelurahanVisible = false; // Status untuk tampilan kelurahan
-let isKecamatanVisible = false; // Status untuk tampilan kecamatan
+let isKawasanKumuhVisible = false; // Status untuk tampilan kawasan kumuh (default nonaktif)
+let isKelurahanVisible = false; // Status untuk tampilan kelurahan (default nonaktif)
+let isKecamatanVisible = false; // Status untuk tampilan kecamatan (default nonaktif)
+let isKawasanBanjirVisible = false; // Status untuk tampilan kawasan banjir (default nonaktif)
 
 const rtApiKawasanKumuh = "http://citraku.test/api/kumuh"; // URL untuk API kawasan kumuh
 const kawasanKumuhPolygons = []; // Array untuk menyimpan polygon kawasan kumuh
+const kawasanBanjirPolygons = []; // Array untuk menyimpan polygon kawasan banjir
 
 // Buat kontrol kustom untuk checkbox
 const controlKawasanKumuh = L.Control.extend({
@@ -585,15 +579,15 @@ const controlKawasanKumuh = L.Control.extend({
                 </div>
                 <div class="layer-control-body" id="petaTematikBody" style="display: none;">
                     <label>
-                        <input type="checkbox" id="toggleKawasanKumuh" checked>
+                        <input type="checkbox" id="toggleKawasanKumuh">
                         <span>Kawasan Kumuh</span>
                     </label>
                     <label>
                         <input type="checkbox" id="toggleKawasanBanjir">
                         <span>Kawasan Banjir</span>
                     </label>
-                     <label>
-                        <input type="checkbox" id="toggleKawasanBanjir">
+                    <label>
+                        <input type="checkbox" id="toggleKawasanKebakaran">
                         <span>Kawasan Rentan Kebakaran</span>
                     </label>
                 </div>
@@ -609,14 +603,30 @@ const controlKawasanKumuh = L.Control.extend({
             (event) => {
                 isKawasanKumuhVisible = event.target.checked;
                 if (isKawasanKumuhVisible) {
-                    // Tampilkan polygon dan ubah warna menjadi kuning
                     kawasanKumuhPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
-                        polygon.setStyle({ color: "yellow", fillOpacity: 0.5 }); // Ubah warna menjadi kuning
+                        polygon.setStyle({ color: "yellow", fillOpacity: 0.5 });
                     });
                 } else {
-                    // Sembunyikan polygon
                     kawasanKumuhPolygons.forEach((polygon) => {
+                        map.removeLayer(polygon);
+                    });
+                }
+            }
+        );
+
+        // Event listener untuk checkbox Kawasan Banjir
+        div.querySelector("#toggleKawasanBanjir").addEventListener(
+            "change",
+            (event) => {
+                isKawasanBanjirVisible = event.target.checked;
+                if (isKawasanBanjirVisible) {
+                    kawasanBanjirPolygons.forEach((polygon) => {
+                        map.addLayer(polygon);
+                        polygon.setStyle({ color: "blue", fillOpacity: 0.5 });
+                    });
+                } else {
+                    kawasanBanjirPolygons.forEach((polygon) => {
                         map.removeLayer(polygon);
                     });
                 }
@@ -629,12 +639,10 @@ const controlKawasanKumuh = L.Control.extend({
             (event) => {
                 isKelurahanVisible = event.target.checked;
                 if (isKelurahanVisible) {
-                    // Tampilkan polygon kelurahan
                     kelurahanPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
                     });
                 } else {
-                    // Sembunyikan polygon kelurahan
                     kelurahanPolygons.forEach((polygon) => {
                         map.removeLayer(polygon);
                     });
@@ -648,12 +656,10 @@ const controlKawasanKumuh = L.Control.extend({
             (event) => {
                 isKecamatanVisible = event.target.checked;
                 if (isKecamatanVisible) {
-                    // Tampilkan polygon kecamatan
                     kecPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
                     });
                 } else {
-                    // Sembunyikan polygon kecamatan
                     kecPolygons.forEach((polygon) => {
                         map.removeLayer(polygon);
                     });
@@ -723,24 +729,35 @@ function addRTPolygonToMap(name, coordinates, id, color) {
     kawasanKumuhPolygons.push(polygon);
 }
 
-// Fungsi untuk menambahkan polygon kelurahan ke peta
-function addKelurahanPolygonToMap(coordinates) {
-    const polygonOptions = {
-        color: "green", // Warna untuk kelurahan
-        fillOpacity: 0.5,
-    };
-    const polygon = L.polygon(coordinates, polygonOptions).addTo(map);
-    kelurahanPolygons.push(polygon);
-}
+// Fetch data kawasan banjir
+fetch("http://citraku.test/api/rawanbanjir")
+    .then((response) => response.json())
+    .then((data) => {
+        data.forEach((item) => {
+            // Mengambil koordinat kawasan banjir
+            const geojson = JSON.parse(item.koordinat);
+            if (geojson.coordinates && geojson.coordinates.length > 0) {
+                const coordinates = geojson.coordinates[0].map((coord) => ({
+                    lat: coord[1],
+                    lng: coord[0],
+                }));
+                addKawasanBanjirPolygonToMap(coordinates);
+            }
+        });
+    })
+    .catch((error) => {
+        console.error("Error fetching kawasan banjir data:", error);
+    });
 
-// Fungsi untuk menambahkan polygon kecamatan ke peta
-function addKecamatanPolygonToMap(coordinates) {
+// Fungsi untuk menambahkan polygon kawasan banjir ke peta
+function addKawasanBanjirPolygonToMap(coordinates) {
     const polygonOptions = {
-        color: "blue", // Warna untuk kecamatan
-        fillOpacity: 0.5,
+        color: "blue", // Warna untuk kawasan banjir
+        fillOpacity: 0, // Set fillOpacity ke 0 agar tidak terlihat
+        opacity: 0, // Set opacity ke 0 agar border tidak terlihat
     };
     const polygon = L.polygon(coordinates, polygonOptions).addTo(map);
-    kecPolygons.push(polygon);
+    kawasanBanjirPolygons.push(polygon);
 }
 
 // Event listener untuk header Jenis Peta

@@ -22,3 +22,4 @@ Route::get('/kecamatan', [CitrakuAPI::class, 'getAllKecamatan']);
 Route::get('/kelurahan', [CitrakuAPI::class, 'getAllKelurahan']);
 Route::get('/rt', [CitrakuAPI::class, 'getALlRt']);
 Route::get('/kumuh', [CitrakuAPI::class, 'getKawasanKumuh']);
+Route::get('/rawanbanjir', [CitrakuAPI::class, 'getRawanBanjir']);

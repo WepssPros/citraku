@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tematik_maps', function (Blueprint $table) {
+        Schema::create('tematiks', function (Blueprint $table) {
             $table->id();
-            $table->string('tema_tematik')->nullable();
+            $table->string('nama_tipe')->nullable();
             $table->json('koordinat')->nullable();
             $table->string('color')->nullable();
 
-
             $table->softDeletes();
+            
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tematik_maps');
+        Schema::dropIfExists('tematiks');
     }
 };

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Rt;
+use App\Models\Tematik;
 use Illuminate\Http\Request;
 
 class CitrakuAPI extends Controller
@@ -36,5 +37,23 @@ class CitrakuAPI extends Controller
 
         // Mengembalikan data dalam format JSON
         return response()->json($kawasanKumuh);
+    }
+
+    public function getRawanBanjir()
+    {
+        // Mengambil data yang namanya mengandung 'Rawan Banjir'
+        $banjir = Tematik::where('nama_tipe', 'like', '%Rawan Banjir%')->get();
+
+        // Mengembalikan data dalam format JSON
+        return response()->json($banjir);
+    }
+
+    public function getRawanKebakaran()
+    {
+        // Mengambil data yang namanya mengandung 'Rawan Banjir'
+        $kebakaran = Tematik::where('nama_tipe', 'like', '%Rawan Kebakaran%')->get();
+
+        // Mengembalikan data dalam format JSON
+        return response()->json($kebakaran);
     }
 }
