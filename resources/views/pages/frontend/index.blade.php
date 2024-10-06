@@ -211,92 +211,44 @@
             </p>
         </div>
         <div class="row g-4 justify-content-center">
+            @foreach ($blogs as $blog)
             <div class="col-lg-4 col-md-6">
                 <div class="blog-item">
                     <div class="blog-img">
                         <div class="blog-img-inner">
-                            <img class="img-fluid w-100 rounded-top" src="{{asset('../frontend/img/blog-1.jpg')}}"
+                            <img class="img-fluid w-100 rounded-top" src="{{ asset('storage/' . $blog->tumbnail) }}"
                                 alt="Image">
+
                             <div class="blog-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
+                                <a href="{{ route('blog.details', $blog->slug) }}" class="my-auto"><i
+                                        class="fas fa-link fa-2x text-white"></i></a>
                             </div>
                         </div>
                         <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
-                            <small class="flex-fill text-center border-end py-2"><i
-                                    class="fa fa-calendar-alt text-primary me-2"></i>28 Sep 2024</small>
-                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2"><i
-                                    class="fa fa-thumbs-up text-primary me-2"></i>1.7K</a>
-                            <a href="#" class="btn-hover flex-fill text-center text-white py-2"><i
-                                    class="fa fa-comments text-primary me-2"></i>1K</a>
+                            <small class="flex-fill text-center border-end py-2">
+                                <i
+                                    class="fa fa-calendar-alt text-primary me-2"></i>{{ $blog->created_at->format('d M Y') }}
+                            </small>
+                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2">
+                                <i class="fa fa-thumbs-up text-primary me-2"></i>1.7K
+                            </a>
+                            <a href="#" class="btn-hover flex-fill text-center text-white py-2">
+                                <i class="fa fa-comments text-primary me-2"></i>1K
+                            </a>
                         </div>
                     </div>
                     <div class="blog-content border border-top-0 rounded-bottom p-4">
                         <p class="mb-3">Posted By: Bappeda Jambi</p>
-                        <a href="#" class="h4">Pengembangan Infrastruktur Kota</a>
-                        <p class="my-3">Dampak dari pembangunan infrastruktur yang berkelanjutan terhadap
-                            kesejahteraan
-                            masyarakat Kota Jambi.</p>
-                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Baca Selengkapnya</a>
+                        <a href="{{ route('blog.details', $blog->slug) }}" class="h4">{{ $blog->header_name }}</a>
+                        <p class="my-3">{!! Str::limit($blog->blog_content, 30) !!}</p> <!-- Batasi isi konten -->
+                        <a href="{{ route('blog.details', $blog->slug) }}"
+                            class="btn btn-primary rounded-pill py-2 px-4">Baca
+                            Selengkapnya</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <div class="blog-img">
-                        <div class="blog-img-inner">
-                            <img class="img-fluid w-100 rounded-top" src="{{asset('../frontend/img/blog-2.jpg')}}"
-                                alt="Image">
-                            <div class="blog-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
-                            <small class="flex-fill text-center border-end py-2"><i
-                                    class="fa fa-calendar-alt text-primary me-2"></i>27 Sep 2024</small>
-                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2"><i
-                                    class="fa fa-thumbs-up text-primary me-2"></i>1.5K</a>
-                            <a href="#" class="btn-hover flex-fill text-center text-white py-2"><i
-                                    class="fa fa-comments text-primary me-2"></i>800</a>
-                        </div>
-                    </div>
-                    <div class="blog-content border border-top-0 rounded-bottom p-4">
-                        <p class="mb-3">Posted By: Bappeda Jambi</p>
-                        <a href="#" class="h4">Strategi Pengelolaan Lingkungan Hidup</a>
-                        <p class="my-3">Inisiatif dan kebijakan yang diambil untuk melestarikan lingkungan hidup
-                            di Kota
-                            Jambi.</p>
-                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="blog-item">
-                    <div class="blog-img">
-                        <div class="blog-img-inner">
-                            <img class="img-fluid w-100 rounded-top" src="{{asset('../frontend/img/blog-3.jpg')}}"
-                                alt="Image">
-                            <div class="blog-icon">
-                                <a href="#" class="my-auto"><i class="fas fa-link fa-2x text-white"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
-                            <small class="flex-fill text-center border-end py-2"><i
-                                    class="fa fa-calendar-alt text-primary me-2"></i>26 Sep 2024</small>
-                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2"><i
-                                    class="fa fa-thumbs-up text-primary me-2"></i>1.2K</a>
-                            <a href="#" class="btn-hover flex-fill text-center text-white py-2"><i
-                                    class="fa fa-comments text-primary me-2"></i>500</a>
-                        </div>
-                    </div>
-                    <div class="blog-content border border-top-0 rounded-bottom p-4">
-                        <p class="mb-3">Posted By: Bappeda Jambi</p>
-                        <a href="#" class="h4">Kebijakan Pembangunan Ekonomi Lokal</a>
-                        <p class="my-3">Pembangunan ekonomi yang berkelanjutan untuk meningkatkan kesejahteraan
-                            masyarakat.</p>
-                        <a href="#" class="btn btn-primary rounded-pill py-2 px-4">Baca Selengkapnya</a>
-                    </div>
-                </div>
-            </div>
+            @endforeach
+
         </div>
     </div>
 </div>

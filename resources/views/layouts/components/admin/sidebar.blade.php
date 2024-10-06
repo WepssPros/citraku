@@ -123,13 +123,21 @@
 
                 <li class="nav-header">Artikel / Berita</li>
                 <li class="nav-item">
-                    <a href="{{route('dashboard.blog.index')}}" class="nav-link">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Berita / Artikel
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('dashboard.blog.index')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List Berita / Artikel</p>
+                            </a>
+                        </li>
+                    </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{route('dashboard.blog.create')}}" class="nav-link">
