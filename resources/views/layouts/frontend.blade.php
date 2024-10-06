@@ -114,7 +114,7 @@
                     // Cek URL saat ini
                     var currentUrl = window.location.href;
                     var targetUrl = "{{ route('geopasial-map') }}";
-                    
+                    var urlblog = "{{route('blog')}}";
                     // Jika URL saat ini adalah target URL, sembunyikan carousel dan navbar-collapse di semua perangkat
                     if (currentUrl === targetUrl) {
                         document.querySelector('.carousel-header').style.display = 'none';
@@ -122,6 +122,13 @@
                         
                         // Tambahkan kelas khusus pada body agar CSS bisa diatur jika diperlukan
                         document.body.classList.add('geopasial-page');
+                    }
+                     if (currentUrl === urlblog) {
+                        document.querySelector('.carousel-header').style.display = 'none';
+                        document.querySelector('.navbar-light').style.display = 'none';
+                        
+                        // Tambahkan kelas khusus pada body agar CSS bisa diatur jika diperlukan
+                     
                     }
                 });
         </script>

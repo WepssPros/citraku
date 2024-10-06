@@ -1,5 +1,6 @@
 @extends('layouts.frontend')
 
+
 @section('frontend-content')
 <!-- About Start -->
 <div class="container-fluid about py-5">

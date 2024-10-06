@@ -9,35 +9,7 @@
 
 
 @section('navbar-geopasial')
-<nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 navbar-geopasial ">
-    <a href="" class="navbar-brand p-0">
-        <img id="navbar-logo" src="{{ asset('frontend/img/logobapeda.png') }}"
-            data-scroll-logo="{{ asset('../frontend/img/logobapeda.png') }}"
-            data-default-logo="{{ asset('../frontend/img/logobapeda.png') }}" alt="Logo">
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseGeo">
-        <span class="fa fa-bars"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapseGeo">
-        <div class="navbar-nav ms-auto py-0">
-            <a href="{{route('index')}}" class="nav-item nav-link">Beranda</a>
-            <a href="{{route('geopasial-map')}}" class="nav-item nav-link active">Peta</a>
-            <a href="blog.html" class="nav-item nav-link">Berita & Artikel</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Dokumen Perencanaan Daerah</a>
-                <div class="dropdown-menu m-0">
-                    <a href="destination.html" class="dropdown-item">Rencana Tata Ruang Wilayah Kota Jambi (2013 -
-                        2033)</a>
-                    <a href="tour.html" class="dropdown-item">RPJMD Perubahan 2018-2023</a>
-                    <a href="booking.html" class="dropdown-item">RIPPDA KOTA JAMBI</a>
-                    <a href="gallery.html" class="dropdown-item">RIPPDA KOTA JAMBI</a>
-                </div>
-            </div>
-            <a href="contact.html" class="nav-item nav-link">Contact</a>
-        </div>
-        <a href="{{route('index')}}" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Kembali </a>
-    </div>
-</nav>
+@include('layouts.components.frontend.navbarlight')
 @endsection
 
 
