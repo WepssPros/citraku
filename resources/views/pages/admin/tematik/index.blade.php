@@ -20,7 +20,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped table-responsive">
+                        <table id="example1" class="table table-bordered table-striped ">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -40,13 +40,12 @@
                                             title="{{ json_encode(json_decode($tematikMap->koordinat), JSON_PRETTY_PRINT) }}">
                                             JSON COORDINATE
                                         </span>
-                                    </td>
-                                    <!-- Badge untuk koordinat -->
+                                    </td> <!-- Badge untuk koordinat -->
                                     <td>
                                         <div
                                             style="width: 20px; height: 20px; background-color: {{ $tematikMap->color }}; border-radius: 50%;">
                                         </div>
-                                    </td>
+                                    </td> <!-- Warna berdasarkan color di tematikMap -->
                                     <td class="td-left">
                                         <!-- Tombol Edit -->
                                         <a href="{{ route('dashboard.tematik.edit', $tematikMap->id) }}"

@@ -79,7 +79,7 @@ class TematikMapController extends Controller
      */
     public function edit(string $id)
     {
-        $tematikMap = TematikMap::findOrFail($id); // Mencari data berdasarkan ID
+        $tematikMap = Tematik::findOrFail($id); // Mencari data berdasarkan ID
         return view('pages.admin.tematik.edit', compact('tematikMap')); // Menampilkan form edit
     }
 
@@ -96,7 +96,7 @@ class TematikMapController extends Controller
         ]);
 
         // Update data di database
-        $tematikMap = TematikMap::findOrFail($id);
+        $tematikMap = Tematik::findOrFail($id);
         $tematikMap->update($validated);
 
         return redirect()->route('dashboard.tematik.index')->with('success', 'Data berhasil diupdate!');
@@ -107,7 +107,7 @@ class TematikMapController extends Controller
      */
     public function destroy(string $id)
     {
-        $tematikMap = TematikMap::findOrFail($id);
+        $tematikMap = Tematik::findOrFail($id);
         $tematikMap->delete(); // Soft delete
 
         return redirect()->route('dashboard.tematik.index')->with('success', 'Data berhasil dihapus!');
