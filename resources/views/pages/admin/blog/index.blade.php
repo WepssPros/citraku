@@ -55,7 +55,14 @@
                                             style="width: 50px; height: auto;">
                                     </td>
                                     <td>{{ $blog->slug }}</td>
-                                    <td>{!! Str::limit($blog->blog_content, 50) !!}...</td>
+                                    <td>
+                                        @php
+                                        $contentWithoutTags = strip_tags($blog->blog_content);
+                                        @endphp
+
+                                        <p class="my-3">{!! Str::limit($contentWithoutTags, 100, '...') !!}</p>
+                                    </td>
+
                                     <!-- Menampilkan potongan konten -->
                                     <td>{{ $blog->created_at->format('Y-m-d H:i') }}</td>
                                     <td>{{ $blog->updated_at->format('Y-m-d H:i') }}</td>

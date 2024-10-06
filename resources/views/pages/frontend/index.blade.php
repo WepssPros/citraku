@@ -203,8 +203,8 @@
 <div class="container-fluid blog py-5">
     <div class="container py-5">
         <div class="mx-auto text-center mb-5" style="max-width: 900px;">
-            <h5 class="section-title px-3">Bappeda Kota Jambi Berita</h5>
-            <h1 class="mb-4">Artikel & Berita </h1>
+            <h5 class="section-title px-3">Bappeda Kota Jambi Dalam Berita</h5>
+            <h1 class="mb-4">Artikel & Berita Terbaru </h1>
             <p class="mb-0">Berita terkini dan artikel dari Bappeda Kota Jambi untuk meningkatkan pemahaman dan
                 kesadaran publik mengenai program
                 dan kebijakan yang diambil.
@@ -216,34 +216,31 @@
                 <div class="blog-item">
                     <div class="blog-img">
                         <div class="blog-img-inner">
-                            <img class="img-fluid w-100 rounded-top" src="{{ asset('storage/' . $blog->tumbnail) }}"
-                                alt="Image">
-
+                            <img class="card-img-top" src="{{ asset('storage/' . $blog->tumbnail) }}" alt="Image"
+                                style="width: auto%; height: 300px; object-fit: cover;">
                             <div class="blog-icon">
-                                <a href="{{ route('blog.details', $blog->slug) }}" class="my-auto"><i
+                                <a href="{{route('blog.details', $blog->slug)}}" class="my-auto"><i
                                         class="fas fa-link fa-2x text-white"></i></a>
                             </div>
                         </div>
                         <div class="blog-info d-flex align-items-center border border-start-0 border-end-0">
-                            <small class="flex-fill text-center border-end py-2">
-                                <i
-                                    class="fa fa-calendar-alt text-primary me-2"></i>{{ $blog->created_at->format('d M Y') }}
-                            </small>
-                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2">
-                                <i class="fa fa-thumbs-up text-primary me-2"></i>1.7K
-                            </a>
-                            <a href="#" class="btn-hover flex-fill text-center text-white py-2">
-                                <i class="fa fa-comments text-primary me-2"></i>1K
-                            </a>
+                            <small class="flex-fill text-center border-end py-2"><i
+                                    class="fa fa-calendar-alt text-primary me-2"></i>{{ $blog->created_at->format('d M Y') }}</small>
+                            <a href="#" class="btn-hover flex-fill text-center text-white border-end py-2"><i
+                                    class="fa fa-thumbs-up text-primary me-2"></i>1.7K</a>
+                            <a href="#" class="btn-hover flex-fill text-center text-white py-2"><i
+                                    class="fa fa-comments text-primary me-2"></i>1K</a>
                         </div>
                     </div>
                     <div class="blog-content border border-top-0 rounded-bottom p-4">
                         <p class="mb-3">Posted By: Bappeda Jambi</p>
-                        <a href="{{ route('blog.details', $blog->slug) }}" class="h4">{{ $blog->header_name }}</a>
-                        <p class="my-3">{!! Str::limit($blog->blog_content, 30) !!}</p> <!-- Batasi isi konten -->
-                        <a href="{{ route('blog.details', $blog->slug) }}"
-                            class="btn btn-primary rounded-pill py-2 px-4">Baca
-                            Selengkapnya</a>
+                        <a href="#" class="h4">{{Str::limit($blog->header_name, 50, '...') }}</a>
+                        <p class="my-3">
+
+                        <p class="my-3">{!! Str::limit($blog->blog_content, 100, '...') !!}</p>
+                        </p>
+                        <a href="{{route('blog.details', $blog->slug)}}"
+                            class="btn btn-primary rounded-pill py-2 px-4">Baca Selengkapnya</a>
                     </div>
                 </div>
             </div>

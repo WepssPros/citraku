@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('category_name')->nullable();
             $table->text('tumbnail')->nullable();
             $table->string('slug')->nullable();
-            $table->text('blog_content');
+            $table->text('blog_content')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

@@ -14,7 +14,14 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        // Ambil semua blog dengan paginasi
         $blogs = Blog::paginate(3);
+
+        // Hilangkan tag HTML dari konten setiap blog
+        foreach ($blogs as $blog) {
+            $blog->blog_content = strip_tags($blog->blog_content);
+            $blog->header_name = strip_tags($blog->header_name);
+        }
 
         return view('pages.frontend.index', compact('blogs'));
     }
