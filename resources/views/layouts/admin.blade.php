@@ -7,7 +7,6 @@
         <title>Citraku Admin | Dashboard</title>
         @include('layouts.components.admin.core.css')
 
-
     </head>
 
     <body class="hold-transition sidebar-mini layout-fixed">

@@ -16,9 +16,7 @@
                         <h1 class="display-2 text-capitalize text-white mb-4"
                             style="color:#b9b9b9;font-family: 'Dancing Script',cursive; font-size: 100px;">
                             Citraku</h1>
-                        <p class="mb-5 fs-5" style="border-bottom:1px solid">Citraku adalah Portal <br> Informasi
-                            Perencanaan Pengembangan
-                            Terpadu Berbasis Geospasial Kota Jambi
+                        <p class="mb-5 fs-5" style="border-bottom:1px solid">Perencanaan Integratif Holistik Kolaboratif & Tematik Kumuh <br> 
 
                         </p>
                         <div class="d-flex align-items-center justify-content-center">
