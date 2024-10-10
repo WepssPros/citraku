@@ -117,20 +117,11 @@
                 <div class="row">
                     <div class="col-12 mx-auto text-center mt-1">
                         <p class="mb-0 text-secondary">
-                            <a href="https://bappeda.jambikota.go.id/landing" target="_blank"
-                                class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                <i class="fas fa-copyright me-2"></i>Copyrights © 2022
-                                Bappeda
-                                Kota Jambi
-                            </a>
-                            <a href="https://diskominfo.jambikota.go.id/" target="_blank"
-                                class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                Support by Diskominfo Kota Jambi
-                            </a>
-                            <a href="https://wepsspros.github.io/git-reyhan-portfolio/" target="_blank"
-                                class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                Designed By M.Reyhan Dwi Amberta
-                            </a>
+                            <strong>Copyright &copy; TRI IWANSUTANTO, ST, ME 2024 <a
+                                    href="https://bappeda.jambikota.go.id/profil/pejabat-bappeda"></a> Design By <a
+                                    href="https://wepsspros.github.io/git-reyhan-portfolio/">M.Reyhan Dwi
+                                    Amberta</a> & <a href="">Rifqi Alma Ramadhan</a> </strong>
+                            All rights reserved.
                         </p>
                     </div>
                 </div>
@@ -151,6 +142,7 @@
                 Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
                 }
         </script>
+        @include('sweetalert::alert')
 
 
 

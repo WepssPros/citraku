@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,8 @@ return [
     |
     */
 
-    'faker_locale' => 'en_US',
+    'faker_locale' => 'id_ID',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -158,7 +159,8 @@ return [
     'providers' => ServiceProvider::defaultProviders()->merge([
         /*
          * Package Service Providers...
-         */RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+         */
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
          * Application Service Providers...

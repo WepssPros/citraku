@@ -75,15 +75,13 @@
             <div class="container">
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-end mb-md-0">
-                        <i class="fas fa-copyright me-2"></i><a class="text-white"
-                            href="https://bappeda.jambikota.go.id/landing">Copyrights © 2022 Bappeda
-                            Kota Jambi </a>,Support by <a href="https://diskominfo.jambikota.go.id/"> Diskominfo Kota
-                            Jambi</a>
+                        <i class="fas fa-copyright me-2"></i>
+                        <a class="text-white" href="https://bappeda.jambikota.go.id/landing">Copyrights © 2024 Jambi TRI IWANSUTANTO, ST, ME </a>
 
                     </div>
                     <div class="col-md-6 text-center text-md-start">
-                        Designed By <a href="https://wepsspros.github.io/git-reyhan-portfolio/"> M.Reyhan Dwi
-                            Amberta</a>
+                        Designed By :<a href="https://wepsspros.github.io/git-reyhan-portfolio/"> M.Reyhan Dwi
+                            Amberta & Rifqi Alma Ramadhan</a>
 
                     </div>
                 </div>

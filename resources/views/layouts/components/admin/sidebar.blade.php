@@ -62,51 +62,194 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-header">Tematik Kumuh</li>
+                <li
+                    class="nav-item {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Tematik Kumuh
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-header">Data View Tematik Kumuh</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link ">
+                                <i class="nav-icon fas fa-map-marker-alt"></i>
+                                <p>Data Penanganan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.kawasankumuh.index') }}"
+                                class="nav-link {{ Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map-marker-alt"></i>
+                                <p>Data Kawasan Kumuh</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.permasalahan.index') }}"
+                                class="nav-link {{ Request::is('dashboard/permasalahan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Survey</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.subpermasalahan.index') }}"
+                                class="nav-link {{ Request::is('dashboard/subpermasalahan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Sub Survey</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.tematik.index') }}"
+                                class="nav-link {{ Request::is('dashboard/tematik*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Tematik Map</p>
+                            </a>
+                        </li>
 
-                <li class="nav-header">Data View</li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.kawasankumuh.index') }}"
-                        class="nav-link {{ Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-map-marker-alt"></i>
-                        <p>Data Kawasan Kumuh</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.permasalahan.index') }}"
-                        class="nav-link {{ Request::is('dashboard/permasalahan*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-map"></i>
-                        <p>Data Survey</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.subpermasalahan.index') }}"
-                        class="nav-link {{ Request::is('dashboard/subpermasalahan*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-map"></i>
-                        <p>Data Sub Survey</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.tematik.index') }}"
-                        class="nav-link {{ Request::is('dashboard/tematik*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-map"></i>
-                        <p>Data Tematik Map</p>
-                    </a>
+                        <li class="nav-header">Input Profile Pemutakhiran</li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.permasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/permasalahan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Buat Permasalahan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.subpermasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/subpermasalahan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Buat Sub Permasalahan</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-header">Laporan</li>
+                        <li class="nav-item {{ Request::is('dashboard/laporan*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('dashboard/laporan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Laporan(T) Kumuh
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan Permasalahan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan Penanganan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan Perealisasian</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
 
-                <li class="nav-header">Input Profile Pemutakhiran</li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.permasalahan.create') }}"
-                        class="nav-link {{ Request::is('dashboard/permasalahan/create') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-plus-circle"></i>
-                        <p>Buat Permasalahan</p>
+                <li class="nav-header">Tematik Banjir</li>
+                <li
+                    class="nav-item {{ Request::is('dashboard/kecamatan*') || Request::is('dashboard/kelurahan*') || Request::is('dashboard/rt*') ? 'menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ Request::is('dashboard/kecamatan*') || Request::is('dashboard/kelurahan*') || Request::is('dashboard/rt*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>
+                            Tematik Banjir
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.subpermasalahan.create') }}"
-                        class="nav-link {{ Request::is('dashboard/subpermasalahan/create') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-plus-circle"></i>
-                        <p>Buat Sub Permasalahan</p>
-                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-header">Data View Tematik Banjir</li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.kawasankumuh.index') }}"
+                                class="nav-link {{ Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map-marker-alt"></i>
+                                <p>Data Kawasan Kumuh</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.permasalahan.index') }}"
+                                class="nav-link {{ Request::is('dashboard/permasalahan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Survey</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.subpermasalahan.index') }}"
+                                class="nav-link {{ Request::is('dashboard/subpermasalahan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Sub Survey</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.tematik.index') }}"
+                                class="nav-link {{ Request::is('dashboard/tematik*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-map"></i>
+                                <p>Data Tematik Map</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-header">Input Profile Pemutakhiran</li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.permasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/permasalahan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Buat Permasalahan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.subpermasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/subpermasalahan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Buat Sub Permasalahan</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-header">Laporan</li>
+                        <li class="nav-item {{ Request::is('dashboard/laporan*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link {{ Request::is('dashboard/laporan*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Laporan
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan 1</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan 3</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-header">Import Data Tematik</li>
@@ -145,36 +288,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-header">Laporan</li>
-                <li class="nav-item {{ Request::is('dashboard/laporan*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::is('dashboard/laporan*') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        <p>
-                            Laporan
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="pages/search/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan 1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/search/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan 2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="pages/search/simple.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Laporan 3</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
