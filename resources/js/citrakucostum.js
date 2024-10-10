@@ -446,8 +446,8 @@ function createLayers(kelurahan, rT, area) {
 }
 function updatePolygonVisibility() {
     const zoomLevel = map.getZoom();
-    // Memastikan tampilan default
 
+    // Memastikan tampilan default
     if (zoomLevel < 12) {
         // Tampilkan kecamatan, sembunyikan kelurahan dan RT
         kecPolygons.forEach((polygon) => {
@@ -455,14 +455,17 @@ function updatePolygonVisibility() {
             polygon.interactive = true; // Pastikan polygon dapat di-klik
             polygon.bringToBack(); // Pastikan kecamatan di belakang
         });
+
         kelurahanPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kelurahan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         rTPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         kawasanKumuhPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan kumuh tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
@@ -472,10 +475,7 @@ function updatePolygonVisibility() {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan banjir tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
-        kawasanBanjirPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan banjir tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
+
         // Sembunyikan polyline kelurahan dan kecamatan
         kecPolylines.forEach((polyline) => {
             polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
@@ -489,15 +489,18 @@ function updatePolygonVisibility() {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         kelurahanPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // Kelurahan terlihat
             polygon.interactive = true; // Pastikan polygon dapat di-klik
             polygon.bringToFront(); // Pastikan kelurahan di depan
         });
+
         rTPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         // Sembunyikan polyline kecamatan, tampilkan polyline kelurahan
         kecPolylines.forEach((polyline) => {
             polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
@@ -511,10 +514,12 @@ function updatePolygonVisibility() {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         kelurahanPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kelurahan tersembunyi
             polygon.interactive = false; // Nonaktifkan interaksi
         });
+
         rTPolygons.forEach((polygon) => {
             polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // RT terlihat
             polygon.interactive = true; // Pastikan polygon dapat di-klik
@@ -529,6 +534,14 @@ function updatePolygonVisibility() {
             polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kelurahan
         });
     }
+
+    // Pastikan checkbox kelurahan tetap terlihat
+    kelurahanPolygons.forEach((polygon) => {
+        if (polygon.interactive) {
+            // Mengatur polygon kelurahan tetap interaktif jika checkbox tercentang
+            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 });
+        }
+    });
 }
 
 map.on("zoomend", updatePolygonVisibility);
