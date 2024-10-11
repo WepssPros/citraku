@@ -1,4 +1,4 @@
-@vite(['resources/js/citrakucostum.js'])
+@vite(['resources/js/citrakudashboard.js'])
 <script src="{{asset('../adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>

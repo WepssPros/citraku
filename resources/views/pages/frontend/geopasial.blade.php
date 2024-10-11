@@ -1145,6 +1145,17 @@
                                             data-toggle="tab">
                                             Kategori, Tipologi & Karekteristik</a>
                                     </li>
+                                    <li class="nav-item"><a class="nav-link" href="#karekteristikPemukiman{{$rt->id}}"
+                                            data-toggle="tab">
+                                            Penanganan Wilayah
+                                        </a>
+                                    </li>
+                                    <li class="nav-item"><a class="nav-link" href="#karekteristikPemukiman{{$rt->id}}"
+                                            data-toggle="tab">
+                                            Penganggaran Wilayah
+                                        </a>
+                                    </li>
+
                                 </ul>
                             </div><!-- /.card-header -->
                             <div class="card-body">

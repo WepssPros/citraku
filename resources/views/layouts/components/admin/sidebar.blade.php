@@ -64,9 +64,9 @@
                 </li>
                 <li class="nav-header">Tematik Kumuh</li>
                 <li
-                    class="nav-item {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
+                    class="nav-item  {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
+                        class="nav-link  {{ Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
                             Tematik Kumuh
@@ -76,7 +76,8 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-header">Data View Tematik Kumuh</li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link ">
+                            <a href="{{route('dashboard.penanganan.index')}}"
+                                class="nav-link {{ Request::is('dashboard/penanganan*') ? 'active' : '' }} ">
                                 <i class="nav-icon fas fa-map-marker-alt"></i>
                                 <p>Data Penanganan</p>
                             </a>
@@ -110,7 +111,14 @@
                             </a>
                         </li>
 
-                        <li class="nav-header">Input Profile Pemutakhiran</li>
+                        <li class="nav-header">Input Tematik Kumuh</li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.penanganan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-circle"></i>
+                                <p>Buat Penanganan</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.permasalahan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/permasalahan/create') ? 'active' : '' }}">

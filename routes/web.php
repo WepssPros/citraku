@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\KawasanKumuhController;
 use App\Http\Controllers\admin\KecamatanController;
 use App\Http\Controllers\admin\KelurahanController;
+use App\Http\Controllers\Admin\PenangananController;
 use App\Http\Controllers\admin\PermasalahanController;
 use App\Http\Controllers\admin\RTController;
 use App\Http\Controllers\admin\SubPermasalahanController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         Route::middleware(['admin'])->group(function () {
             Route::get('/', [DashboardController::class, 'index'])->name('index');
             Route::resource('kawasankumuh', KawasanKumuhController::class);
+            Route::resource('penanganan', PenangananController::class);
             Route::resource('tematik', TematikMapController::class);
             Route::resource('blog', BLogController::class);
             Route::resource('permasalahan', PermasalahanController::class);

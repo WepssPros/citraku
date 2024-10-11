@@ -20,7 +20,6 @@
 @endsection
 @section('admin-content')
 <section class="content">
-
     {{-- --}}
     <!-- Modal -->
     @foreach ($kecamatans as $kec)
@@ -1111,7 +1110,7 @@
                                             <b>Kecamatan</b> <a class="float-right">{{$rt->kecamatan->nama}}</a>
                                         </li>
                                         <li class="list-group-item">
-                                            <b>Nilai</b> <a class="float-right">{{$rt->nilai}}</a>
+                                            <b>Nilai</b> <a class="float-right">{{$rt->nilai_kekumuhan}}</a>
                                         </li>
                                         <li class="list-group-item">
                                             <b>Tingkat</b> <a class="float-right">{{$rt->tingkat}}</a>
@@ -1475,39 +1474,23 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>Lokasi 1</td>
-                                                                <td>100 m²</td>
+                                                                <td>{{$rt->nomor}}</td>
+                                                                <td>{{$rt->luas_ha}}</td>
                                                                 <td>
                                                                     <ul>
-                                                                        <li>RT: 01</li>
-                                                                        <li>Kelurahan: A</li>
-                                                                        <li>Kecamatan: X</li>
+                                                                        <li>RT: {{$rt->nomor}}</li>
+                                                                        <li>Kelurahan: {{$rt->kelurahan->nama}}</li>
+                                                                        <li>Kecamatan: {{$rt->kecamatan->nama}}</li>
                                                                     </ul>
                                                                 </td>
                                                                 <td>
                                                                     <ul>
-                                                                        <li>Nilai: 75</li>
-                                                                        <li>Tingkat: Sedang</li>
-                                                                    </ul>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Lokasi 2</td>
-                                                                <td>150 m²</td>
-                                                                <td>
-                                                                    <ul>
-                                                                        <li>RT: 02</li>
-                                                                        <li>Kelurahan: B</li>
-                                                                        <li>Kecamatan: Y</li>
-                                                                    </ul>
-                                                                </td>
-                                                                <td>
-                                                                    <ul>
-                                                                        <li>Nilai: 85</li>
-                                                                        <li>Tingkat: Tinggi</li>
+                                                                        <li>Nilai: {{$rt->nilai_kekumuhan}}</li>
+                                                                        <li>Tingkat: {{$rt->tingkat_status}}</li>
                                                                     </ul>
                                                                 </td>
                                                             </tr>
+
                                                             <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
                                                         </tbody>
                                                     </table>
@@ -1579,67 +1562,203 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3>150</h3>
+            <div class="col-md-4">
+                <div class="card card-success" style="transition: 0.15s; height: inherit; width: inherit;">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="widgets.html" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
 
-                        <p>New Orders</p>
+                        </div>
+                        <!-- /.card-tools -->
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="card card-widget widget-user-2 shadow-sm">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-green">
+                                <div class="widget-user-image">
+                                    <img class="img elevation-2"
+                                        src="{{asset('../adminlte/dist/img/logokotajambi.png')}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">Anggaran Wilayah</h3>
+                                <h5 class="widget-user-desc">Wilayah A</h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Jumlah Anggaran (Total) <span
+                                                class="float-right badge bg-primary">Rp.120.000.000.000</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Total Data Anggaran <span class="float-right badge bg-info">15 Data</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Wilayah Cakupan <span class="float-right badge bg-success">12 Wilayah</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Priode <span class="float-right badge bg-danger">2024 - 2029</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- /.card-body -->
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                        <p>Bounce Rate</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3>44</h3>
+            <div class="col-md-4">
+                <div class="card card-success" style="transition: 0.15s; height: inherit; width: inherit;">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="widgets.html" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
 
-                        <p>User Registrations</p>
+                        </div>
+                        <!-- /.card-tools -->
                     </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="card card-widget widget-user-2 shadow-sm">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-green">
+                                <div class="widget-user-image">
+                                    <img class="img elevation-2"
+                                        src="{{asset('../adminlte/dist/img/logokotajambi.png')}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">Penanganan Wilayah</h3>
+                                <h5 class="widget-user-desc">Wilayah A</h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Data Penanganan <span class="float-right badge bg-primary">50 Data</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Total Jenis Penanganan <span class="float-right badge bg-info">10
+                                                Data</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Cakupan Wilayah Penanganan <span class="float-right badge bg-success">12
+                                                Wilayah</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Priode <span class="float-right badge bg-danger">2024 - 2029</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <!-- /.card-body -->
                 </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3>65</h3>
 
-                        <p>Unique Visitors</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
             </div>
-            <!-- ./col -->
+            <div class="col-md-4">
+                <div class="card card-success" style="transition: 0.15s; height: inherit; width: inherit;">
+                    <div class="card-header">
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="card-refresh"
+                                data-source="widgets.html" data-source-selector="#card-refresh-content"
+                                data-load-on-init="false">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="card card-widget widget-user-2 shadow-sm">
+                            <!-- Add the bg color to the header using any of the bg-* classes -->
+                            <div class="widget-user-header bg-green">
+                                <div class="widget-user-image">
+                                    <img class="img elevation-2"
+                                        src="{{asset('../adminlte/dist/img/logokotajambi.png')}}" alt="User Avatar">
+                                </div>
+                                <!-- /.widget-user-image -->
+                                <h3 class="widget-user-username">Realisasi Wilayah</h3>
+                                <h5 class="widget-user-desc">Wilayah A</h5>
+                            </div>
+                            <div class="card-footer p-0">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Data Realisasi <span class="float-right badge bg-primary">100 Data</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Wilayah Ter-realisasi <span class="float-right badge bg-info">20
+                                                Wilayah</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Wilayah Belum Ter - realisasi <span class="float-right badge bg-success">12
+                                                Wilayah</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            Priode <span class="float-right badge bg-danger">2024 - 2029</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+            </div>
+
+
+
+
         </div>
+
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <section class="col-lg-12 connectedSortable">
@@ -1669,14 +1788,10 @@
             </section>
         </div>
 
-        <!-- /.row -->
-        <!-- Main row -->
 
         <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-    <script>
+    </div>
 
-    </script>
 
 </section>
 
