@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kegiatan;
 use App\Models\Program;
+use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,26 +17,17 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::all();
-        return view('pages.admin.program.index', compact('programs'));
+        $kegiatans = Kegiatan::all();
+        $subkegiatans = SubKegiatan::all();
+        return view('pages.admin.program.index', compact('programs', 'kegiatans', 'subkegiatans'));
     }
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        return view('pages.admin.program.create');
     }
 
     /**
@@ -42,7 +35,17 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'header' => 'required|string|max:255',
+            'kode' => 'required|string|max:50|unique:programs,kode',
+            'program' => 'required|string|max:255',
+        ]);
+
+        // Simpan data Program baru
+        Program::create($request->all());
+
+        return redirect()->route('dashboard.program.index')->with('success', 'Program berhasil ditambahkan.');
     }
 
     /**
@@ -50,7 +53,8 @@ class ProgramController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $program = Program::findOrFail($id);
+        return view('pages.admin.program.show', compact('program'));
     }
 
     /**
@@ -58,7 +62,8 @@ class ProgramController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $program = Program::findOrFail($id);
+        return view('pages.admin.program.edit', compact('program'));
     }
 
     /**
@@ -66,7 +71,18 @@ class ProgramController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'header' => 'required|string|max:255',
+            'kode' => 'required|string|max:50|unique:programs,kode,' . $id,
+            'program' => 'required|string|max:255',
+        ]);
+
+        // Update data Program
+        $program = Program::findOrFail($id);
+        $program->update($request->all());
+
+        return redirect()->route('dashboard.program.index')->with('success', 'Program berhasil diperbarui.');
     }
 
     /**
@@ -74,6 +90,9 @@ class ProgramController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $program = Program::findOrFail($id);
+        $program->delete();
+
+        return redirect()->route('dashboard.program.index')->with('success', 'Program berhasil dihapus.');
     }
 }

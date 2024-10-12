@@ -46,7 +46,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Database Program / Kegiatan / Sub Kegiatan
+                        <h3 class="card-title">Database Program / Kegiatan / Sub Kegiatan}
                             TAHUN 2025 - 2029</h3>
 
                     </div>
@@ -93,14 +93,15 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                 @foreach ($programs as $item)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td> <!-- Menampilkan nomor urut -->
-                                    <td>{{ $item->header }}</td>
-                                    <td>{{ $item->kode }}</td>
+                                    <td>1</td>
+                                    <td>{{$item->header}}</td>
+                                    <td>{{$item->kode}}</td>
                                     <td></td>
                                     <td></td>
-                                    <td>{{$item->program}}</td>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -111,37 +112,46 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <ul class="dropdown-menu">
+                                                <!-- Opsi edit dengan ikon -->
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.program.edit', $item->id) }}">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                 </li>
+                                                <!-- Opsi delete dengan ikon -->
                                                 <li>
-                                                    <button class="dropdown-item text-danger"
-                                                        onclick="confirmDeleteProgram({{ $item->id }})">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
-                                                    <form id="delete-form-program-{{ $item->id }}"
-                                                        action="{{ route('dashboard.program.destroy', $item->id) }}"
-                                                        method="POST" style="display: none;">
+                                                    <form action="{{ route('dashboard.program.destroy', $item->id) }}"
+                                                        method="POST" class="d-inline-block">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <form id="delete-form-{{ $item->id }}"
+                                                            action="{{ route('dashboard.program.destroy', $item->id) }}"
+                                                            method="POST" class="d-inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="dropdown-item text-danger"
+                                                                onclick="confirmDeleteProgram('{{ $item->id }}')">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
+
                                 </tr>
-                                @foreach ($item->kegiatan as $itemkegiatan)
+                                @endforeach
+
+                                @foreach ($kegiatans as $itemkegiatan)
                                 <tr>
-                                    <td>{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
-                                    <!-- Menampilkan nomor urut kegiatan -->
-                                    <td>{{ $itemkegiatan->program->header }}</td>
-                                    <td>{{ $itemkegiatan->program->kode }}</td>
-                                    <td>{{ $itemkegiatan->kode }}</td>
+                                    <td>1</td>
+                                    <td>{{$itemkegiatan->program->header}}</td>
+                                    <td>{{$itemkegiatan->program->kode}}</td>
+                                    <td>{{$itemkegiatan->kode}}</td>
                                     <td></td>
-                                    <td>{{ $itemkegiatan->kegiatan }}</td>
+                                    <td>{{$itemkegiatan->kegiatan}}</td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -152,42 +162,49 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <ul class="dropdown-menu">
+                                                <!-- Opsi edit dengan ikon -->
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.kegiatan.edit', $itemkegiatan->id) }}">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                 </li>
+                                                <!-- Opsi delete dengan ikon -->
                                                 <li>
-                                                    <button class="dropdown-item text-danger"
-                                                        onclick="confirmDeleteKegiatan({{ $itemkegiatan->id }})">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
-                                                    <form id="delete-form-kegiatan-{{ $itemkegiatan->id }}"
+                                                    <form
                                                         action="{{ route('dashboard.kegiatan.destroy', $itemkegiatan->id) }}"
-                                                        method="POST" style="display: none;">
+                                                        method="POST" class="d-inline-block">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <form id="delete-form-{{ $itemkegiatan->id }}"
+                                                            action="{{ route('dashboard.kegiatan.destroy', $itemkegiatan->id) }}"
+                                                            method="POST" class="d-inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="dropdown-item text-danger"
+                                                                onclick="confirmDeleteKegiatan('{{ $itemkegiatan->id }}')">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
-                                </tr>
 
-                                @foreach ($itemkegiatan->subkegiatan as $itemsub)
+                                </tr>
+                                @endforeach
+                                @foreach ($subkegiatans as $itemsub)
                                 <tr>
-                                    <td>{{ $loop->parent->parent->iteration }}.{{ $loop->parent->iteration }}.{{ $loop->iteration }}
-                                    </td>
-                                    <!-- Menampilkan nomor urut sub kegiatan -->
-                                    <td>{{ $itemsub->kegiatan->program->header }}</td>
-                                    <td>{{ $itemsub->kegiatan->program->kode }}</td>
-                                    <td>{{ $itemsub->kegiatan->kode }}</td>
-                                    <td>{{ $itemsub->kode }}</td>
-                                    <td>{{ $itemsub->sub_kegiatan }}</td>
-                                    <td>{{ $itemsub->kinerja }}</td>
-                                    <td>{{ $itemsub->indikator }}</td>
-                                    <td>{{ $itemsub->satuan }}</td>
+                                    <td>1</td>
+                                    <td>{{$itemsub->kegiatan->program->header}}</td>
+                                    <td>{{$itemsub->kegiatan->program->kode}}</td>
+                                    <td>{{$itemsub->kegiatan->kode}}</td>
+                                    <td>{{$itemsub->kode}}</td>
+                                    <td>{{$itemsub->sub_kegiatan}}</td>
+                                    <td>{{$itemsub->kinerja}}</td>
+                                    <td>{{$itemsub->indikator}}</td>
+                                    <td>{{$itemsub->satuan}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default" data-bs-toggle="dropdown"
@@ -195,34 +212,42 @@
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </button>
                                             <ul class="dropdown-menu">
+                                                <!-- Opsi edit dengan ikon -->
                                                 <li>
                                                     <a class="dropdown-item"
                                                         href="{{ route('dashboard.subkegiatan.edit', $itemsub->id) }}">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                 </li>
+                                                <!-- Opsi delete dengan ikon -->
                                                 <li>
-                                                    <button class="dropdown-item text-danger"
-                                                        onclick="confirmDeletedSub({{ $itemsub->id }})">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
-                                                    <form id="delete-form-sub-{{ $itemsub->id }}"
+                                                    <form
                                                         action="{{ route('dashboard.subkegiatan.destroy', $itemsub->id) }}"
-                                                        method="POST" style="display: none;">
+                                                        method="POST" class="d-inline-block">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <form id="delete-form-{{ $itemsub->id }}"
+                                                            action="{{ route('dashboard.subkegiatan.destroy', $itemsub->id) }}"
+                                                            method="POST" class="d-inline-block">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button" class="dropdown-item text-danger"
+                                                                onclick="confirmDeleteSubKegiatan('{{ $itemsub->id }}')">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </form>
                                                     </form>
                                                 </li>
                                             </ul>
                                         </div>
                                     </td>
+
                                 </tr>
                                 @endforeach
-                                @endforeach
-                                @endforeach
+
+
+
                             </tbody>
-
-
 
                         </table>
 
@@ -252,9 +277,8 @@
         $("#example3").DataTable({
             "responsive": true,
             "lengthChange": false,
-            "autoWidth": false,
+            "autoWidth": true,
             "buttons": [
-                "excel", "pdf", "print", 
                 {
                     text: '<i class="fas fa-plus"></i> Tambah Data Program',
                     className: 'btn btn-primary',
@@ -277,7 +301,7 @@
                     }
                 },
                 // Tombol lainnya dari DataTable
-               
+               "excel", "pdf", "print", 
             ],
            
         }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
@@ -298,7 +322,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Submit form jika pengguna menekan tombol 'Ya, hapus!'
-                document.getElementById('delete-form-program-' + id).submit();
+                document.getElementById('delete-form-' + id).submit();
             }
         });
     }
@@ -319,14 +343,14 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Submit form jika pengguna menekan tombol 'Ya, hapus!'
-                document.getElementById('delete-form-kegiatan-' + id).submit();
+                document.getElementById('delete-form-' + id).submit();
             }
         });
     }
 </script>
 
 <script>
-    function confirmDeletedSub(id) {
+    function confirmDeleteSubKegiatan(id) {
         // Panggil SweetAlert
         Swal.fire({
             title: 'Apakah kamu yakin Ingin Menghapus Sub-Kegiatan ini ?',
@@ -340,7 +364,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Submit form jika pengguna menekan tombol 'Ya, hapus!'
-                document.getElementById('delete-form-sub-' + id).submit();
+                document.getElementById('delete-form-' + id).submit();
             }
         });
     }

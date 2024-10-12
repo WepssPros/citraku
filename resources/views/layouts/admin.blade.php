@@ -42,7 +42,7 @@
             <!-- /.control-sidebar -->
         </div>
         <!-- ./wrapper -->
-
+        
         @include('layouts.components.admin.core.js')
         @yield('js-script')
         @include('sweetalert::alert')
