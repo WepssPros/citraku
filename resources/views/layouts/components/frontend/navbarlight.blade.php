@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0 navbar-geopasial">
     <a href="" class="navbar-brand p-0">
-        <img id="navbar-logo" src="{{ asset('frontend/img/logobapeda.png') }}"
-            data-scroll-logo="{{ asset('../frontend/img/logobapeda.png') }}"
-            data-default-logo="{{ asset('../frontend/img/logobapeda.png') }}" alt="Logo">
+        <img id="navbar-logo" src="{{ asset('frontend/img/logotextcitradark.png') }}"
+            data-scroll-logo="{{ asset('../frontend/img/logotextcitradark.png') }}"
+            data-default-logo="{{ asset('../frontend/img/logotextcitradark.png') }}" alt="Logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseGeo">
         <span class="fa fa-bars"></span>
