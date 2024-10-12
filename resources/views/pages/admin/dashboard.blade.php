@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@vite(['resources/css/citrakucostum.css'])
 @section('admin-header')
 <div class="content-header">
     <div class="container-fluid">
@@ -1794,5 +1794,5 @@
 
 
 </section>
-
+@vite(['resources/js/citrakudashboard.js'])
 @endsection

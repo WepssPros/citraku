@@ -212,7 +212,7 @@
 
 @section('js-script')
 <script>
-        $(function () {
+    $(function () {
         $("#example3").DataTable({
         "responsive": false, "lengthChange": false, "autoWidth": false,
         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

@@ -60,6 +60,13 @@
                                 <p>Data RT</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.program.index') }}"
+                                class="nav-link {{ Request::is('dashboard/program*') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Data Program *</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-header">Tematik Kumuh</li>
