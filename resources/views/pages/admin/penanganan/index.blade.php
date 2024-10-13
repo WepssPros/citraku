@@ -83,6 +83,7 @@
                                     <th rowspan="2">Jumlah</th>
                                     <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                     <th rowspan="2">OPD PENANGGUNG JAWAB</th>
+                                    <th rowspan="2">Action</th>
                                 </tr>
                                 <tr>
                                     <th>Jml. Penduduk Terlayani</th>
@@ -106,94 +107,152 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+                                @foreach ($penanganans as $penanganan)
                                 <tr>
-                                    <td>1</td>
-                                    <td>PROGRAM PENGELOLAAN SUMBER DAYA AIR (SDA)</td>
-                                    <td>Telanai</td>
-                                    <td>256 KK</td>
-                                    <td>2.65(Ha)</td>
-                                    <td>Unit</td>
-                                    <td>2506</td>
-                                    <td>245</td>
-                                    <td>245</td>
-                                    <td>2455</td>
-                                    <td>22</td>
-                                    <td>Total Volume 2051</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.550.000.000</td>
-                                    <td>Rp.750.000.000</td>
-                                    <td>Rp.950.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.2.150.000.000</td>
-                                    <td>Jambi</td>
-                                    <td>Rp.10.500.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>OPD PENANGUNG JAWAB SI A.B.C</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Pengelolaan SDA dan Bangunan Pengaman Pantai pada Wilayah Sungai (WS) dalam 1
-                                        (Satu) Daerah Kabupaten/Kota</td>
-                                    <td>Telanai</td>
-                                    <td>256 KK</td>
-                                    <td>2.65(Ha)</td>
-                                    <td>Unit</td>
-                                    <td>2506</td>
-                                    <td>245</td>
-                                    <td>245</td>
-                                    <td>2455</td>
-                                    <td>22</td>
-                                    <td>Total Volume 2051</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.550.000.000</td>
-                                    <td>Rp.750.000.000</td>
-                                    <td>Rp.950.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.2.150.000.000</td>
-                                    <td>Jambi</td>
-                                    <td>Rp.10.500.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>OPD PENANGUNG JAWAB SI A.B.C</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Pembangunan Stasiun Pompa Banjir</td>
-                                    <td>Telanai</td>
-                                    <td>256 KK</td>
-                                    <td>2.65(Ha)</td>
-                                    <td>Unit</td>
-                                    <td>2506</td>
-                                    <td>245</td>
-                                    <td>245</td>
-                                    <td>2455</td>
-                                    <td>22</td>
-                                    <td>Total Volume 2051</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.550.000.000</td>
-                                    <td>Rp.750.000.000</td>
-                                    <td>Rp.950.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.2.150.000.000</td>
-                                    <td>Jambi</td>
-                                    <td>Rp.10.500.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>Rp.150.000.000</td>
-                                    <td>OPD PENANGUNG JAWAB SI A.B.C</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{$penanganan->program->program}}</td>
+                                    <td>{{$penanganan->kelurahan->nama}}</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
+                                    <td>{{$penanganan->sat_program}}</td>
+                                    <td>{{number_format($penanganan->keb_p_program_2025)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_program_2026)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_program_2027)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_program_2028)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_program_2029)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_total_program)}}</td>
+
+                                    <td>{{($penanganan->ind_b_program_2025)}}</td>
+                                    <td>{{($penanganan->ind_b_program_2026)}}</td>
+                                    <td>{{($penanganan->ind_b_program_2027)}}</td>
+                                    <td>{{($penanganan->ind_b_program_2028)}}</td>
+                                    <td>{{($penanganan->ind_b_program_2029)}}</td>
+                                    <td>{{($penanganan->ind_b_total_program)}}</td>
+
+                                    <td>{{($penanganan->sp_kota_program)}}</td>
+                                    <td>{{($penanganan->sp_provinsi_program)}}</td>
+                                    <td>{{($penanganan->sp_apbn_program)}}</td>
+                                    <td>{{($penanganan->sp_dak_program)}}</td>
+                                    <td>{{($penanganan->sp_swasta_program)}}</td>
+                                    <td>{{($penanganan->sp_masyarakat_program)}}</td>
+                                    <td>{{$penanganan->opd_program}}</td>
+                                    <td></td>
 
                                 </tr>
+                                <tr>
+                                    <td>{{ $loop->iteration }}.{{ $loop->iteration }}</td>
+                                    <td>{{$penanganan->kegiatan->kegiatan}}</td>
+                                    <td>{{$penanganan->kelurahan->nama}}</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
+                                    <td>{{$penanganan->sat_kegiatan}}</td>
+                                    <td>{{number_format($penanganan->keb_p_kegiatan_2025)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_kegiatan_2026)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_kegiatan_2027)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_kegiatan_2028)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_kegiatan_2029)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_total_kegiatan)}}</td>
+
+                                    <td>{{($penanganan->ind_b_kegiatan_2025)}}</td>
+                                    <td>{{($penanganan->ind_b_kegiatan_2026)}}</td>
+                                    <td>{{($penanganan->ind_b_kegiatan_2027)}}</td>
+                                    <td>{{($penanganan->ind_b_kegiatan_2028)}}</td>
+                                    <td>{{($penanganan->ind_b_kegiatan_2029)}}</td>
+                                    <td>{{($penanganan->ind_b_total_kegiatan)}}</td>
+
+                                    <td>{{($penanganan->sp_kota_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_provinsi_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_apbn_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_dak_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_swasta_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_masyarakat_kegiatan)}}</td>
+                                    <td>{{$penanganan->opd_kegiatan}}</td>
+                                    <td></td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>{{ $loop->iteration }}.{{ $loop->iteration }}.{{ $loop->iteration }}
+                                    </td>
+                                    <td>{{$penanganan->subkegiatan->sub_kegiatan}}</td>
+                                    <td>{{$penanganan->kelurahan->nama}}</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
+                                    <td>{{$penanganan->sat_sub_kegiatan}}</td>
+                                    <td>{{number_format($penanganan->keb_p_sub_kegiatan_2025)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_sub_kegiatan_2026)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_sub_kegiatan_2027)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_sub_kegiatan_2028)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_sub_kegiatan_2029)}}</td>
+                                    <td>{{number_format($penanganan->keb_p_total_sub_kegiatan)}}</td>
+
+                                    <td>{{($penanganan->ind_b_sub_kegiatan_2025)}}</td>
+                                    <td>{{($penanganan->ind_b_sub_kegiatan_2026)}}</td>
+                                    <td>{{($penanganan->ind_b_sub_kegiatan_2027)}}</td>
+                                    <td>{{($penanganan->ind_b_sub_kegiatan_2028)}}</td>
+                                    <td>{{($penanganan->ind_b_sub_kegiatan_2029)}}</td>
+                                    <td>{{($penanganan->ind_b_total_sub_kegiatan)}}</td>
+
+                                    <td>{{($penanganan->sp_kota_sub_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_provinsi_sub_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_apbn_sub_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_dak_sub_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_swasta_sub_kegiatan)}}</td>
+                                    <td>{{($penanganan->sp_masyarakat_sub_kegiatan)}}</td>
+                                    <td>{{$penanganan->opd_sub_kegiatan}}</td>
+                                    <td></td>
+
+
+                                </tr>
+                                @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="25" style="text-align: center;">JUMLAH TOTAL ANGGARAN : <b>(Misal
-                                            Rp.26.000.000.000.000)</b></td>
+                                    <td colspan="12" style="text-align: center;"> JUMLAH TOTAL ANGGARAN : <b>
+                                            (.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2025 :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2026 :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2027 :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2028 :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2029 :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL KAB/KOTA :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL PROV :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL APBN :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL DAK :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL SWASTA/CSR :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"> <br> TOTAL MASYARAKAT :
+                                        <b>(Rp.26.000.000.000.000)</b>
+                                    </td>
+                                    <td colspan="1" style="text-align: center;"></td>
+                                    <td colspan="1" style="text-align: center;"></td>
+
+
+
                                 </tr>
                             </tfoot>
                         </table>
@@ -217,8 +276,73 @@
     $(function () {
     var table = $("#example3").DataTable({
         "responsive": false,
-        "lengthChange": false,
+        "lengthChange": false,  
         "autoWidth": false,
+         "footerCallback": function (row, data, start, end, display) {
+            var api = this.api();
+
+            function calculateTotal(columnIndex) {
+                return api
+                    .column(columnIndex, { search: 'applied' }) // Menghitung hanya untuk yang ditampilkan setelah pencarian
+                    .data()
+                    .reduce(function (a, b) {
+                        return (parseFloat(a) || 0) + (parseFloat(b) || 0);
+                    }, 0);
+            }
+
+            // Fungsi untuk memformat angka ke dalam format rupiah
+            function formatRupiah(amount) {
+                return 'Rp.' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") ;
+            }
+
+            var totalAnggaran2025 = calculateTotal(12);
+            var totalAnggaran2026 = calculateTotal(13);
+            var totalAnggaran2027 = calculateTotal(14);
+            var totalAnggaran2028 = calculateTotal(15);
+            var totalAnggaran2029 = calculateTotal(16);
+            var totalAnggaran = calculateTotal(17);
+            var totalAnggaranKota = calculateTotal(18);
+            var totalAnggaranProv = calculateTotal(19);
+            var totalAnggaranApbn = calculateTotal(20);
+            var totalAnggarandak = calculateTotal(21);
+            var totalAnggaranswasta = calculateTotal(22);
+            var totalAnggaranmasyarakat = calculateTotal(23);
+
+            // Hitung total keseluruhan dari semua total
+            var totalKeseluruhan = totalAnggaran2025 + totalAnggaran2026 + totalAnggaran2027 +
+                                totalAnggaran2028 + totalAnggaran2029 + totalAnggaran +
+                                totalAnggaranKota + totalAnggaranProv + totalAnggaranApbn +
+                                totalAnggarandak + totalAnggaranswasta + totalAnggaranmasyarakat;
+
+           
+            // Update footer dengan total yang dihitung dalam format rupiah
+            $(api.column(12).footer()).html('<b>' + formatRupiah(totalAnggaran2025) + '</b>');
+            $(api.column(13).footer()).html('<b>' + formatRupiah(totalAnggaran2026) + '</b>');
+            $(api.column(14).footer()).html('<b>' + formatRupiah(totalAnggaran2027) + '</b>');
+            $(api.column(15).footer()).html('<b>' + formatRupiah(totalAnggaran2028) + '</b>');
+            $(api.column(16).footer()).html('<b>' + formatRupiah(totalAnggaran2029) + '</b>');
+            $(api.column(17).footer()).html('<b>' + formatRupiah(totalAnggaran) + '</b>');
+            $(api.column(18).footer()).html('<b>' + formatRupiah(totalAnggaranKota) + '</b>');
+            $(api.column(19).footer()).html('<b>' + formatRupiah(totalAnggaranProv) + '</b>');
+            $(api.column(20).footer()).html('<b>' + formatRupiah(totalAnggaranApbn) + '</b>');
+            $(api.column(21).footer()).html('<b>' + formatRupiah(totalAnggarandak) + '</b>');
+            $(api.column(22).footer()).html('<b>' + formatRupiah(totalAnggaranswasta) + '</b>');
+            $(api.column(23).footer()).html('<b>' + formatRupiah(totalAnggaranmasyarakat) + '</b>');
+
+            // Tambahkan footer untuk total keseluruhan dalam format rupiah
+            var totalKeseluruhanIndex = 11; // Misalnya, kolom 24 untuk total keseluruhan
+            $(api.column(totalKeseluruhanIndex).footer()).html('<b>JUMLAH TOTAL ANGGARAN :</b> <b>' + formatRupiah(totalKeseluruhan) + '</b>');
+            // Format nilai di kolom 12 hingga 23 menjadi rupiah
+            
+        },
+
+        "createdRow": function (row, data, dataIndex) {
+            console.log(data); // Periksa data di konsol
+            for (var i = 12; i <= 23; i++) {
+                var cellValue = parseFloat(data[i]) || 0;
+                $('td:eq(' + i + ')', row).html(formatRupiah(cellValue));
+            }
+        },
         "buttons": [
             {
                 extend: 'print',
@@ -352,8 +476,15 @@
                 }
             },
             "colvis"
-        ]
+        ],
+        
+      
+
+        
     });
+    function formatRupiah(amount) {
+        return 'Rp.' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
 
     table.buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
 
@@ -362,9 +493,6 @@
         table.button('.buttons-excel').trigger();
     });
 });
-
-
-
 
 </script>
 @endsection

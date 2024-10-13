@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Penanganan;
 use Illuminate\Http\Request;
 
 class PenangananController extends Controller
@@ -11,8 +12,9 @@ class PenangananController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return view('pages.admin.penanganan.index');
+    {   
+        $penanganans = Penanganan::all();
+        return view('pages.admin.penanganan.index', compact('penanganans'));
     }
 
     /**
