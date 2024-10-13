@@ -82,6 +82,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-header">Data View Tematik Kumuh</li>
+
                         <li class="nav-item">
                             <a href="{{route('dashboard.penanganan.index')}}"
                                 class="nav-link {{ Request::is('dashboard/penanganan*') ? 'active' : '' }} ">
@@ -125,6 +126,13 @@
                             </a>
                         </li>
                         <li class="nav-header">Input Penanganan Tematik Kumuh</li>
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.penanganan-permasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/penanganan-permasalahan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
+                                <p>Buat Permasalahan</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.penanganan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
