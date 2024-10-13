@@ -139,7 +139,7 @@
                                 <p>Buat Perealisasian</p>
                             </a>
                         </li>
-                        <li class="nav-header">Input Tematik Profile Kumuh</li>
+                        <li class="nav-header">Input Tematik Profile (P) Kumuh</li>
 
                         <li class="nav-item">
                             <a href="{{ route('dashboard.permasalahan.create') }}"

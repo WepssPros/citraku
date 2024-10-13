@@ -37,7 +37,7 @@ class KelurahanController extends Controller
             'kecamatan_id' => 'required|integer|exists:kecamatans,id', // Pastikan kecamatan_id ada di tabel kecamatans
             'nama' => 'required|string|max:255', // Nama kelurahan
             'geojson_file' => 'required|file|mimes:json', // Pastikan file GeoJSON diupload
-            'marker' => 'nullable|json', // Marker opsional
+            'marker' => 'nullable|boolean', // Marker opsional
             'color' => 'nullable|string|max:7', // Warna opsional, format hex
             'luas_wilayah' => 'nullable|string', // Luas wilayah opsional
             'persentase' => 'nullable|string', // Persentase opsional
@@ -111,6 +111,7 @@ class KelurahanController extends Controller
             'kecamatan_id' => 'required|integer|exists:kecamatans,id', // Pastikan kecamatan_id ada di tabel kecamatans
             'nama' => 'required|string|max:255', // Nama kelurahan
             'geojson_file' => 'nullable|file|mimes:json', // File GeoJSON opsional
+            'marker' => 'nullable|boolean', // Marker opsional
             'color' => 'nullable|string|max:7', // Warna opsional, format hex
         ]);
 
@@ -149,6 +150,7 @@ class KelurahanController extends Controller
         $kelurahan->kecamatan_id = $validatedData['kecamatan_id'];
         $kelurahan->nama = $validatedData['nama'];
         $kelurahan->color = $validatedData['color'];
+        $kelurahan->marker = $validatedData['marker'];
         $kelurahan->updated_at = now();
         $kelurahan->save(); // Simpan perubahan ke database
 

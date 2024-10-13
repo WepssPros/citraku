@@ -73,6 +73,11 @@
                                     <input type="color" name="color" id="color" class="form-control"
                                         value="{{ $kelurahan->color }}" required>
                                 </div>
+                                <select name="marker" id="marker" class="form-control select2" required>
+                                    <option value="">Pilih Status Marker</option>
+                                    <option value="1">Ya</option> <!-- Menggunakan value true -->
+                                    <option value="0">Tidak</option> <!-- Menggunakan value false -->
+                                </select>
 
                                 <div class="form-group">
                                     <label for="geojson_file">Upload File GeoJSON</label>

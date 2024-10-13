@@ -36,6 +36,7 @@ fetch(kelurahanApiUrl)
             const name = kelurahan.nama;
             const id = kelurahan.id;
             const color = kelurahan.color; // Warna default jika tidak ada
+            const marker = kelurahan.marker;
 
             const geojson = JSON.parse(kelurahan.koordinat); // Parsing GeoJSON
 
@@ -46,7 +47,7 @@ fetch(kelurahanApiUrl)
             }));
 
             // Membuat polygon kelurahan
-            createKelurahanLayer(name, coordinates, id, color);
+            createKelurahanLayer(name, coordinates, id, color, marker);
         });
 
         // Jika ingin memfokuskan peta berdasarkan semua kelurahan, Anda bisa atur bounds peta
@@ -283,7 +284,7 @@ function createKecamatanLayer(name, coordinates, id) {
     return kecPolygon;
 }
 
-function createKelurahanLayer(name, coordinates, id, color) {
+function createKelurahanLayer(name, coordinates, id, color, marker) {
     // Pastikan warna valid
     const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
 
@@ -314,15 +315,35 @@ function createKelurahanLayer(name, coordinates, id, color) {
     // Menentukan centroid polygon menggunakan library Leaflet
     const centroid = polygon.getBounds().getCenter(); // Mendapatkan titik tengah dari polygon
 
-    // Membuat marker di pusat polygon menggunakan icon default Leaflet
-    const marker = L.marker([centroid.lat, centroid.lng]).addTo(map);
+    // Cek apakah marker harus ditampilkan
+    if (marker === 1) {
+        // Pastikan marker hanya ditambahkan jika bernilai true
+        // Membuat ikon dari asset gambar
+        const customIcon = L.icon({
+            iconUrl: "../frontend/img/logocitraku.png", // Ganti dengan path ke gambar logo Anda
+            iconSize: [25, 25], // Ukuran ikon (lebar, tinggi) dalam pixel
+            iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
+            popupAnchor: [0, -25], // Titik di mana tooltip muncul
+        });
 
-    // Menambahkan tooltip yang akan muncul saat mouse melayang di atas marker
-    marker.bindTooltip(name, {
-        permanent: false, // Tooltip hanya muncul saat hover
-        direction: "top", // Arah tooltip
-        className: "kelurahan-tooltip", // Kelas untuk styling tooltip
-    });
+        // Membuat marker di pusat polygon menggunakan icon custom
+        const kelurahanMarker = L.marker([centroid.lat, centroid.lng], {
+            icon: customIcon,
+        }).addTo(map);
+
+        // Menambahkan tooltip yang akan muncul saat mouse melayang di atas marker
+        kelurahanMarker.bindTooltip(name, {
+            permanent: false, // Tooltip hanya muncul saat hover
+            direction: "top", // Arah tooltip
+            className: "kelurahan-tooltip", // Kelas untuk styling tooltip
+        });
+
+        // Event click untuk marker, memunculkan modal yang sama
+        kelurahanMarker.on("click", function () {
+            map.fitBounds(polygon.getBounds());
+            $("#kelurahanModal" + id).modal("show");
+        });
+    }
 
     // Event hover untuk polygon kelurahan
     polygon.on("mouseover", function () {
@@ -339,7 +360,7 @@ function createKelurahanLayer(name, coordinates, id, color) {
         }
     });
 
-    // Event click untuk men-zoom ke kelurahan dan menampilkan modal informasi
+    // Event click untuk polygon, menampilkan modal informasi
     polygon.on("click", function () {
         map.fitBounds(polygon.getBounds());
         $("#kelurahanModal" + id).modal("show");

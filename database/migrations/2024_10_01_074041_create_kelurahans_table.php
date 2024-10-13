@@ -16,9 +16,9 @@ return new class extends Migration
             $table->bigInteger('kecamatan_id')->nullable();
             $table->string('nama'); // Nama Kecamatan
             $table->json('koordinat');
-            $table->json('marker')->nullable();
+            $table->boolean('marker')->default(0);
             $table->string('color')->nullable();
-             // Koordinat dalam format JSON
+            // Koordinat dalam format JSON
             $table->softDeletes();
             $table->timestamps();
         });
