@@ -101,8 +101,17 @@ class PenanganPermasalahanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
-        //
+        // Mencari data penanganan berdasarkan ID
+        $penanganan = Penanganan::findOrFail($id);
+
+        // Menghapus data penanganan
+        $penanganan->delete();
+
+        return redirect()->route('dashboard.penanganan.index')->with('success', 'Data penanganan berhasil dihapus!');
     }
 }

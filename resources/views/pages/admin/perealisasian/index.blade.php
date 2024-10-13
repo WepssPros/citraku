@@ -362,10 +362,6 @@
         table.button('.buttons-excel').trigger();
     });
 });
-
-
-
-
 </script>
 @endsection
 @endsection

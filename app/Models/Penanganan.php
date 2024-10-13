@@ -22,6 +22,7 @@ class Penanganan extends Model
         'sat_program',
         'sat_kegiatan',
         'sat_sub_kegiatan',
+        
         'keb_p_program_2025',
         'keb_p_program_2026',
         'keb_p_program_2027',

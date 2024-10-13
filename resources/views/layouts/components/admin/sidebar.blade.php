@@ -130,14 +130,14 @@
                             <a href="{{ route('dashboard.penanganan-permasalahan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/penanganan-permasalahan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
-                                <p>Buat Permasalahan</p>
+                                <p>Buat Penangan</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.penanganan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
-                                <p>Buat Penanganan</p>
+                                <p>Input Kebutuhan, Indikasi, Sumber Pendanaan </p>
                             </a>
                         </li>
                         <li class="nav-item">

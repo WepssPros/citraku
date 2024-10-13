@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div class="card card-default">
             <div class="card-header">
-                <h3 class="card-title">Buat Data Artikel / Berita</h3>
+                <h3 class="card-title">Buat Penanganan / Berita</h3>
             </div>
             <div class="card-body p-0">
                 <form action="{{ route('dashboard.penanganan-permasalahan.store') }}" method="POST"

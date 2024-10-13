@@ -141,7 +141,7 @@
 
                                 </tr>
                                 <tr>
-                                    <td>{{ $loop->iteration }}.{{ $loop->iteration }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{$penanganan->kegiatan->kegiatan}}</td>
                                     <td>{{$penanganan->kelurahan->nama}}</td>
                                     <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
@@ -168,12 +168,39 @@
                                     <td>{{($penanganan->sp_swasta_kegiatan)}}</td>
                                     <td>{{($penanganan->sp_masyarakat_kegiatan)}}</td>
                                     <td>{{$penanganan->opd_kegiatan}}</td>
-                                    <td></td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('dashboard.penanganan-permasalahan.edit', $penanganan->id) }}">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <button class="dropdown-item text-danger"
+                                                        onclick="confirmDeletePenanganan({{ $penanganan->id }})">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                    <form id="delete-form-penanganan{{ $penanganan->id }}"
+                                                        action="{{ route('dashboard.penanganan-permasalahan.destroy', $penanganan->id) }}"
+                                                        method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
 
 
                                 </tr>
                                 <tr>
-                                    <td>{{ $loop->iteration }}.{{ $loop->iteration }}.{{ $loop->iteration }}
+                                    <td>{{ $loop->iteration }}
                                     </td>
                                     <td>{{$penanganan->subkegiatan->sub_kegiatan}}</td>
                                     <td>{{$penanganan->kelurahan->nama}}</td>
@@ -210,43 +237,31 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="12" style="text-align: center;"> JUMLAH TOTAL ANGGARAN : <b>
-                                            (.000.000.000.000)</b>
+                                        </b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2025 :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2026 :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2027 :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2028 :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN 2029 :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL ANGGARAN :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL KAB/KOTA :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL PROV :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL APBN :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL DAK :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL SWASTA/CSR :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"> <br> TOTAL MASYARAKAT :
-                                        <b>(Rp.26.000.000.000.000)</b>
                                     </td>
                                     <td colspan="1" style="text-align: center;"></td>
                                     <td colspan="1" style="text-align: center;"></td>
@@ -272,6 +287,9 @@
 
 @section('js-script')
 <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function () {
     var table = $("#example3").DataTable({
@@ -289,6 +307,7 @@
                         return (parseFloat(a) || 0) + (parseFloat(b) || 0);
                     }, 0);
             }
+            
 
             // Fungsi untuk memformat angka ke dalam format rupiah
             function formatRupiah(amount) {
@@ -337,12 +356,21 @@
         },
 
         "createdRow": function (row, data, dataIndex) {
-            console.log(data); // Periksa data di konsol
             for (var i = 12; i <= 23; i++) {
                 var cellValue = parseFloat(data[i]) || 0;
                 $('td:eq(' + i + ')', row).html(formatRupiah(cellValue));
             }
         },
+        "columnDefs": [
+            {
+                "targets": [0,1,2], 
+                "searchable": true
+            },
+            {
+                "targets": [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+                "searchable": false 
+            }
+        ],
         "buttons": [
             {
                 extend: 'print',
@@ -494,6 +522,26 @@
     });
 });
 
+</script>
+<script>
+    function confirmDeletePenanganan(id) {
+        // Panggil SweetAlert
+        Swal.fire({
+            title: 'Apakah kamu yakin ingin menghapus Penanganan ini ?',
+            text: "Data yang dihapus tidak bisa dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form jika pengguna menekan tombol 'Ya, hapus!'
+                document.getElementById('delete-form-penanganan' + id).submit();
+            }
+        });
+    }
 </script>
 @endsection
 @endsection
