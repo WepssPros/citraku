@@ -79,7 +79,7 @@
                                     <th rowspan="2">SAT.</th>
                                     <th colspan="5">Kebutuhan Penanganan</th>
                                     <th rowspan="2">Total Volume</th>
-                                    <th colspan="5">Indikasi Biaya</th>
+                                    <th colspan="5">Penanganan</th>
                                     <th rowspan="2">Jumlah</th>
                                     <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                     <th rowspan="2">OPD PENANGGUNG JAWAB</th>
@@ -249,7 +249,7 @@
                                 <th rowspan="2">SAT.</th>
                                 <th colspan="5">Kebutuhan Penanganan</th>
                                 <th rowspan="2">Total Volume</th>
-                                <th colspan="5">Indikasi Biaya</th>
+                                <th colspan="5">Penanganan</th>
                                 <th rowspan="2">Jumlah</th>
                                 <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                 <th rowspan="2">OPD PENANGGUNG JAWAB</th>
@@ -315,7 +315,7 @@
                             <c r="G1" s="2"><v>SAT.</v></c>
                             <c r="H1" s="2"><v>Kebutuhan Penanganan</v></c>
                             <c r="I1" s="2"><v>Total Volume</v></c>
-                            <c r="J1" s="2"><v>Indikasi Biaya</v></c>
+                            <c r="J1" s="2"><v>Penanganan</v></c>
                             <c r="K1" s="2"><v>Jumlah</v></c>
                             <c r="L1" s="2"><v>Sumber Pendanaan / Pembiayaan</v></c>
                             <c r="M1" s="2"><v>OPD PENANGGUNG JAWAB</v></c>
