@@ -9,6 +9,7 @@ use App\Models\Penanganan;
 use App\Models\Program;
 use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PenangananController extends Controller
 {
@@ -67,108 +68,111 @@ class PenangananController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Penanganan $penanganan)
     {
-        // Validasi input
-        // Validasi input
-        $request->validate([
-            'keb_p_program_2025' => 'nullable|numeric',
-            'keb_p_program_2026' => 'nullable|numeric',
-            'keb_p_program_2027' => 'nullable|numeric',
-            'keb_p_program_2028' => 'nullable|numeric',
-            'keb_p_program_2029' => 'nullable|numeric',
+        $data = $request->all();
 
-            'keb_p_kegiatan_2025' => 'nullable|numeric',
-            'keb_p_kegiatan_2026' => 'nullable|numeric',
-            'keb_p_kegiatan_2027' => 'nullable|numeric',
-            'keb_p_kegiatan_2028' => 'nullable|numeric',
-            'keb_p_kegiatan_2029' => 'nullable|numeric',
+        // Menghapus simbol "Rp" dan pemisah ribuan (.) menggunakan preg_replace
+        // Daftar input yang perlu diproses
+        $fields = [
+            'ind_b_program_2025',
+            'ind_b_program_2026',
+            'ind_b_program_2027',
+            'ind_b_program_2028',
+            'ind_b_program_2029',
 
-            'keb_p_sub_kegiatan_2025' => 'nullable|numeric',
-            'keb_p_sub_kegiatan_2026' => 'nullable|numeric',
-            'keb_p_sub_kegiatan_2027' => 'nullable|numeric',
-            'keb_p_sub_kegiatan_2028' => 'nullable|numeric',
-            'keb_p_sub_kegiatan_2029' => 'nullable|numeric',
+            'ind_b_kegiatan_2025',
+            'ind_b_kegiatan_2026',
+            'ind_b_kegiatan_2027',
+            'ind_b_kegiatan_2028',
+            'ind_b_kegiatan_2029',
 
-            // Total kebijakan
-            'keb_p_total_program' => 'nullable|numeric',
-            'keb_p_total_kegiatan' => 'nullable|numeric',
-            'keb_p_total_sub_kegiatan' => 'nullable|numeric',
+            'ind_b_sub_kegiatan_2025',
+            'ind_b_sub_kegiatan_2026',
+            'ind_b_sub_kegiatan_2027',
+            'ind_b_sub_kegiatan_2028',
+            'ind_b_sub_kegiatan_2029',
 
-            // Indikator berdasarkan tahun
-            'ind_b_program_2025' => 'nullable|numeric',
-            'ind_b_program_2026' => 'nullable|numeric',
-            'ind_b_program_2027' => 'nullable|numeric',
-            'ind_b_program_2028' => 'nullable|numeric',
-            'ind_b_program_2029' => 'nullable|numeric',
+            'sp_kota_program',
+            'sp_kota_kegiatan',
+            'sp_kota_sub_kegiatan',
 
-            'ind_b_kegiatan_2025' => 'nullable|numeric',
-            'ind_b_kegiatan_2026' => 'nullable|numeric',
-            'ind_b_kegiatan_2027' => 'nullable|numeric',
-            'ind_b_kegiatan_2028' => 'nullable|numeric',
-            'ind_b_kegiatan_2029' => 'nullable|numeric',
+            'sp_provinsi_program',
+            'sp_provinsi_kegiatan',
+            'sp_provinsi_sub_kegiatan',
 
-            'ind_b_sub_kegiatan_2025' => 'nullable|numeric',
-            'ind_b_sub_kegiatan_2026' => 'nullable|numeric',
-            'ind_b_sub_kegiatan_2027' => 'nullable|numeric',
-            'ind_b_sub_kegiatan_2028' => 'nullable|numeric',
-            'ind_b_sub_kegiatan_2029' => 'nullable|numeric',
+            'sp_apbn_program',
+            'sp_apbn_kegiatan',
+            'sp_apbn_sub_kegiatan',
 
-            // Sumber pendanaan
-            'sp_kota_program' => 'nullable|numeric',
-            'sp_kota_kegiatan' => 'nullable|numeric',
-            'sp_kota_sub_kegiatan' => 'nullable|numeric',
+            'sp_dak_program',
+            'sp_dak_kegiatan',
+            'sp_dak_sub_kegiatan',
 
-            'sp_provinsi_program' => 'nullable|numeric',
-            'sp_provinsi_kegiatan' => 'nullable|numeric',
-            'sp_provinsi_sub_kegiatan' => 'nullable|numeric',
+            'sp_swasta_program',
+            'sp_swasta_kegiatan',
+            'sp_swasta_sub_kegiatan',
 
-            'sp_apbn_program' => 'nullable|numeric',
-            'sp_apbn_kegiatan' => 'nullable|numeric',
-            'sp_apbn_sub_kegiatan' => 'nullable|numeric',
+            'sp_masyarakat_program',
+            'sp_masyarakat_kegiatan',
+            'sp_masyarakat_sub_kegiatan',
 
-            'sp_dak_program' => 'nullable|numeric',
-            'sp_dak_kegiatan' => 'nullable|numeric',
-            'sp_dak_sub_kegiatan' => 'nullable|numeric',
+            'ind_b_total_program',
+            'ind_b_total_kegiatan',
+            'ind_b_total_sub_kegiatan',
+        ];
 
-            'sp_swasta_program' => 'nullable|numeric',
-            'sp_swasta_kegiatan' => 'nullable|numeric',
-            'sp_swasta_sub_kegiatan' => 'nullable|numeric',
+        // Fungsi untuk membersihkan dan mengonversi nilai
+        function cleanAndConvert($value)
+        {
+            // Menghapus 'Rp.' dan karakter lain dari string
+            $cleanedValue = preg_replace('/[Rp.]/', '', $value);
+            // Menghapus koma jika ada, kemudian mengonversi ke integer
+            return intval(str_replace(',', '', $cleanedValue));
+        }
 
-            'sp_masyarakat_program' => 'nullable|numeric',
-            'sp_masyarakat_kegiatan' => 'nullable|numeric',
-            'sp_masyarakat_sub_kegiatan' => 'nullable|numeric',
+        // Memproses setiap field
+        foreach ($fields as $field) {
+            if (isset($data[$field])) {
+                $data[$field] = cleanAndConvert($data[$field]); // Memproses setiap field dan menyimpannya ke dalam $data
+            }
+        }
 
-            'opd_program' => 'nullable|numeric',
-            'opd_kegiatan' => 'nullable|numeric',
-            'opd_sub_kegiatan' => 'nullable|numeric',
-        ]);
+        // Menghitung total untuk program, kegiatan, dan sub-kegiatan
+        $totalProgram = 0;
+        $totalKegiatan = 0;
+        $totalSubKegiatan = 0;
 
-        // Cari data Penanganan berdasarkan ID
-        $penanganan = Penanganan::findOrFail($id);
+        $totalProgram += $data['ind_b_program_2025'] +
+            $data['ind_b_program_2026'] +
+            $data['ind_b_program_2027'] +
+            $data['ind_b_program_2028'] +
+            $data['ind_b_program_2029'];
 
-        // Update properti yang diinginkan
-        $penanganan->program_id = $penanganan->program->id;
-        $penanganan->kegiatan_id = $penanganan->kegiatan->id;
-        $penanganan->sub_kegiatan_id = $penanganan->subkegiatan->id;
-        $penanganan->kelurahan_id = $penanganan->kelurahan->id;
-        $penanganan->sat_program = $penanganan->sat_program;
-        $penanganan->sat_kegiatan = $penanganan->sat_kegiatan;
-        $penanganan->sat_sub_kegiatan = $penanganan->sat_sub_kegiatan;
+        $totalKegiatan += $data['ind_b_kegiatan_2025'] +
+            $data['ind_b_kegiatan_2026'] +
+            $data['ind_b_kegiatan_2027'] +
+            $data['ind_b_kegiatan_2028'] +
+            $data['ind_b_kegiatan_2029'];
 
-        // total  keb_program *
-        $penanganan->keb_p_total_program = $request->keb_p_program_2025 +  $request->keb_p_program_2026 +  $request->keb_p_program_2027 +  $request->keb_p_program_2028 +  $request->keb_p_program_2029;
-        $penanganan->keb_p_total_kegiatan = $request->keb_p_kegiatan_2025 +  $request->keb_p_kegiatan_2026 +  $request->keb_p_kegiatan_2027 +  $request->keb_p_kegiatan_2028 +  $request->keb_p_kegiatan_2029;
-        $penanganan->keb_p_total_sub_kegiatan = $request->keb_p_sub_kegiatan_2025 +  $request->keb_p_sub_kegiatan_2026 +  $request->keb_p_sub_kegiatan_2027 +  $request->keb_p_sub_kegiatan_2028 +  $request->keb_p_sub_kegiatan_2029;
-        // Update data penanganan dengan data dari request
-        $penanganan->update($request->all());
+        $totalSubKegiatan += $data['ind_b_sub_kegiatan_2025'] +
+            $data['ind_b_sub_kegiatan_2026'] +
+            $data['ind_b_sub_kegiatan_2027'] +
+            $data['ind_b_sub_kegiatan_2028'] +
+            $data['ind_b_sub_kegiatan_2029'];
 
-        // Redirect kembali dengan pesan sukses
-        return back()->with('success', 'Data penanganan berhasil diupdate!');
+        // Menyimpan total ke dalam $data
+        $data['ind_b_total_program'] = $totalProgram;
+        $data['ind_b_total_kegiatan'] = $totalKegiatan;
+        $data['ind_b_total_sub_kegiatan'] = $totalSubKegiatan;
 
-        // Redirect kembali dengan pesan sukses
+        // Melakukan update pada penanganan
+        $penanganan->update($data);
 
+
+        return redirect()->route('dashboard.penanganan.edit', $penanganan->id)->with('success', 'Data berhasil disimpan');
     }
+
 
 
     /**
