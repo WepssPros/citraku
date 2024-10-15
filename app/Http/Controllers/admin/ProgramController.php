@@ -38,7 +38,7 @@ class ProgramController extends Controller
         // Validasi input
         $request->validate([
             'header' => 'required|string|max:255',
-            'kode' => 'required|string|max:50|unique:programs,kode',
+            'kode' => 'required|string|max:50',
             'program' => 'required|string|max:255',
         ]);
 
@@ -74,7 +74,7 @@ class ProgramController extends Controller
         // Validasi input
         $request->validate([
             'header' => 'required|string|max:255',
-            'kode' => 'required|string|max:50|unique:programs,kode,' . $id,
+            'kode' => 'required|string|max:50',
             'program' => 'required|string|max:255',
         ]);
 

@@ -45,11 +45,11 @@
                             <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                                 <div class="form-group">
                                     <label for="kecamatan_id">Pilih Kecamatan Terdata</label>
-                                    <select name="kecamatan_id" id="kecamatan_id" class="form-control select2" required>
+                                    <select name="kecamatan_id" id="kecamatan_id" class="form-control select2">
                                         <option value="">Pilih Kecamatan Terdata</option>
                                         @foreach ($kecamatans as $kecamatan)
                                         <option value="{{ $kecamatan->id }}"
-                                            {{ $kecamatan->id == $rt->kecamatan_id ? 'selected' : '' }}>
+                                            {{ $rt->kecamatan_id == $kecamatan->id ? 'selected' : '' }}>
                                             {{ $kecamatan->nama }}
                                         </option>
                                         @endforeach
@@ -58,11 +58,11 @@
 
                                 <div class="form-group">
                                     <label for="kelurahan_id">Pilih Kelurahan Terdata</label>
-                                    <select name="kelurahan_id" id="kelurahan_id" class="form-control select2" required>
+                                    <select name="kelurahan_id" id="kelurahan_id" class="form-control select2">
                                         <option value="">Pilih Kelurahan Terdata</option>
                                         @foreach ($kelurahans as $kelurahan)
                                         <option value="{{ $kelurahan->id }}"
-                                            {{ $kelurahan->id == $rt->kelurahan_id ? 'selected' : '' }}>
+                                            {{ $rt->kelurahan_id == $kelurahan->id ? 'selected' : '' }}>
                                             {{ $kelurahan->nama }}
                                         </option>
                                         @endforeach
@@ -238,14 +238,38 @@
     });
 </script>
 
-<script>
-    $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Initialize Select2 Elements
+        $('.select2').select2();
 
-  })
-  
-  // DropzoneJS Demo Code End
+        $('#kecamatan_id').on('change', function() {
+            var kecamatanID = $(this).val();
+            if (kecamatanID) {
+                $.ajax({
+                    url: '/api/get-kelurahan/' + kecamatanID,
+                    type: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        // Kosongkan dropdown kelurahan
+                        $('#kelurahan_id').empty();
+                        // Tambahkan opsi default
+                        $('#kelurahan_id').append('<option value="">Pilih Kelurahan Terdata</option>');
+                        // Isi dropdown kelurahan dengan data dari API
+                        $.each(data, function(index, kelurahan) {
+                            $('#kelurahan_id').append('<option value="' + kelurahan.id + '">' + kelurahan.nama + '</option>');
+                        });
+
+                        // Reinitialize Select2 for kelurahan_id dropdown
+                        $('#kelurahan_id').select2();
+                    }
+                });
+            } else {
+                $('#kelurahan_id').empty();
+                $('#kelurahan_id').append('<option value="">Pilih Kelurahan Terdata</option>');
+            }
+        });
+    });
 </script>
 @endsection
 

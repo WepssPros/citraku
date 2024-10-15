@@ -56,4 +56,12 @@ class CitrakuAPI extends Controller
         // Mengembalikan data dalam format JSON
         return response()->json($kebakaran);
     }
+
+    public function getKelurahan($kecamatanID)
+    {
+        $kelurahans = Kelurahan::where('kecamatan_id', $kecamatanID)->get();
+
+        // Return data dalam format JSON
+        return response()->json($kelurahans);
+    }
 }

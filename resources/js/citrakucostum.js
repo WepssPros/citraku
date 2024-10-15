@@ -616,14 +616,7 @@ const controlKawasanKumuh = L.Control.extend({
                         <input type="checkbox" id="toggleKawasanKumuh">
                         <span>Kawasan Kumuh</span>
                     </label>
-                    <label>
-                        <input type="checkbox" id="toggleKawasanBanjir">
-                        <span>Kawasan Banjir</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" id="toggleKawasanKebakaran">
-                        <span>Kawasan Rentan Kebakaran</span>
-                    </label>
+                   
                 </div>
             </div>
         `;
@@ -650,39 +643,6 @@ const controlKawasanKumuh = L.Control.extend({
         );
 
         // Event listener untuk checkbox Kawasan Banjir
-        div.querySelector("#toggleKawasanBanjir").addEventListener(
-            "change",
-            (event) => {
-                isKawasanBanjirVisible = event.target.checked;
-                if (isKawasanBanjirVisible) {
-                    kawasanBanjirPolygons.forEach((polygon) => {
-                        map.addLayer(polygon);
-                        polygon.setStyle({ color: "blue", fillOpacity: 0.5 });
-                    });
-                } else {
-                    kawasanBanjirPolygons.forEach((polygon) => {
-                        map.removeLayer(polygon);
-                    });
-                }
-            }
-        );
-
-        div.querySelector("#toggleKawasanKebakaran").addEventListener(
-            "change",
-            (event) => {
-                isKawasanKebakaranVisible = event.target.checked;
-                if (isKawasanKebakaranVisible) {
-                    kawasanKebakaranPolygons.forEach((polygon) => {
-                        map.addLayer(polygon);
-                        polygon.setStyle({ color: "orange", fillOpacity: 0.5 });
-                    });
-                } else {
-                    kawasanKebakaranPolygons.forEach((polygon) => {
-                        map.removeLayer(polygon);
-                    });
-                }
-            }
-        );
 
         // Event listener untuk checkbox Kelurahan
         div.querySelector("#toggleKelurahan").addEventListener(
@@ -770,7 +730,7 @@ fetch(rtApiKawasanKumuh)
 function addRTPolygonToMap(name, coordinates, id, color) {
     const polygonOptions = {
         color: color || "blue", // Menggunakan warna dari database atau default biru
-        fillOpacity: 0.5,
+        fillOpacity: 0.0,
     };
 
     // Buat polygon RT dengan opsi yang sudah diatur

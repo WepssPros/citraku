@@ -113,7 +113,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{$penanganan->program->program}}</td>
                                     <td>{{$penanganan->kelurahan->nama}}</td>
-                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$penanganan->sat_program}}</td>
                                     <td>{{number_format($penanganan->keb_p_program_2025)}}</td>
@@ -144,7 +144,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{$penanganan->kegiatan->kegiatan}}</td>
                                     <td>{{$penanganan->kelurahan->nama}}</td>
-                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$penanganan->sat_kegiatan}}</td>
                                     <td>{{number_format($penanganan->keb_p_kegiatan_2025)}}</td>
@@ -204,7 +204,7 @@
                                     </td>
                                     <td>{{$penanganan->subkegiatan->sub_kegiatan}}</td>
                                     <td>{{$penanganan->kelurahan->nama}}</td>
-                                    <td>{{$penanganan->kelurahan->rt->sum('jumlah_kk')}} KK</td>
+                                    <td>{{$penanganan->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$penanganan->sat_sub_kegiatan}}</td>
                                     <td>{{number_format($penanganan->keb_p_sub_kegiatan_2025)}}</td>

@@ -15,10 +15,10 @@ class Kelurahan extends Model
         'koordinat',
         'marker',
         'color',
+        'jumlah_kk',
         'luas_wilayah',
-        'persentase',
-        'jml_kelurahan',
-        'jumlah_rt',
+       
+    
     ];
 
     public function kecamatan()
