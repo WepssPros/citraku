@@ -28,6 +28,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                @if(Auth::user()->roles == "ADMIN")
                 <li
                     class="nav-item {{ Request::is('dashboard/kecamatan*') ||  Request::is('dashboard/program*') ||  Request::is('dashboard/kelurahan*') || Request::is('dashboard/rt*') ? 'menu-open' : '' }}">
                     <a href="#"
@@ -69,6 +70,7 @@
                         </li>
                     </ul>
                 </li>
+                @endif
                 <li class="nav-header">Tematik Kumuh</li>
                 <li
                     class="nav-item  {{ Request::is('dashboard/perealisasian*') || Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
@@ -83,6 +85,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-header">Data View Tematik Kumuh</li>
 
+                        @if(Auth::user()->roles == "ADMIN")
                         <li class="nav-item">
                             <a href="{{route('dashboard.penanganan.index')}}"
                                 class="nav-link {{ Request::is('dashboard/penanganan*') ? 'active' : '' }} ">
@@ -97,6 +100,7 @@
                                 <p>Data Perealisasian</p>
                             </a>
                         </li>
+                        @endif
                         <li class="nav-item">
                             <a href="{{ route('dashboard.kawasankumuh.index') }}"
                                 class="nav-link {{ Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
@@ -125,6 +129,7 @@
                                 <p>Data Tematik Map</p>
                             </a>
                         </li>
+                        @if(Auth::user()->roles == "ADMIN")
                         <li class="nav-header">Input Penanganan Tematik Kumuh</li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.penanganan-permasalahan.create') }}"
@@ -134,25 +139,26 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.perealisasian.create') }}"
-                                class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard.perealisasian-permasalahan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/prealisasian-permasalahan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
                                 <p>Buat Perealisasian</p>
                             </a>
                         </li>
-                        <li class="nav-header">Operator Citraku</li>
+                        @endif
+                        <li class="nav-header">Input Operator Citraku</li>
                         <li class="nav-item">
                             <a href="{{ route('dashboard.penanganan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
-                                <p>Input Kebutuhan, Indikasi, Sumber Pendanaan </p>
+                                <p>Kebutuhan Penanganan </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.penanganan.create') }}"
-                                class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
-                                <p>Input Kebutuhan, Indikasi, Sumber Pendanaan </p>
+                            <a href="{{ route('dashboard.perealisasian.create') }}"
+                                class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
+                                <p>Kebutuhan Perealisasian</p>
                             </a>
                         </li>
 
@@ -206,12 +212,31 @@
                     <p>Kegiatan</p>
                 </a>
             </li>
+
             <li class="nav-item">
-                <a href="" class=" nav-link
-                                                {{ Request::is('dashboard/setting*') ? 'active' : '' }}">
+                <a href="" class="nav-link {{ Request::is('dashboard/setting*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-cogs"></i> <!-- Ikon untuk Pengaturan -->
                     <p>Pengaturan</p>
                 </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('index') }}" class="nav-link {{ Request::is('/') ? 'active' : '' }}">
+                    <i class="nav-icon fas fa-home"></i> <!-- Ikon untuk Halaman Depan -->
+                    <p>Halaman Depan</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="nav-icon fas fa-sign-out-alt"></i> <!-- Ikon untuk Logout -->
+                    <p>Logout</p>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </li>
 
             </ul>

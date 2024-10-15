@@ -28,7 +28,7 @@ class PenangananController extends Controller
     public function create()
     {
         $penanganans = Penanganan::all();
-        return view('pages.admin.opt-penanganan.index', compact('penanganans'));
+        return view('pages.admin.opt-penanganan.penanganan', compact('penanganans'));
     }
 
     /**

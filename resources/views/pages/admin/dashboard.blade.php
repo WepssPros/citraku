@@ -5,7 +5,14 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
+                @if (Auth::user() && Auth::user()->roles == 'ADMIN')
                 <h1 class="m-0">Dashboard</h1>
+                @endif
+
+                @if (Auth::user() && Auth::user()->roles == 'OPERATOR')
+                <h1 class="m-0">Dashboard - Operator - Citraku</h1>
+                @endif
+
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -1759,7 +1766,7 @@
 
         </div>
 
-        <!-- Small boxes (Stat box) -->
+        @if(Auth::user()->roles == "ADMIN")
         <div class="row">
             <section class="col-lg-12 connectedSortable">
                 <!-- Map card -->
@@ -1787,12 +1794,14 @@
 
             </section>
         </div>
+        @endif
 
 
-        <!-- /.row (main row) -->
     </div>
 
 
 </section>
+@if(Auth::user()->roles =="ADMIN")
 @vite(['resources/js/citrakudashboard.js'])
+@endif
 @endsection
