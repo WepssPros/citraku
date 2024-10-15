@@ -73,7 +73,7 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">NOMOR</th>
-                                    <th rowspan="2">PROGRAM / KEGIATAN / SUB KEGIATAN</th>
+                                    <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
                                     <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
                                     <th rowspan="2">SAT.</th>

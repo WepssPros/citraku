@@ -43,13 +43,14 @@
                                         alt="User profile picture">
                                 </div>
 
-                                <h3 class="profile-username text-center">Kelurahan </h3>
+                                <h3 class="profile-username text-center">{{$kec->nama}} </h3>
 
-                                <p class="text-muted text-center">Kawasan Kecamatan</p>
+                                <p class="text-muted text-center">Kawasan {{$kec->nama}}</p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
-                                    <li class="list-group-item">
-                                        <b>Luas (HA)</b> <a class="float-right">1,322</a>
+                                    {{-- <li class="list-group-item">
+                                        <b>Kawasan kumuh (HA)</b> <a
+                                            class="float-right">{{$kec->kelurahan->rt->sum('luas_ha')}}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>RT</b> <a class="float-right">543</a>
@@ -65,7 +66,7 @@
                                     </li>
                                     <li class="list-group-item">
                                         <b>Tingkat</b> <a class="float-right">Kumuh Ringan</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
 
                             </div>
@@ -110,14 +111,13 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
                                             <div class="row mb-3">
                                                 <div class="col-sm-6">
                                                     <img class="img-fluid"
                                                         src="{{asset('../../adminlte/dist/img/photo1.png')}}"
                                                         alt="Photo">
                                                 </div>
-                                                <!-- /.col -->
+
                                                 <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -128,7 +128,7 @@
                                                                 src="{{asset('../../adminlte/dist/img/photo3.jpg')}}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
+
                                                         <div class="col-sm-6">
                                                             <img class="img-fluid mb-3"
                                                                 src="{{asset('../..//adminlte/dist/img/photo4.jpg')}}"
@@ -137,13 +137,13 @@
                                                                 src="{{asset('../../adminlte/dist/img/photo1.png')}}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
+
                                                     </div>
-                                                    <!-- /.row -->
+
                                                 </div>
-                                                <!-- /.col -->
+
                                             </div>
-                                            <!-- /.row -->
+
 
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
@@ -176,9 +176,9 @@
 
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
-                                    <!-- /.tab-pane -->
+
                                     <div class="tab-pane" id="KectimelinepermasalahanUtamaRT{{$kec->id}}">
                                         <!-- The timeline -->
                                         <div class="timeline timeline-inverse">
@@ -188,7 +188,7 @@
                                                     10 Feb. 2014
                                                 </span>
                                             </div>
-                                            <!-- /.timeline-label -->
+
                                             <div>
                                                 <i class="fas fa-info bg-warning"></i>
                                                 <div class="timeline-item">
@@ -378,7 +378,7 @@
                                                     3 Jan. 2014
                                                 </span>
                                             </div>
-                                            <!-- /.timeline-label -->
+
                                             <!-- timeline item -->
 
                                             <!-- END timeline item -->
@@ -453,7 +453,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
                                     <div class=" tab-pane" id="KeckarekteristikPemukiman{{$kec->id}}">
                                         <!-- Post -->
@@ -469,9 +469,8 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
 
-                                            <!-- /.row -->
+
 
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
@@ -488,12 +487,12 @@
 
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
-                                    <!-- /.tab-pane -->
 
 
-                                    <!-- /.tab-pane -->
+
+
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
@@ -548,6 +547,9 @@
                                     <li class="list-group-item">
                                         <b>Jumlah RT Kumuh</b> <a class="float-right">{{$kel->rt->count()}} RT</a>
                                     </li>
+                                    <li class="list-group-item">
+                                        <b>Jumlah KK Kumuh</b> <a class="float-right">{{$kel->jumlah_kk}} KK</a>
+                                    </li>
 
                                     <li class="list-group-item">
                                         <b>Kecamatan</b> <a class="float-right">{{$kel->kecamatan->nama}}</a>
@@ -586,7 +588,6 @@
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="KeLpermasalahanUtamaRT{{$kel->id}}">
                                         <!-- Post -->
-
                                         @forelse ($kel->permasalahan as $permasalahan)
                                         <div class="post">
                                             <div class="user-block">
@@ -600,7 +601,6 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
                                             <div class="row mb-3">
 
                                                 <div class="col-sm-6">
@@ -610,7 +610,7 @@
                                                 </div>
 
 
-                                                <!-- /.col -->
+
                                                 <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-6">
@@ -621,7 +621,7 @@
                                                                 src="{{ asset('storage/' . $permasalahan->foto_3) }}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
+
                                                         <div class="col-sm-6">
                                                             <img class="img-fluid mb-3"
                                                                 src="{{ asset('storage/' . $permasalahan->foto_4) }}"
@@ -630,13 +630,13 @@
                                                                 src="{{ asset('storage/' . $permasalahan->foto_5) }}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
+
                                                     </div>
-                                                    <!-- /.row -->
+
                                                 </div>
-                                                <!-- /.col -->
+
                                             </div>
-                                            <!-- /.row -->
+
 
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
@@ -659,7 +659,6 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
                                             <div class="row mb-3">
 
                                                 <div class="col-sm-6">
@@ -667,14 +666,7 @@
                                                         src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
                                                         alt="Photo">
                                                 </div>
-
-
-                                                <!-- /.col -->
-
-                                                <!-- /.col -->
                                             </div>
-                                            <!-- /.row -->
-
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
                                                     Tidak ada Permasalahan
@@ -683,9 +675,9 @@
                                             </div>
                                         </div>
                                         @endforelse
-                                        <!-- /.post -->
+
                                     </div>
-                                    <!-- /.tab-pane -->
+
                                     <div class="tab-pane" id="KeLtimelinepermasalahanUtamaRT{{$kel->id}}">
                                         <!-- The timeline -->
                                         @forelse ($kel->subpermasalahan as $sps)
@@ -694,9 +686,8 @@
                                             <div class="time-label">
                                                 <span class="bg-danger">{{ $sps->formatted_created_at }}</span>
                                             </div>
-                                            <!-- /.timeline-label -->
 
-                                            <!-- Timeline Items -->
+
                                             <div>
                                                 <i class="fas fa-home bg-warning"></i>
                                                 <!-- Ganti icon untuk Bangunan Hunian -->
@@ -843,7 +834,7 @@
                                             <div class="time-label">
                                                 <span class="bg-success">{{ $sps->formatted_updated_at }}</span>
                                             </div>
-                                            <!-- /.timeline-label -->
+
 
                                             <div>
                                                 <i class="far fa-clock bg-gray"></i>
@@ -855,9 +846,8 @@
                                             <div class="time-label">
                                                 <span class="bg-danger">Maaf Data Tidak Ada.</span>
                                             </div>
-                                            <!-- /.timeline-label -->
 
-                                            <!-- Timeline Items -->
+
 
 
                                             <div>
@@ -879,7 +869,7 @@
                                                 <span class="bg-success">Admin CS Akan Segera Memberikan informasi
                                                     Lebih Lanjut.</span>
                                             </div>
-                                            <!-- /.timeline-label -->
+
 
                                             <div>
                                                 <i class="far fa-clock bg-gray"></i>
@@ -971,7 +961,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
                                     <div class=" tab-pane" id="KeLkarekteristikPemukiman{{$kel->id}}">
                                         <!-- Post -->
@@ -987,10 +977,6 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
-
-                                            <!-- /.row -->
-
                                             <div id="permasalahanList">
                                                 <table class="table table-bordered">
                                                     <thead>
@@ -1035,18 +1021,18 @@
                                                         </tr>
                                                         <tr>
                                                             <td>Jumlah KK di Kawasan Kumuh</td>
-                                                            <td>{{$kel->rt->sum('jumlah_kk')}} KK</td>
+                                                            <td>{{$kel->jumlah_kk}} KK</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
-                                    <!-- /.tab-pane -->
 
 
-                                    <!-- /.tab-pane -->
+
+
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->
@@ -1104,7 +1090,7 @@
                                         <b>Kecamatan</b> <a class="float-right">{{$rt->kecamatan->nama}}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Nilai</b> <a class="float-right">{{$rt->nilai}}</a>
+                                        <b>Nilai</b> <a class="float-right">{{$rt->nilai_kekumuhan}}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Tingkat</b> <a class="float-right">{{$rt->tingkat}}</a>
@@ -1162,6 +1148,7 @@
                                 <div class="tab-content">
                                     <div class="active tab-pane" id="permasalahanUtamaRT{{$rt->id}}">
                                         <!-- Post -->
+                                        @forelse ($rt->kelurahan->permasalahan as $permasalahan)
                                         <div class="post">
                                             <div class="user-block">
                                                 <img class="img-circle img-bordered-sm"
@@ -1174,281 +1161,274 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
                                             <div class="row mb-3">
                                                 <div class="col-sm-6">
                                                     <img class="img-fluid"
-                                                        src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                        src="{{ asset('storage/' . $permasalahan->foto_1) }}"
                                                         alt="Photo">
                                                 </div>
-                                                <!-- /.col -->
                                                 <div class="col-sm-6">
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <img class="img-fluid mb-3"
-                                                                src="{{asset('../../adminlte/dist/img/photo2.png')}}"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_2) }}"
                                                                 alt="Photo">
                                                             <img class="img-fluid"
-                                                                src="{{asset('../../adminlte/dist/img/photo3.jpg')}}"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_3) }}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
                                                         <div class="col-sm-6">
                                                             <img class="img-fluid mb-3"
-                                                                src="{{asset('../..//adminlte/dist/img/photo4.jpg')}}"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_4) }}"
                                                                 alt="Photo">
                                                             <img class="img-fluid"
-                                                                src="{{asset('../../adminlte/dist/img/photo1.png')}}"
+                                                                src="{{ asset('storage/' . $permasalahan->foto_5) }}"
                                                                 alt="Photo">
                                                         </div>
-                                                        <!-- /.col -->
                                                     </div>
-                                                    <!-- /.row -->
                                                 </div>
-                                                <!-- /.col -->
                                             </div>
-                                            <!-- /.row -->
 
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
-                                                    <p>
-                                                        • Ketidak sesuaian dengan Persyaratan Teknis Bangunan serta
-                                                        Ketidak
-                                                        teraturan Bangunan;
-                                                    </p>
-                                                    <p>• Kualitas Permukaan Jalan lingkungan;
-
-                                                    </p>
-                                                    <p>• Ketersediaan Akses Aman Air Minum serta Tidak terpenuhinya
-                                                        Kebutuhan Air
-                                                        Minum
-                                                    </p>
-                                                    <p>• Kualitas Konstruksi Drainase Serta Ketidak tersediaan
-                                                        Drainase;</p>
-                                                    <p>• Sistem Pengelolaan Air Limbah Tidak Sesuai Standar Teknis
-                                                        serta Prasarana
-                                                        dan Sarana Pengelolaan Air Limbah Tidak Sesuai dengan
-                                                        Persyaratan Teknis
-                                                    </p>
-                                                    <p>
-                                                        • Sistem Pengelolaan Persampahanyang tidak sesuai
-                                                        StandarTeknis
-                                                        dan
-                                                    </p>
-
+                                                    {!! $permasalahan->permasalahan_utama !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @empty
+                                        <div class="post">
+                                            <div class="user-block">
+                                                <img class="img-circle img-bordered-sm"
+                                                    src="{{asset('../../adminlte/dist/img/user6-128x128.jpg')}}"
+                                                    alt="User Image">
+                                                <span class="username">
+                                                    <a href="#">Admin Bapeda</a>
+                                                    <a href="#" class="float-right btn-tool"><i
+                                                            class="fas fa-times"></i></a>
+                                                </span>
+                                                <span class="description">Posted 5 photos - 5 days ago</span>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <div class="col-sm-6">
+                                                    <img class="img-fluid"
+                                                        src="https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty-300x240.jpg"
+                                                        alt="Photo">
+                                                </div>
+                                            </div>
+                                            <div id="permasalahanList">
+                                                <div class="permasalahan-item">
+                                                    Tidak ada Permasalahan
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+                                        @endforelse
+
                                     </div>
-                                    <!-- /.tab-pane -->
+
                                     <div class="tab-pane" id="timelinepermasalahanUtamaRT{{$rt->id}}">
                                         <!-- The timeline -->
                                         <div class="timeline timeline-inverse">
-                                            <!-- timeline time label -->
-                                            <div class="time-label">
-                                                <span class="bg-danger">
-                                                    10 Feb. 2014
-                                                </span>
-                                            </div>
-                                            <!-- /.timeline-label -->
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
+                                            <!-- The timeline -->
+                                            @forelse ($rt->kelurahan->subpermasalahan as $sps)
+                                            <div class="timeline timeline-inverse">
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-danger">{{ $sps->formatted_created_at }}</span>
+                                                </div>
 
 
-                                                    <h3 class="timeline-header"><a href="#">1.</a> Bangunan Hunian
-                                                    </h3>
 
-                                                    <div class="timeline-body">
-                                                        Jumlah Bangunan 202 Unit
-                                                        <br>
-                                                        Bangunan tidakteratur 0 Unit
-                                                        <br>
-                                                        bangunan tidaksesuaipersyaratan
-                                                        <br>
-                                                        teknis 5 Unit
+                                                <div>
+                                                    <i class="fas fa-home bg-warning"></i>
+                                                    <!-- Ganti icon untuk Bangunan Hunian -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">1.</a>
+                                                            {{$sps->header_no_1}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_1 !!}
+
+                                                        </div>
                                                     </div>
+                                                </div>
 
+                                                <div>
+                                                    <i class="fas fa-road bg-warning"></i>
+                                                    <!-- Ganti icon untuk Jalan Lingkungan -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">2.</a>
+                                                            {{$sps->header_no_2}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_2 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-tint bg-warning"></i>
+                                                    <!-- Ganti icon untuk Air Minum -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">3.</a>
+                                                            {{$sps->header_no_3}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_3 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-water bg-warning"></i>
+                                                    <!-- Ganti icon untuk Drainase Lingkungan -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">4.</a>
+                                                            {{$sps->header_no_4}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_4 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-trash bg-warning"></i>
+                                                    <!-- Ganti icon untuk Persampahan -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">5.</a>
+                                                            {{$sps->header_no_5}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_5 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-fire bg-warning"></i>
+                                                    <!-- Ganti icon untuk Proteksi Kebakaran -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">6.</a>
+                                                            {{$sps->header_no_6}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_7 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-recycle bg-warning"></i>
+                                                    <!-- Ganti icon untuk Air Limbah -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-primary"><a href="#">7.</a>
+                                                            {{$sps->header_no_7}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_7 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-file-alt bg-success"></i>
+                                                    <!-- Ganti icon untuk Legalitas dan Status Lahan -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">8.</a>
+                                                            {{$sps->header_no_8}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_8 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-users bg-success"></i>
+                                                    <!-- Ganti icon untuk Sosial Ekonomi -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">9.</a>
+                                                            {{$sps->header_no_9}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_9 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <i class="fas fa-clipboard-list bg-success"></i>
+                                                    <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timelne-header bg-success"><a href="#">10.</a>
+                                                            {{$sps->header_no_10}}
+                                                        </h3>
+                                                        <div class="timeline-body">
+                                                            {!! $sps->text_10 !!}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END timeline item -->
+
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-success">{{ $sps->formatted_updated_at }}</span>
+                                                </div>
+
+
+                                                <div>
+                                                    <i class="far fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
+                                            @empty
+                                            <div class="timeline timeline-inverse">
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-danger">Maaf Data Tidak Ada.</span>
+                                                </div>
 
 
-                                                    <h3 class="timeline-header"><a href="#">2.</a> Jalan Lingkungan
-                                                    </h3>
 
-                                                    <div class="timeline-body">
-                                                        Panjang jalaneksisting 6.086
-                                                        meter
-                                                        <br>
-                                                        Panjang jalandenganpermukaan
-                                                        rusak 2.898 meter
-                                                        <br>
 
+
+                                                <div>
+                                                    <i class="fas fa-clipboard-list bg-success"></i>
+                                                    <!-- Ganti icon untuk Pertimbangan Lain -->
+                                                    <div class="timeline-item">
+
+                                                        <h3 class="timeline-header bg-success"><a href="#">10.</a>
+                                                            Pertimbangan Lain</h3>
+                                                        <div class="timeline-body">
+                                                            Belum ada Timeline Permasalahan
+                                                        </div>
                                                     </div>
+                                                </div>
+                                                <!-- END timeline item -->
 
+                                                <!-- timeline time label -->
+                                                <div class="time-label">
+                                                    <span class="bg-success">Admin CS Akan Segera Memberikan informasi
+                                                        Lebih Lanjut.</span>
+                                                </div>
+
+
+                                                <div>
+                                                    <i class="far fa-clock bg-gray"></i>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
+                                            @endforelse
 
-
-                                                    <h3 class="timeline-header"><a href="#">3.</a> Air Minum
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        175 KK tidak terakses air minum
-                                                        aman
-
-                                                        <br>
-                                                        31 KK tidak terpenuhi kebutuhan air
-                                                        minum minima
-                                                        <br>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">4.</a> Drainase
-                                                        Lingkungan
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        5,73 Ha kawasantergenang
-                                                        <br>
-                                                        100 meterdrainaseeksisting
-                                                        <br>
-                                                        942 meterdrainaserusak
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">5.</a> Persampahan
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        223 KK sapraspengolahansampah
-                                                        tidaksesuaipersyaratanteknis
-                                                        <br>
-                                                        73 KK sistem pengolahan sampahtidak
-                                                        sesuai standar teknis
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">6.</a> . Proteksi
-                                                        Kebakaran
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        0 Unit bangunantidakterlayani
-                                                        prasaranaproteksi kebakaran
-                                                        <br>
-                                                        0 Unit bangunantidakterlayanisarana
-                                                        proteksikebakaran
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-info bg-warning"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">7.</a> Air Limbah
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        4 KK akses air limbahtidaksesuaistandar
-                                                        teknis
-                                                        <br>
-                                                        4 KK sistem saprasair limbahtidaksesuai
-                                                        persyaratan teknis
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-info bg-success"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">8.</a> Legalitas dan
-                                                        Status Lahan
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        0 Unit bangunanhunian memiliki IMB
-                                                        <br>
-                                                        202 unit bangunantidak memiliki IMB
-                                                        <br>
-                                                        13 Unit bangunantidak memiliki
-                                                        SHM/HGB/Surat yang diakuipemerintah
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-info bg-success"></i>
-                                                <div class="timeline-item">
-
-
-                                                    <h3 class="timeline-header"><a href="#">9.</a> Sosial Ekonomi
-                                                    </h3>
-
-                                                    <div class="timeline-body">
-                                                        Jumlah Penduduk
-                                                        dikawasan Kumuh 812
-                                                        Jiwa
-                                                        <br>
-                                                        Jumlah KK dikawasan
-                                                        Kumuh 223 KK
-                                                        <br>
-                                                        Lokasi "memiliki" Potensi
-                                                        Sosial, ekonomi, buday
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <!-- END timeline item -->
-                                            <!-- timeline time label -->
-                                            <div class="time-label">
-                                                <span class="bg-success">
-                                                    3 Jan. 2014
-                                                </span>
-                                            </div>
-                                            <!-- /.timeline-label -->
-                                            <!-- timeline item -->
-
-                                            <!-- END timeline item -->
-                                            <div>
-                                                <i class="far fa-clock bg-gray"></i>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class=" tab-pane" id="lingkupAdministrasi{{$rt->id}}">
@@ -1479,45 +1459,28 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>Lokasi 1</td>
-                                                            <td>100 m²</td>
+                                                            <td>{{$rt->nomor}}</td>
+                                                            <td>{{$rt->luas_ha}}</td>
                                                             <td>
                                                                 <ul>
-                                                                    <li>RT: 01</li>
-                                                                    <li>Kelurahan: A</li>
-                                                                    <li>Kecamatan: X</li>
+                                                                    <li>RT: {{$rt->nomor}}</li>
+                                                                    <li>Kelurahan: {{$rt->kelurahan->nama}}</li>
+                                                                    <li>Kecamatan: {{$rt->kecamatan->nama}}</li>
                                                                 </ul>
                                                             </td>
                                                             <td>
                                                                 <ul>
-                                                                    <li>Nilai: 75</li>
-                                                                    <li>Tingkat: Sedang</li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Lokasi 2</td>
-                                                            <td>150 m²</td>
-                                                            <td>
-                                                                <ul>
-                                                                    <li>RT: 02</li>
-                                                                    <li>Kelurahan: B</li>
-                                                                    <li>Kecamatan: Y</li>
-                                                                </ul>
-                                                            </td>
-                                                            <td>
-                                                                <ul>
-                                                                    <li>Nilai: 85</li>
-                                                                    <li>Tingkat: Tinggi</li>
+                                                                    <li>Nilai: {{$rt->nilai_kekumuhan}}</li>
+                                                                    <li>Tingkat: {{$rt->tingkat_status}}</li>
                                                                 </ul>
                                                             </td>
                                                         </tr>
-                                                        <!-- Tambahkan lebih banyak baris sesuai kebutuhan -->
+
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
                                     <div class=" tab-pane" id="karekteristikPemukiman{{$rt->id}}">
                                         <!-- Post -->
@@ -1533,37 +1496,68 @@
                                                 </span>
                                                 <span class="description">Posted 5 photos - 5 days ago</span>
                                             </div>
-                                            <!-- /.user-block -->
 
-                                            <!-- /.row -->
+
 
                                             <div id="permasalahanList">
                                                 <div class="permasalahan-item">
-                                                    <p>
-                                                        <b>Kategori Kumuh : Kumuh Ringan</b>
-                                                        <br>
-                                                        <b>Tipologi Kumuh : Permukiman kumuh dataran rendah</b>
-                                                        <br>
-                                                        <b>Karakteristik Permukiman :Kumuh pada Perkotaan
-                                                            yang terletak pada
-                                                            kawasan perekonomian
-                                                        </b>
-                                                        <br>
-                                                        <b>Jumlah Penduduk dikawasan Kumuh 812 Jiwa</b>
-                                                        <br>
-                                                        <b>Jumlah KK dikawasan Kumuh 223 KK</b>
-                                                    </p>
-
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Kategori</th>
+                                                                <th>Informasi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($rt->kelurahan->permasalahan as $permasalahanItem)
+                                                            <tr>
+                                                                <td>Kategori Kumuh</td>
+                                                                <td>
+                                                                    <span class="badge 
+                                                                          @if($rtkumuh->tingkat_status == 'KUMUH RINGAN') 
+                                                                            bg-warning 
+                                                                           @elseif($rtkumuh->tingkat_status == 'KUMUH SEDANG') 
+                                                                                 bg-success 
+                                                                           @elseif($rtkumuh->tingkat_status == 'KUMUH TINGGI') 
+                                                                             bg-danger 
+                                                                                @else 
+                                                                                     bg-secondary 
+                                                                          @endif">
+                                                                        {{ $rtkumuh->tingkat_status }}
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Tipologi Kumuh</td>
+                                                                <td>Permukiman Kumuh
+                                                                    {{$permasalahanItem->tipologi_kumuh}}
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Karakteristik Permukiman</td>
+                                                                <td>{!!$permasalahanItem->karakteristik!!}</td>
+                                                            </tr>
+                                                            @endforeach
+                                                            <tr>
+                                                                <td>Jumlah Penduduk di Kawasan Kumuh</td>
+                                                                <td>{{$rt->kelurahan->rt->sum('jumlah_jiwa')}} Jiwa</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Jumlah KK di Kawasan Kumuh</td>
+                                                                <td>{{$rt->kelurahan->jumlah_kk}} KK</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
 
                                             </div>
                                         </div>
-                                        <!-- /.post -->
+
                                     </div>
-                                    <!-- /.tab-pane -->
 
 
-                                    <!-- /.tab-pane -->
+
+
                                 </div>
                                 <!-- /.tab-content -->
                             </div><!-- /.card-body -->

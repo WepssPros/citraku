@@ -73,7 +73,7 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">NOMOR</th>
-                                    <th rowspan="2">PROGRAM / KEGIATAN / SUB KEGIATAN</th>
+                                    <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
                                     <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
                                     <th rowspan="2">SAT.</th>
@@ -136,7 +136,7 @@
                                     <td>{{($perealisasian->r_sp_dak_program)}}</td>
                                     <td>{{($perealisasian->r_sp_swasta_program)}}</td>
                                     <td>{{($perealisasian->r_sp_masyarakat_program)}}</td>
-                                    <td>{{$perealisasian->opd_program}}</td>
+                                    <td>{{$perealisasian->r_opd_program}}</td>
                                     <td></td>
 
                                 </tr>
@@ -167,7 +167,7 @@
                                     <td>{{($perealisasian->r_sp_dak_kegiatan)}}</td>
                                     <td>{{($perealisasian->r_sp_swasta_kegiatan)}}</td>
                                     <td>{{($perealisasian->r_sp_masyarakat_kegiatan)}}</td>
-                                    <td>{{$perealisasian->opd_kegiatan}}</td>
+                                    <td>{{$perealisasian->r_opd_kegiatan}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default" data-bs-toggle="dropdown"
@@ -227,7 +227,7 @@
                                     <td>{{($perealisasian->r_sp_dak_sub_kegiatan)}}</td>
                                     <td>{{($perealisasian->r_sp_swasta_sub_kegiatan)}}</td>
                                     <td>{{($perealisasian->r_sp_masyarakat_sub_kegiatan)}}</td>
-                                    <td>{{$perealisasian->opd_sub_kegiatan}}</td>
+                                    <td>{{$perealisasian->r_opd_sub_kegiatan}}</td>
                                     <td></td>
 
 
@@ -395,7 +395,7 @@
                         <thead>
                             <tr>
                                 <th rowspan="2">NOMOR</th>
-                                <th rowspan="2">PROGRAM / KEGIATAN / SUB KEGIATAN</th>
+                                <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
                                 <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                 <th colspan="2">Estimasi Outcome</th>
                                 <th rowspan="2">SAT.</th>
