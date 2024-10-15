@@ -77,9 +77,9 @@
                                     <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
                                     <th rowspan="2">SAT.</th>
-                                    <th colspan="5">Kebutuhan Penanganan</th>
+                                    <th colspan="5">Realisasi Penanganan</th>
                                     <th rowspan="2">Total Volume</th>
-                                    <th colspan="5">Penanganan</th>
+                                    <th colspan="5">Realisasi Biaya</th>
                                     <th rowspan="2">Jumlah</th>
                                     <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                     <th rowspan="2">OPD PENANGGUNG JAWAB</th>

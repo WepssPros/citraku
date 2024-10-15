@@ -64,7 +64,7 @@
 
                                 <div class="form-group">
                                     <label for="sat_program">Pilih Satuan</label>
-                                    <select name="sat_program" id="sat_program" class="form-control selectsat_program"
+                                    <select name="sat_program" id="sat_program" class="form-control selectsat_program" readonly
                                         required>
                                         <option value="">Pilih Satuan</option>
                                         <optgroup label="Pengukuran Unit">

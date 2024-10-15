@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penanganans', function (Blueprint $table) {
+        Schema::create('kegiatan_penanganans', function (Blueprint $table) {
             $table->id();
-            // ADMIN
-            $table->bigInteger('program_id')->nullable();
-            $table->biginteger('kelurahan_id')->nullable();
-            $table->biginteger('opd_program')->nullable();
+            $table->bigInteger('penanganan_id')->nullable();
+            $table->biginteger('kegiatan_id')->nullable();
+            $table->biginteger('opd_kegiatan')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penanganans');
+        Schema::dropIfExists('kegiatan_penanganans');
     }
 };

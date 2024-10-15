@@ -142,7 +142,6 @@ class RTController extends Controller
             'prioritas' => 'nullable|string',
             'legalitas' => 'nullable|string',
             'luas_ha' => 'nullable|numeric|regex:/^\d+(\.\d{1,2})?$/',
-            // Pastikan file GeoJSON diupload
         ]);
 
         // Mencari RT berdasarkan ID
@@ -156,15 +155,21 @@ class RTController extends Controller
             // Mendapatkan koordinat dari file GeoJSON
             $coordinates = $geojson['features'][0]['geometry']['coordinates'];
 
-            // Jika koordinat adalah LineString, ubah menjadi Polygon jika perlu
-            if ($geojson['features'][0]['geometry']['type'] === 'LineString') {
-                $coordinates = [$coordinates]; // Mengubahnya menjadi format Polygon
+            // Cek apakah geometrinya adalah MultiPolygon
+            if ($geojson['features'][0]['geometry']['type'] === 'MultiPolygon') {
+                // Ambil hanya 3 set koordinat
+                $coordinates = array_slice($coordinates[0], 0, 3); // Mengambil hanya 3 set koordinat
+            } elseif ($geojson['features'][0]['geometry']['type'] === 'Polygon') {
+                // Jika geometrinya Polygon, masukkan ke dalam array MultiPolygon dan ambil 3 set koordinat
+                $coordinates = [array_slice($coordinates, 0, 3)]; // Mengubah menjadi MultiPolygon dengan 3 set koordinat
+            } else {
+                return redirect()->back()->withErrors(['geojson_file' => 'GeoJSON harus berupa MultiPolygon atau Polygon.']);
             }
 
-            // Update koordinat
+            // Update koordinat dengan format 3 lapisan
             $rt->koordinat = json_encode([
-                'type' => 'Polygon',
-                'coordinates' => $coordinates,
+                'type' => 'MultiPolygon',
+                'coordinates' => $coordinates, // Bungkus dalam satu lapisan untuk mendapatkan [[[ ]]]
             ]);
         }
 
@@ -191,6 +196,7 @@ class RTController extends Controller
 
         return redirect()->route('dashboard.rt.index')->with('success', 'Data RT berhasil diperbarui.');
     }
+
 
 
     /**

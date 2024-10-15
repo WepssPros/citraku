@@ -35,7 +35,7 @@ class TematikMapController extends Controller
         $validatedData = $request->validate([
             'nama_tipe' => 'required|string',
             'color' => 'nullable|string',
-            'geojson_file' => 'required|file|mimes:json', // Pastikan file GeoJSON diupload
+            'geojson_file' => 'required|file|mimes:json.geojson', // Pastikan file GeoJSON diupload
         ]);
 
         // Membaca file GeoJSON

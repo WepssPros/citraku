@@ -53,7 +53,7 @@ class KelurahanController extends Controller
         $coordinates = $geojson['features'][0]['geometry']['coordinates'];
 
         // Jika koordinat adalah LineString, ubah menjadi Polygon jika perlu
-        if ($geojson['features'][0]['geometry']['type'] === 'LineString') {
+        if ($geojson['features'][0]['geometry']['type'] === 'MultiPolygon') {
             $coordinates = [$coordinates]; // Mengubahnya menjadi format Polygon
         }
 
@@ -62,7 +62,7 @@ class KelurahanController extends Controller
             'kecamatan_id' => $validatedData['kecamatan_id'],
             'nama' => $validatedData['nama'],
             'koordinat' => json_encode([ // Menyimpan sebagai JSON
-                'type' => 'Polygon', // Anda bisa mengubahnya sesuai jenis geometrinya
+                'type' => 'MultiPolygon', // Anda bisa mengubahnya sesuai jenis geometrinya
                 'coordinates' => $coordinates,
             ]), // Pastikan ini tidak ter-escape
             'marker' => $validatedData['marker'], // Menyimpan marker jika ada
