@@ -98,11 +98,11 @@
                                     <th>2027</th>
                                     <th>2028</th>
                                     <th>2029</th>
-                                    <th>KAB / KOTA</th>
+                                    <th>KAB/KOTA</th>
                                     <th>PROV.</th>
                                     <th>APBN</th>
                                     <th>DAK</th>
-                                    <th>SWASTA / CSR</th>
+                                    <th>SWASTA/CSR</th>
                                     <th>MASYARAKAT</th>
                                 </tr>
                             </thead>

@@ -122,6 +122,7 @@ class PenangananController extends Controller
             'ind_b_total_sub_kegiatan',
         ];
 
+
         // Fungsi untuk membersihkan dan mengonversi nilai
         function cleanAndConvert($value)
         {
@@ -165,6 +166,10 @@ class PenangananController extends Controller
         $data['ind_b_total_program'] = $totalProgram;
         $data['ind_b_total_kegiatan'] = $totalKegiatan;
         $data['ind_b_total_sub_kegiatan'] = $totalSubKegiatan;
+
+        $data['keb_p_total_program'] = $request->keb_p_program_2025 +  $request->keb_p_program_2026 + $request->keb_p_program_2027 + $request->keb_p_program_2028 + $request->keb_p_program_2029;
+        $data['keb_p_total_kegiatan'] = $request->keb_p_kegiatan_2025 +  $request->keb_p_kegiatan_2026 + $request->keb_p_kegiatan_2027 + $request->keb_p_kegiatan_2028 + $request->keb_p_kegiatan_2029;
+        $data['keb_p_total_sub_kegiatan'] = $request->keb_p_sub_kegiatan_2025 +  $request->keb_p_sub_kegiatan_2026 + $request->keb_p_sub_kegiatan_2027 + $request->keb_p_sub_kegiatan_2028 + $request->keb_p_sub_kegiatan_2029;
 
         // Melakukan update pada penanganan
         $penanganan->update($data);

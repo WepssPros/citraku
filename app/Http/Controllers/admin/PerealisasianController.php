@@ -166,6 +166,10 @@ class PerealisasianController extends Controller
         $data['r_ind_b_total_kegiatan'] = $totalKegiatan;
         $data['r_ind_b_total_sub_kegiatan'] = $totalSubKegiatan;
 
+        $data['r_keb_p_total_program'] = $request->r_keb_p_program_2025 +  $request->r_keb_p_program_2026 + $request->r_keb_p_program_2027 + $request->r_keb_p_program_2028 + $request->r_keb_p_program_2029;
+        $data['r_keb_p_total_kegiatan'] = $request->r_keb_p_kegiatan_2025 +  $request->r_keb_p_kegiatan_2026 + $request->r_keb_p_kegiatan_2027 + $request->r_keb_p_kegiatan_2028 + $request->r_keb_p_kegiatan_2029;
+        $data['r_keb_p_total_sub_kegiatan'] = $request->r_keb_p_sub_kegiatan_2025 +  $request->r_keb_p_sub_kegiatan_2026 + $request->r_keb_p_sub_kegiatan_2027 + $request->r_keb_p_sub_kegiatan_2028 + $request->r_keb_p_sub_kegiatan_2029;
+
         // Melakukan update pada penanganan
         $perealisasian->update($data);
 

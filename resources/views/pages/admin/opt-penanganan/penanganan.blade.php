@@ -73,7 +73,7 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">NOMOR</th>
-                                    <th rowspan="2">Input Kebutuhan /Indikasi /SumberPendaan</th>
+                                    <th rowspan="2">Input Kebutuhan/Indikasi/SumberPendaan</th>
                                     <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
                                     <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
@@ -99,7 +99,7 @@
                                     <th>2027</th>
                                     <th>2028</th>
                                     <th>2029</th>
-                                    <th>KAB / KOTA</th>
+                                    <th>KAB/KOTA</th>
                                     <th>PROV.</th>
                                     <th>APBN</th>
                                     <th>DAK</th>
