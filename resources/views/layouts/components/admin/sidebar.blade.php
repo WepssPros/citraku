@@ -134,6 +134,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('dashboard.perealisasian.create') }}"
+                                class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
+                                <p>Buat Perealisasian</p>
+                            </a>
+                        </li>
+                        <li class="nav-header">Operator Citraku</li>
+                        <li class="nav-item">
                             <a href="{{ route('dashboard.penanganan.create') }}"
                                 class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
@@ -141,12 +149,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.perealisasian.create') }}"
-                                class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
-                                <p>Buat Perealisasian</p>
+                            <a href="{{ route('dashboard.penanganan.create') }}"
+                                class="nav-link {{ Request::is('dashboard/penanganan/create') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Penanganan -->
+                                <p>Input Kebutuhan, Indikasi, Sumber Pendanaan </p>
                             </a>
                         </li>
+
                         <li class="nav-header">Input Tematik Profile (P) Kumuh</li>
 
                         <li class="nav-item">
