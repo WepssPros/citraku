@@ -577,8 +577,7 @@ let isKawasanKebakaranVisible = false; // Status untuk tampilan kawasan banjir (
 
 const rtApiKawasanKumuh = "http://citraku.test/api/kumuh"; // URL untuk API kawasan kumuh
 const kawasanKumuhPolygons = []; // Array untuk menyimpan polygon kawasan kumuh
-const kawasanBanjirPolygons = []; // Array untuk menyimpan polygon kawasan banjir
-const kawasanKebakaranPolygons = []; // Array untuk menyimpan polygon kawasan banjir
+
 
 // Buat kontrol kustom untuk checkbox
 const controlKawasanKumuh = L.Control.extend({
@@ -741,65 +740,9 @@ function addRTPolygonToMap(name, coordinates, id, color) {
 }
 
 // Fetch data kawasan banjir
-fetch("http://citraku.test/api/rawanbanjir")
-    .then((response) => response.json())
-    .then((data) => {
-        data.forEach((item) => {
-            // Mengambil koordinat kawasan banjir
-            const geojson = JSON.parse(item.koordinat);
-            if (geojson.coordinates && geojson.coordinates.length > 0) {
-                const coordinates = geojson.coordinates[0].map((coord) => ({
-                    lat: coord[1],
-                    lng: coord[0],
-                }));
-                addKawasanBanjirPolygonToMap(coordinates);
-            }
-        });
-    })
-    .catch((error) => {
-        console.error("Error fetching kawasan banjir data:", error);
-    });
 
-// Fungsi untuk menambahkan polygon kawasan banjir ke peta
-function addKawasanBanjirPolygonToMap(coordinates) {
-    const polygonOptions = {
-        color: "blue", // Warna untuk kawasan banjir
-        fillOpacity: 0, // Set fillOpacity ke 0 agar tidak terlihat
-        opacity: 0, // Set opacity ke 0 agar border tidak terlihat
-    };
-    const polygon = L.polygon(coordinates, polygonOptions).addTo(map);
-    kawasanBanjirPolygons.push(polygon);
-}
 
-fetch("http://citraku.test/api/rawankebakaran")
-    .then((response) => response.json())
-    .then((data) => {
-        data.forEach((item) => {
-            // Mengambil koordinat kawasan banjir
-            const geojson = JSON.parse(item.koordinat);
-            if (geojson.coordinates && geojson.coordinates.length > 0) {
-                const coordinates = geojson.coordinates[0].map((coord) => ({
-                    lat: coord[1],
-                    lng: coord[0],
-                }));
-                addKawasanKebakaranPolygonToMap(coordinates);
-            }
-        });
-    })
-    .catch((error) => {
-        console.error("Error fetching kawasan banjir data:", error);
-    });
 
-// Fungsi untuk menambahkan polygon kawasan banjir ke peta
-function addKawasanKebakaranPolygonToMap(coordinates) {
-    const polygonOptions = {
-        color: "blue", // Warna untuk kawasan banjir
-        fillOpacity: 0, // Set fillOpacity ke 0 agar tidak terlihat
-        opacity: 0, // Set opacity ke 0 agar border tidak terlihat
-    };
-    const polygon = L.polygon(coordinates, polygonOptions).addTo(map);
-    kawasanKebakaranPolygons.push(polygon);
-}
 
 // Event listener untuk header Jenis Peta
 document

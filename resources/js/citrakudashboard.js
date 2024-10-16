@@ -350,4 +350,401 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
     // Simpan polygon ke array untuk referensi lebih lanjut
     kelurahanPolygons.push(polygon);
 }
-//
+//TUTUP KELURAHGN REHAN
+
+// --------------------------------------------------------------------------------------------//
+// OPTION MENU MENU
+// URL untuk API kawasan kumuh
+const kawasanKumuhApiUrl = "http://citraku.test/api/kumuh";
+
+// Array untuk menyimpan polygon kawasan kumuh
+const kawasanKumuhPolygons = [];
+
+// Ambil data Kawasan Kumuh dari API
+fetch(kawasanKumuhApiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+        data.forEach((kawasan) => {
+            const name = kawasan.nama; // Mengambil nama kawasan
+            const id = kawasan.id; // ID kawasan
+            const color = kawasan.color; // Warna kawasan
+
+            const geojson = JSON.parse(kawasan.koordinat); // Parsing GeoJSON
+
+            // Memeriksa apakah GeoJSON mengandung koordinat
+            if (
+                geojson &&
+                geojson.coordinates &&
+                geojson.coordinates.length > 0
+            ) {
+                let coordinates = [];
+
+                // Jika ini adalah Polygon
+                if (geojson.type === "Polygon") {
+                    coordinates.push(
+                        geojson.coordinates[0].map((coord) => ({
+                            lat: coord[1],
+                            lng: coord[0],
+                        }))
+                    );
+                }
+                // Jika ini adalah MultiPolygon
+                else if (geojson.type === "MultiPolygon") {
+                    geojson.coordinates.forEach((polygon) => {
+                        coordinates.push(
+                            polygon[0].map((coord) => ({
+                                lat: coord[1],
+                                lng: coord[0],
+                            }))
+                        );
+                    });
+                }
+
+                // Membuat layer Kawasan Kumuh dengan warna dari database
+                if (coordinates.length > 0) {
+                    createKawasanKumuhLayer(name, coordinates, id, color);
+                } else {
+                    console.warn(`No valid coordinates for Kawasan: ${name}`);
+                }
+            } else {
+                console.warn(`No coordinates found for Kawasan: ${name}`);
+            }
+        });
+
+        // Setelah membuat semua polygons, atur bounds
+        if (kawasanKumuhPolygons.length > 0) {
+            const bounds = L.latLngBounds();
+            kawasanKumuhPolygons.forEach((polygon) => {
+                bounds.extend(polygon.getBounds());
+            });
+            map.fitBounds(bounds); // Sesuaikan peta agar muat dengan semua polygon
+        } else {
+            console.warn("No Kawasan Kumuh polygons available to fit bounds");
+        }
+    })
+    .catch((error) => {
+        console.error("Error fetching Kawasan Kumuh data:", error);
+    });
+
+// Fungsi untuk membuat layer Kawasan Kumuh dan menambahkannya ke peta
+function createKawasanKumuhLayer(name, coordinates, id, color) {
+    const polygon = L.polygon(coordinates, {
+        color: color || "yellow", // Warna dari database atau default
+        fillOpacity: 0.5,
+    }).addTo(map);
+
+    polygon.on("mouseover", function () {
+        polygon.setStyle({
+            color: color || "yellow", // Ubah warna polygon saat hover
+            fillOpacity: 0.6, // Agak transparan lebih rendah
+            weight: 3, // Tebalkan garis polygon
+        });
+    });
+
+    polygon.on("mouseout", function () {
+        polygon.setStyle({
+            color: color || "yellow", // Kembalikan warna polygon saat mouse keluar
+            fillOpacity: 0.5, // Kembalikan transparansi
+            weight: 1, // Kembalikan ketebalan garis ke normal
+        });
+    });
+
+    // Event click untuk Kawasan Kumuh
+    polygon.on("click", function () {
+        map.fitBounds(polygon.getBounds());
+        $("#rtModal" + id).modal("show"); // Pastikan modal ini ada di HTML
+    });
+
+    polygon.bindPopup(` ${name}`); // Menampilkan nama Kawasan di popup
+    kawasanKumuhPolygons.push(polygon); // Simpan polygon ke array untuk dipakai pada fitBounds
+}
+
+// Memastikan kontrol Kawasan Kumuh sudah terintegrasi
+const controlKawasanKumuh = L.Control.extend({
+    options: {
+        position: "topright", // Posisi kontrol di peta
+    },
+
+    onAdd: function (map) {
+        const div = L.DomUtil.create("div", "custom-control");
+        div.innerHTML = `
+            <div class="layer-control-card">
+                <div class="layer-control-header" id="jenisPetaHeader">
+                    <p>Jenis Peta</p>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="layer-control-body" id="jenisPetaBody" style="display: none;">
+                    <label>
+                        <input type="checkbox" id="toggleKecamatan" checked>
+                        <span>Batas Administrasi Kecamatan</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" id="toggleKelurahan" checked>
+                        <span>Batas Administrasi Kelurahan</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="layer-control-card">
+                <div class="layer-control-header" id="petaTematikHeader">
+                    <p>Peta Tematik</p>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="layer-control-body" id="petaTematikBody" style="display: none;">
+                    <label>
+                        <input type="checkbox" id="toggleKawasanKumuh">
+                        <span>Kawasan Kumuh</span>
+                    </label>
+                </div>
+            </div>
+        `;
+
+        // Menghindari propagasi event click
+        L.DomEvent.disableClickPropagation(div);
+
+        // Event listener untuk checkbox Kawasan Kumuh
+        div.querySelector("#toggleKawasanKumuh").addEventListener(
+            "change",
+            (event) => {
+                const isKawasanKumuhVisible = event.target.checked;
+                if (isKawasanKumuhVisible) {
+                    kawasanKumuhPolygons.forEach((polygon) => {
+                        map.addLayer(polygon);
+                    });
+                } else {
+                    kawasanKumuhPolygons.forEach((polygon) => {
+                        map.removeLayer(polygon);
+                    });
+                }
+            }
+        );
+
+        // Event listener untuk checkbox Kelurahan
+        div.querySelector("#toggleKelurahan").addEventListener(
+            "change",
+            (event) => {
+                const isKelurahanVisible = event.target.checked;
+                if (isKelurahanVisible) {
+                    kelurahanPolygons.forEach((polygon) => {
+                        map.addLayer(polygon);
+                    });
+                } else {
+                    kelurahanPolygons.forEach((polygon) => {
+                        map.removeLayer(polygon);
+                    });
+                }
+            }
+        );
+
+        // Event listener untuk checkbox Kecamatan
+        div.querySelector("#toggleKecamatan").addEventListener(
+            "change",
+            (event) => {
+                const isKecamatanVisible = event.target.checked;
+                if (isKecamatanVisible) {
+                    kecPolygons.forEach((polygon) => {
+                        map.addLayer(polygon);
+                    });
+                } else {
+                    kecPolygons.forEach((polygon) => {
+                        map.removeLayer(polygon);
+                    });
+                }
+            }
+        );
+
+        return div;
+    },
+});
+// Tambahkan kontrol ke peta
+map.addControl(new controlKawasanKumuh());
+// Event listener untuk header Jenis Peta
+document
+    .getElementById("jenisPetaHeader")
+    .addEventListener("click", function () {
+        const body = document.getElementById("jenisPetaBody");
+        const icon = this.querySelector(".toggle-icon");
+
+        if (body.style.display === "none") {
+            body.style.display = "block"; // Menampilkan body
+            icon.textContent = "-"; // Ubah ikon menjadi minus
+        } else {
+            body.style.display = "none"; // Menyembunyikan body
+            icon.textContent = "+"; // Ubah ikon menjadi plus
+        }
+    });
+
+// Event listener untuk header Peta Tematik
+document
+    .getElementById("petaTematikHeader")
+    .addEventListener("click", function () {
+        const body = document.getElementById("petaTematikBody");
+        const icon = this.querySelector(".toggle-icon");
+
+        if (body.style.display === "none") {
+            body.style.display = "block"; // Menampilkan body
+            icon.textContent = "-"; // Ubah ikon menjadi minus
+        } else {
+            body.style.display = "none"; // Menyembunyikan body
+            icon.textContent = "+"; // Ubah ikon menjadi plus
+        }
+    });
+
+const controlKelurahan = L.Control.extend({
+    options: {
+        position: "topright",
+    },
+
+    onAdd: function (map) {
+        const div = L.DomUtil.create("div", "custom-control");
+        div.innerHTML = `
+            <div class="layer-control-card">
+                <div class="layer-control-header" id="kelurahanHeader">
+                    <p>Pilih Kawasan</p>
+                    <span class="toggle-icon">+</span> <!-- Ikon toggle -->
+                </div>
+                <div class="layer-control-body" id="kelurahanBody" style="display: none; max-height: 300px; overflow-y: auto;">
+               
+                </div>
+            </div>
+
+        `;
+
+        L.DomEvent.disableClickPropagation(div);
+
+        // Mengambil data kelurahan dari API
+        fetch(kelurahanApiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach((kelurahan) => {
+                    const id = kelurahan.id;
+                    const name = kelurahan.nama;
+                    const color = kelurahan.color;
+                    const geojson = JSON.parse(kelurahan.koordinat); // Ambil koordinat
+                    const coordinates = geojson.coordinates[0].map((coord) => ({
+                        lat: coord[1],
+                        lng: coord[0],
+                    }));
+
+                    // Membuat polygon dan menyimpan ID kelurahan
+                    const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
+
+                    const polygon = L.polygon(
+                        coordinates.map((coord) => [coord.lat, coord.lng]),
+                        {
+                            color: polygonColor, // Menggunakan warna dari parameter
+                            weight: 2,
+                            opacity: 0.65,
+                            fillOpacity: 0.3,
+                            interactive: true,
+                        }
+                    ).addTo(map);
+                    const polyline = L.polyline(
+                        coordinates.map((coord) => [coord.lat, coord.lng]),
+                        {
+                            color: "white",
+                            weight: 1,
+                            opacity: 1,
+                        }
+                    ).addTo(map);
+
+                    polygon.on("mouseover", function () {
+                        if (map.getZoom() < 15) {
+                            polyline.setStyle({ color: "blue" });
+                            polygon.setStyle({
+                                color: polygonColor,
+                                fillOpacity: 0.5,
+                            }); // Gunakan polygonColor
+                        }
+                    });
+
+                    polygon.on("mouseout", function () {
+                        if (map.getZoom() < 15) {
+                            polyline.setStyle({ color: "white" });
+                            polygon.setStyle({
+                                color: polygonColor,
+                                fillOpacity: 0.3,
+                            }); // Gunakan polygonColor
+                        }
+                    });
+
+                    polygon.on("click", function () {
+                        map.fitBounds(polygon.getBounds());
+                        $("#kelurahanModal" + id).modal("show");
+                    });
+
+                    polygon.kelurahanId = id; // Menyimpan ID kelurahan di polygon
+                    kelurahanPolygons.push(polygon); // Menyimpan polygon ke array
+
+                    const label = document.createElement("label");
+                    label.innerHTML = `
+                        <input type="checkbox" class="toggleKelurahan" data-id="${id}">
+                        <span>${name}</span>
+                    `;
+                    div.querySelector("#kelurahanBody").appendChild(label);
+
+                    // Event listener untuk checkbox kelurahan
+                    label
+                        .querySelector(".toggleKelurahan")
+                        .addEventListener("change", (event) => {
+                            const kelurahanId =
+                                event.target.getAttribute("data-id");
+                            const isChecked = event.target.checked;
+
+                            // Temukan polygon berdasarkan ID
+                            const polygon = kelurahanPolygons.find(
+                                (p) =>
+                                    p.kelurahanId &&
+                                    p.kelurahanId.toString() === kelurahanId
+                            );
+
+                            if (!polygon) {
+                                console.error(
+                                    `Polygon tidak ditemukan untuk ID: ${kelurahanId}`
+                                );
+                                console.log(
+                                    "Isi kelurahanPolygons:",
+                                    kelurahanPolygons
+                                ); // Debug log
+                                return; // Jika tidak ada, keluar dari fungsi
+                            }
+
+                            // Mengatur gaya polygon
+                            if (isChecked) {
+                                map.addLayer(polygon);
+                                polygon.setStyle({
+                                    color: "blue", // Set warna polygon menjadi biru
+                                    fillOpacity: 0.5,
+                                });
+                            } else {
+                                map.removeLayer(polygon);
+                                polygon.setStyle({
+                                    color: polygonColor,
+                                    weight: 2,
+                                    opacity: 0.65,
+                                    fillOpacity: 0.5,
+                                }); // Kembalikan ke default
+                            }
+                        });
+                });
+            });
+
+        return div;
+    },
+});
+
+// Tambahkan kontrol ke peta
+map.addControl(new controlKelurahan());
+function toggleCollapse(headerId, bodyId) {
+    const header = document.getElementById(headerId);
+    const body = document.getElementById(bodyId);
+    const icon = header.querySelector(".toggle-icon");
+
+    header.addEventListener("click", () => {
+        const isVisible = body.style.display === "block";
+        body.style.display = isVisible ? "none" : "block"; // Mengubah tampilan body
+        icon.textContent = isVisible ? "+" : "-"; // Mengubah ikon saat diklik
+    });
+}
+// Panggil fungsi untuk kelurahan
+toggleCollapse("kelurahanHeader", "kelurahanBody");
