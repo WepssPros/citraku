@@ -116,6 +116,8 @@ layerControl.onAdd = function (map) {
 };
 
 layerControl.addTo(map);
+
+// UNTUK RT
 // Ambil data RT dari API
 fetch(rtApiUrl)
     .then((response) => response.json())
@@ -193,6 +195,36 @@ function createRTLayer(name, coordinates, id, color) {
         fillOpacity: 0.5,
     }).addTo(map);
 
-    polygon.bindPopup(`RT: ${name}`); // Menampilkan nama RT di popup
+    polygon.on("mouseover", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polygon.setStyle({
+                color: color || "blue", // Ubah warna polygon saat hover
+                fillOpacity: 0.6, // Agak transparan lebih rendah
+                weight: 3, // Tebalkan garis polygon
+            });
+        }
+    });
+
+    polygon.on("mouseout", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polygon.setStyle({
+                color: color || "blue", // Kembalikan warna polygon saat mouse keluar
+                fillOpacity: 0.5, // Kembalikan transparansi
+                weight: 1, // Kembalikan ketebalan garis ke normal
+            });
+        }
+    });
+
+    // Event click untuk RT
+    polygon.on("click", function () {
+        map.fitBounds(polygon.getBounds());
+        $("#rtModal" + id).modal("show"); // Pastikan modal ini ada di HTML
+    });
+
+    polygon.bindPopup(` ${name}`); // Menampilkan nama RT di popup
     rTPolygons.push(polygon); // Simpan polygon ke array untuk dipakai pada fitBounds
 }
+
+// UNTUK RT
