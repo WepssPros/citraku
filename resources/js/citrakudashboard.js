@@ -301,7 +301,7 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
         // Pastikan marker hanya ditambahkan jika bernilai true
         // Membuat ikon dari asset gambar
         const customIcon = L.icon({
-            iconUrl: "../citraku/frontend/img/logocitraku.png", // Ganti dengan path ke gambar logo Anda
+            iconUrl: "https://citra-ku.com/frontend/img/logocitraku.png", // Ganti dengan path ke gambar logo Anda
             iconSize: [25, 25], // Ukuran ikon (lebar, tinggi) dalam pixel
             iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
             popupAnchor: [0, -25], // Titik di mana tooltip muncul
