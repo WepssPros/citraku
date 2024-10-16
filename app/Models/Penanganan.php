@@ -10,24 +10,32 @@ class Penanganan extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['program_id', 'kelurahan_id', 'opd_program'];
+    // Specify the table name if it differs from the pluralized model name
+    protected $table = 'penanganans';
 
+    // Define the fillable attributes for mass assignment
+    protected $fillable = [
+        'program_id',
+        'kelurahan_id',
+        'opd_program',
+    ];
 
+    // Define relationships
 
     public function program()
     {
         return $this->belongsTo(Program::class, 'program_id');
     }
-    public function kegiatan()
-    {
-        return $this->hasMany(KegiatanPenanganan::class, 'kegiatan_id');
-    }
-    public function subkegiatan()
-    {
-        return $this->hasMany(SubKegiatanPenanganan::class, 'sub_kegiatan_id');
-    }
+
     public function kelurahan()
     {
         return $this->belongsTo(Kelurahan::class, 'kelurahan_id');
     }
+
+    public function kegiatanPenanganans()
+    {
+        return $this->hasMany(KegiatanPenanganan::class, 'penanganan_id');
+    }
+
+    // Add any additional relationships as necessary
 }

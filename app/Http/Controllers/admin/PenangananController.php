@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
+use App\Models\KegiatanPenanganan;
 use App\Models\Kelurahan;
 use App\Models\Penanganan;
 use App\Models\Program;
@@ -52,18 +53,14 @@ class PenangananController extends Controller
      */
     public function edit(string $id)
     {
-        // Ambil data penanganan berdasarkan ID
-        $penanganan = Penanganan::findOrFail($id);
-
-        // Jika Anda perlu memuat data terkait lainnya, misalnya program, kegiatan, sub kegiatan, dan kelurahan
-        $programs = Program::all();
-        $kegiatans = Kegiatan::all();
-        $subkegiatans = SubKegiatan::all();
-        $kelurahans = Kelurahan::all();
+        // Ambil data KegiatanPenanganan beserta relasi yang diperlukan
+        $kegiatanPenanganan = KegiatanPenanganan::with(['penanganan.program', 'kegiatan', 'subKegiatanPenanganans'])
+            ->findOrFail($id);
 
         // Kembalikan view dengan data yang diambil
-        return view('pages.admin.penanganan.edit', compact('penanganan', 'programs', 'kegiatans', 'subkegiatans', 'kelurahans'));
+        return view('pages.admin.penanganan.edit', compact('kegiatanPenanganan'));
     }
+
 
     /**
      * Update the specified resource in storage.

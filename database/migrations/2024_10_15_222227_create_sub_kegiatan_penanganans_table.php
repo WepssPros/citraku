@@ -13,16 +13,17 @@ return new class extends Migration
     {
         Schema::create('sub_kegiatan_penanganans', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('penanganan_id')->nullable();
-            $table->bigInteger('program_id')->nullable();
-            $table->bigInteger('kegiatan_id')->nullable();
 
-            $table->biginteger('keb_total_thn1')->nullable();
-            $table->biginteger('keb_total_thn2')->nullable();
-            $table->biginteger('keb_total_thn3')->nullable();
-            $table->biginteger('keb_total_thn4')->nullable();
-            $table->biginteger('keb_total_thn5')->nullable();
-            $table->biginteger('keb_total_program')->nullable();
+            $table->biginteger('kegiatan_penanganan_id')->nullable();
+
+            $table->bigInteger('sub_kegiatan_id')->nullable();
+            $table->string('sat_sub_kegiatan')->nullable();
+            $table->biginteger('keb_thn1')->nullable();
+            $table->biginteger('keb_thn2')->nullable();
+            $table->biginteger('keb_thn3')->nullable();
+            $table->biginteger('keb_thn4')->nullable();
+            $table->biginteger('keb_thn5')->nullable();
+            $table->biginteger('keb_total')->nullable();
 
             $table->biginteger('indikasi_thn1')->nullable();
             $table->biginteger('indikasi_thn2')->nullable();
@@ -34,13 +35,13 @@ return new class extends Migration
 
             // Sumber Pendaanaan / Pembiayaan
 
-            $table->biginteger('sp_kota_total')->nullable();
-            $table->biginteger('sp_provinsi_total')->nullable();
-            $table->biginteger('sp_apbn_total')->nullable();
+            $table->biginteger('spb_kota')->nullable();
+            $table->biginteger('spb_provinsi')->nullable();
+            $table->biginteger('spb_apbn')->nullable();
 
-            $table->biginteger('sp_dak_total')->nullable();
-            $table->biginteger('sp_swasta_total')->nullable();
-            $table->biginteger('sp_masyarakat_total')->nullable();
+            $table->biginteger('spb_dak')->nullable();
+            $table->biginteger('spb_swasta')->nullable();
+            $table->biginteger('spb_masyarakat')->nullable();
 
             $table->string('header')->nullable();;
             $table->string('opd')->nullable();

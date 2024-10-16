@@ -15,7 +15,32 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('penanganan_id')->nullable();
             $table->biginteger('kegiatan_id')->nullable();
-            $table->biginteger('opd_kegiatan')->nullable();
+
+            $table->biginteger('keb_total_thn1')->nullable();
+            $table->biginteger('keb_total_thn2')->nullable();
+            $table->biginteger('keb_total_thn3')->nullable();
+            $table->biginteger('keb_total_thn4')->nullable();
+            $table->biginteger('keb_total_thn5')->nullable();
+            $table->biginteger('keb_total')->nullable();
+
+            $table->biginteger('indikasi_total_thn1')->nullable();
+            $table->biginteger('indikasi_total_thn2')->nullable();
+            $table->biginteger('indikasi_total_thn3')->nullable();
+            $table->biginteger('indikasi_total_thn4')->nullable();
+            $table->biginteger('indikasi_total_thn5')->nullable();
+
+            $table->biginteger('indikasi_total')->nullable();
+
+            // Sumber Pendaanaan / Pembiayaan
+
+            $table->biginteger('spb_kota_total')->nullable();
+            $table->biginteger('spb_provinsi_total')->nullable();
+            $table->biginteger('spb_apbn_total')->nullable();
+
+            $table->biginteger('spb_dak_total')->nullable();
+            $table->biginteger('spb_swasta_total')->nullable();
+            $table->biginteger('spb_masyarakat_total')->nullable();
+            $table->string('opd_kegiatan')->nullable();
 
             $table->softDeletes();
             $table->timestamps();

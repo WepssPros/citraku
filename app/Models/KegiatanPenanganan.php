@@ -10,24 +10,32 @@ class KegiatanPenanganan extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // Kolom yang bisa diisi secara massal (mass assignable)
-    protected $fillable = ['penanganan_id', 'kegiatan_id', 'opd_kegiatan'];
+    // Specify the table name if it differs from the pluralized model name
+    protected $table = 'kegiatan_penanganans';
 
-    // Relasi ke Penanganan
+    // Define the fillable attributes for mass assignment
+    protected $fillable = [
+        'penanganan_id',
+        'kegiatan_id',
+        'opd_kegiatan',
+    ];
+
+    // Define relationships
+
     public function penanganan()
     {
         return $this->belongsTo(Penanganan::class, 'penanganan_id');
     }
 
-    // Relasi ke Kegiatan
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
-
-    // Relasi ke OPD Kegiatan (jika opd_kegiatan merupakan model terpisah)
-    public function subkegiatan()
+    public function subKegiatanPenanganans()
     {
-        return $this->hasMany(SubKegiatanPenanganan::class, 'sub_kegiatan_id');
+        return $this->hasMany(SubKegiatanPenanganan::class, 'kegiatan_penanganan_id');
     }
+
+
+    // Add any additional methods or functionality as necessary
 }

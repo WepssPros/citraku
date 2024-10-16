@@ -16,7 +16,10 @@ return new class extends Migration
             // ADMIN
             $table->bigInteger('program_id')->nullable();
             $table->biginteger('kelurahan_id')->nullable();
-            $table->biginteger('opd_program')->nullable();
+
+            $table->string('opd_program')->nullable();
+
+
             $table->softDeletes();
             $table->timestamps();
         });

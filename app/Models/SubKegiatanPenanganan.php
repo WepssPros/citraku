@@ -10,11 +10,12 @@ class SubKegiatanPenanganan extends Model
 {
     use HasFactory, SoftDeletes;
 
-    // Kolom yang bisa diisi secara massal (mass assignable)
+    protected $table = 'sub_kegiatan_penanganans';
+
     protected $fillable = [
-        'penanganan_id',
-        'program_id',
-        'kegiatan_id',
+        'sub_kegiatan_id',
+        'kegiatan_penanganan_id',
+        'sat_sub_kegiatan',
         'keb_total_thn1',
         'keb_total_thn2',
         'keb_total_thn3',
@@ -34,24 +35,34 @@ class SubKegiatanPenanganan extends Model
         'sp_swasta_total',
         'sp_masyarakat_total',
         'header',
-        'opd'
+        'opd',
     ];
 
-    // Relasi ke Penanganan
+    // Definisikan relasi
     public function penanganan()
     {
         return $this->belongsTo(Penanganan::class, 'penanganan_id');
     }
 
-    // Relasi ke Program
     public function program()
     {
         return $this->belongsTo(Program::class, 'program_id');
     }
 
-    // Relasi ke Kegiatan
     public function kegiatan()
     {
         return $this->belongsTo(Kegiatan::class, 'kegiatan_id');
     }
+
+    public function subKegiatan()
+    {
+        return $this->belongsTo(SubKegiatan::class, 'sub_kegiatan_id');
+    }
+
+    public function KegiatanPenanganan()
+    {
+        return $this->belongsTo(KegiatanPenanganan::class, 'kegiatan_penanganan_id');
+    }
+
+    // Tambahkan metode atau fungsionalitas tambahan sesuai kebutuhan
 }
