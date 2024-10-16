@@ -365,7 +365,7 @@ fetch(kawasanKumuhApiUrl)
     .then((response) => response.json())
     .then((data) => {
         data.forEach((kawasan) => {
-            const name = kawasan.nama; // Mengambil nama kawasan
+            const name = kawasan.nomor; // Mengambil nama kawasan
             const id = kawasan.id; // ID kawasan
             const color = kawasan.color; // Warna kawasan
 
@@ -430,13 +430,13 @@ fetch(kawasanKumuhApiUrl)
 function createKawasanKumuhLayer(name, coordinates, id, color) {
     const polygon = L.polygon(coordinates, {
         color: color || "yellow", // Warna dari database atau default
-        fillOpacity: 0.5,
+        fillOpacity: 0.0,
     }).addTo(map);
 
     polygon.on("mouseover", function () {
         polygon.setStyle({
             color: color || "yellow", // Ubah warna polygon saat hover
-            fillOpacity: 0.6, // Agak transparan lebih rendah
+            fillOpacity: 0.0, // Agak transparan lebih rendah
             weight: 3, // Tebalkan garis polygon
         });
     });

@@ -15,7 +15,10 @@
             rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+        {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />  --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-7Zx/EDskkFev7KcnfowrZ5YFE5VhsuG0fTfq0S5U7zJYYk+lSrxRU05nSa1Ooq+S0Snt2n4YO5XwjhDzh5Gwtw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
@@ -76,7 +79,8 @@
                 <div class="row g-4 align-items-center">
                     <div class="col-md-6 text-center text-md-end mb-md-0">
                         <i class="fas fa-copyright me-2"></i>
-                        <a class="text-white" href="https://bappeda.jambikota.go.id/landing">Copyrights © 2024 Jambi TRI IWANSUTANTO, ST, ME </a>
+                        <a class="text-white" href="https://bappeda.jambikota.go.id/landing">Copyrights © 2024 Jambi TRI
+                            IWANSUTANTO, ST, ME </a>
 
                     </div>
                     <div class="col-md-6 text-center text-md-start">
