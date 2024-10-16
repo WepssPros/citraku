@@ -1,6 +1,9 @@
-const kecamatanApiUrl = "http://citraku.test/api/kecamatan";
-const kelurahanApiUrl = "http://citraku.test/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl = "http://citraku.test/api/rt"; // URL API untuk RT
+const kecamatanApiUrl =
+    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kecamatan";
+const kelurahanApiUrl =
+    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kelurahan"; // URL API untuk kelurahan
+const rtApiUrl =
+    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/rt"; // URL API untuk RT
 
 // API CITRA
 
