@@ -1,9 +1,8 @@
 const kecamatanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kecamatan";
+    "https://lightblue-capybara-113853.hostingersite.com/api/kecamatan";
 const kelurahanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/rt"; // URL API untuk RT
+    "https://lightblue-capybara-113853.hostingersite.com/api/kelurahan"; // URL API untuk kelurahan
+const rtApiUrl = "https://lightblue-capybara-113853.hostingersite.com/api/rt"; // URL API untuk RT
 
 // API CITRA
 
@@ -368,7 +367,7 @@ fetch(kawasanKumuhApiUrl)
     .then((response) => response.json())
     .then((data) => {
         data.forEach((kawasan) => {
-            const name = kawasan.nomor; // Mengambil nama kawasan
+            const name = kawasan.nama; // Mengambil nama kawasan
             const id = kawasan.id; // ID kawasan
             const color = kawasan.color; // Warna kawasan
 
@@ -433,13 +432,13 @@ fetch(kawasanKumuhApiUrl)
 function createKawasanKumuhLayer(name, coordinates, id, color) {
     const polygon = L.polygon(coordinates, {
         color: color || "yellow", // Warna dari database atau default
-        fillOpacity: 0.0,
+        fillOpacity: 0.5,
     }).addTo(map);
 
     polygon.on("mouseover", function () {
         polygon.setStyle({
             color: color || "yellow", // Ubah warna polygon saat hover
-            fillOpacity: 0.0, // Agak transparan lebih rendah
+            fillOpacity: 0.6, // Agak transparan lebih rendah
             weight: 3, // Tebalkan garis polygon
         });
     });

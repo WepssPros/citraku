@@ -1,9 +1,8 @@
 const kecamatanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kecamatan";
+    "https://lightblue-capybara-113853.hostingersite.com/api/kecamatan";
 const kelurahanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/geopasial-map/api/rt"; // URL API untuk RT
+    "https://lightblue-capybara-113853.hostingersite.com/api/kelurahan"; // URL API untuk kelurahan
+const rtApiUrl = "https://lightblue-capybara-113853.hostingersite.com/api/rt"; // URL API untuk RT
 
 // API CITRA
 
