@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\BLogController;
+use App\Http\Controllers\admin\BLogController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\KawasanKumuhController;
 use App\Http\Controllers\admin\KecamatanController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KelurahanController;
 use App\Http\Controllers\admin\PenangananController;
-use App\Http\Controllers\Admin\PenanganPermasalahanController;
-use App\Http\Controllers\Admin\PerealisasianController;
+use App\Http\Controllers\admin\PenanganPermasalahanController;
+use App\Http\Controllers\admin\PerealisasianController;
 use App\Http\Controllers\admin\PerealisasianPermasalahanController;
 use App\Http\Controllers\admin\PermasalahanController;
 use App\Http\Controllers\admin\ProgramController;
