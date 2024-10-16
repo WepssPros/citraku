@@ -357,7 +357,8 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
 // --------------------------------------------------------------------------------------------//
 // OPTION MENU MENU
 // URL untuk API kawasan kumuh
-const kawasanKumuhApiUrl = "http://citraku.test/api/kumuh";
+const kawasanKumuhApiUrl =
+    "https://lightblue-capybara-113853.hostingersite.com/api/kumuh";
 
 // Array untuk menyimpan polygon kawasan kumuh
 const kawasanKumuhPolygons = [];
