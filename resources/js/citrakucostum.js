@@ -1,124 +1,8 @@
 const kecamatanApiUrl = "http://citraku.test/api/kecamatan";
 const kelurahanApiUrl = "http://citraku.test/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl = "http://citraku.test/api/rt"; // URL API untuk kelurahan
-fetch(kecamatanApiUrl)
-    .then((response) => response.json()) // Mengubah respons menjadi JSON
-    .then((data) => {
-        // Mengiterasi data kecamatan dan membuat layer
-        data.forEach((kecamatan) => {
-            const id = kecamatan.id;
-            const name = kecamatan.nama;
+const rtApiUrl = "http://citraku.test/api/rt"; // URL API untuk RT
 
-            // Parsing koordinat menjadi array objek
-            const coordinates = JSON.parse(kecamatan.koordinat);
-
-            // Membuat polygon kecamatan
-            const kecPolygon = createKecamatanLayer(name, coordinates, id);
-            kecPolygons.push(kecPolygon); // Menyimpan polygon kecamatan ke dalam array
-        });
-
-        // Mengatur bounds peta berdasarkan semua kecamatan
-        var bounds = L.latLngBounds();
-        kecPolygons.forEach(function (polygon) {
-            bounds.extend(polygon.getBounds());
-        });
-        map.fitBounds(bounds);
-    })
-    .catch((error) => {
-        console.error("Error fetching kecamatan data:", error);
-    });
-
-fetch(kelurahanApiUrl)
-    .then((response) => response.json()) // Mengubah respons menjadi JSON
-    .then((data) => {
-        // Mengiterasi data kelurahan dan membuat layer
-        data.forEach((kelurahan) => {
-            const name = kelurahan.nama;
-            const id = kelurahan.id;
-            const color = kelurahan.color; // Warna default jika tidak ada
-            const marker = kelurahan.marker;
-
-            const geojson = JSON.parse(kelurahan.koordinat); // Parsing GeoJSON
-
-            // Ambil koordinat dari GeoJSON (format GeoJSON menyimpan lng/lat)
-            const coordinates = geojson.coordinates[0].map((coord) => ({
-                lat: coord[1], // Leaflet memerlukan [lat, lng], GeoJSON [lng, lat]
-                lng: coord[0],
-            }));
-
-            // Membuat polygon kelurahan
-            createKelurahanLayer(name, coordinates, id, color, marker);
-        });
-
-        // Jika ingin memfokuskan peta berdasarkan semua kelurahan, Anda bisa atur bounds peta
-        var bounds = L.latLngBounds();
-        kelurahanPolygons.forEach(function (polygon) {
-            bounds.extend(polygon.getBounds());
-        });
-        map.fitBounds(bounds);
-    })
-    .catch((error) => {
-        console.error("Error fetching kelurahan data:", error);
-    });
-
-fetch(rtApiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-        // Mengiterasi data RT
-        data.forEach((rt) => {
-            const name = rt.nomor; // Mengambil nomor RT
-            const id = rt.id; // Mengambil ID RT
-            const color = rt.color; // Mengambil warna dari database
-
-            try {
-                const geojson = JSON.parse(rt.koordinat); // Parsing GeoJSON
-
-                // Memastikan coordinates ada dan tidak kosong
-                if (geojson.coordinates && geojson.coordinates.length > 0) {
-                    const coordinates = geojson.coordinates[0].map((coord) => ({
-                        lat: coord[1],
-                        lng: coord[0],
-                    }));
-
-                    // Membuat polygon RT
-                    createRTLayer(name, coordinates, id, color); // Menggunakan warna dari database
-                } else {
-                    console.warn(`No coordinates found for RT: ${name}`); // Peringatan jika tidak ada koordinat
-                }
-            } catch (error) {
-                console.error(`Error parsing GeoJSON for RT ${name}:`, error);
-            }
-        });
-
-        // Mengatur bounds peta berdasarkan RT
-        const bounds = L.latLngBounds();
-        rTPolygons.forEach((polygon) => {
-            bounds.extend(polygon.getBounds());
-        });
-        map.fitBounds(bounds);
-    })
-    .catch((error) => {
-        console.error("Error fetching RT data:", error);
-    });
-
-const kecColor = {
-    alambarajo: "#008000",
-    kotabaru: "#004080",
-    jelutung: "#4b0082",
-    danausipin: "#0000ff",
-    danauteluk: "#ffff00",
-    telanaipura: "#80c000",
-    pelayangan: "#ffd200",
-    pasar: "#2600c1",
-    jambitimur: "#ff5300",
-    jambiselatan: "#ffa500",
-    paalmerah: "#ff0000",
-};
-const kelurahan = {};
-const rT = {};
-const area = {};
-const sungai = {};
-const danau = {};
+// API CITRA
 
 // Inisialisasi peta
 var map = L.map("jambi-map").setView([-1.6, 103.6], 15);
@@ -155,7 +39,12 @@ var baseMaps = {
     ),
 };
 
+// Deklarasi array REYHAN HARUS INGAT
+const rTPolygons = [];
+const kelurahanPolygons = [];
+const kelurahanPolylines = [];
 //
+
 // Fungsi untuk menangani scroll zoom hanya di area peta
 // Variabel untuk mengecek apakah Ctrl ditekan
 let isCtrlPressed = false;
@@ -232,58 +121,150 @@ layerControl.onAdd = function (map) {
 
 layerControl.addTo(map);
 
-// Array untuk menyimpan polygon dan polyline
-const rTPolygons = [];
-const kelurahanPolygons = [];
-const kelurahanPolylines = [];
-var kecPolygons = [];
-var kecPolylines = [];
+// UNTUK RT
+// Ambil data RT dari API
+fetch(rtApiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+        data.forEach((rt) => {
+            const name = rt.nomor;
+            const id = rt.id;
+            const color = rt.color;
 
-// Mengambil data kecamatan dari API
+            try {
+                const geojson = JSON.parse(rt.koordinat);
 
-// Fungsi untuk membuat polygon dan polyline Kecamatan
-function createKecamatanLayer(name, coordinates, id) {
-    // Membuat polygon untuk kecamatan
-    var kecPolygon = L.polygon(
-        coordinates.map((coord) => [coord.lat, coord.lng]),
-        {
-            color: kecColor[name] || "blue", // Warna berdasarkan kecColor
-            weight: 2,
-            opacity: 0.65,
-            fillOpacity: 0.3,
+                // Memeriksa apakah GeoJSON mengandung koordinat
+                if (
+                    geojson &&
+                    geojson.coordinates &&
+                    geojson.coordinates.length > 0
+                ) {
+                    let coordinates = [];
+
+                    // Jika ini adalah Polygon
+                    if (geojson.type === "Polygon") {
+                        coordinates.push(
+                            geojson.coordinates[0].map((coord) => ({
+                                lat: coord[1],
+                                lng: coord[0],
+                            }))
+                        );
+                    }
+                    // Jika ini adalah MultiPolygon
+                    else if (geojson.type === "MultiPolygon") {
+                        geojson.coordinates.forEach((polygon) => {
+                            coordinates.push(
+                                polygon[0].map((coord) => ({
+                                    lat: coord[1],
+                                    lng: coord[0],
+                                }))
+                            );
+                        });
+                    }
+
+                    // Membuat layer RT dengan warna dari database
+                    if (coordinates.length > 0) {
+                        createRTLayer(name, coordinates, id, color);
+                    } else {
+                        console.warn(`No valid coordinates for RT: ${name}`);
+                    }
+                } else {
+                    console.warn(`No coordinates found for RT: ${name}`);
+                }
+            } catch (error) {
+                console.error(`Error parsing GeoJSON for RT ${name}:`, error);
+            }
+        });
+
+        // Setelah membuat semua polygons, atur bounds
+        if (rTPolygons.length > 0) {
+            const bounds = L.latLngBounds();
+            rTPolygons.forEach((polygon) => {
+                bounds.extend(polygon.getBounds());
+            });
+            map.fitBounds(bounds); // Sesuaikan peta agar muat dengan semua polygon
+        } else {
+            console.warn("No RT polygons available to fit bounds");
         }
-    ).addTo(map);
+    })
+    .catch((error) => {
+        console.error("Error fetching RT data:", error);
+    });
 
-    // Membuat polyline untuk kecamatan
-    var polyline = L.polyline(
-        coordinates.map((coord) => [coord.lat, coord.lng]),
-        {
-            color: "white",
-            weight: 1,
-            opacity: 1,
+// Fungsi untuk membuat layer RT dan menambahkannya ke peta
+function createRTLayer(name, coordinates, id, color) {
+    const polygon = L.polygon(coordinates, {
+        color: color || "blue", // Warna dari database atau default
+        fillOpacity: 0.5,
+    }).addTo(map);
+
+    polygon.on("mouseover", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polygon.setStyle({
+                color: color || "blue", // Ubah warna polygon saat hover
+                fillOpacity: 0.6, // Agak transparan lebih rendah
+                weight: 3, // Tebalkan garis polygon
+            });
         }
-    ).addTo(map);
-
-    // Event hover untuk polygon kecamatan
-    kecPolygon.on("mouseover", function () {
-        polyline.setStyle({ color: "blue" }); // Ubah warna polyline saat hover
     });
 
-    kecPolygon.on("mouseout", function () {
-        polyline.setStyle({ color: "white" }); // Kembalikan warna polyline saat mouse keluar
+    polygon.on("mouseout", function () {
+        if (map.getZoom() < 15) {
+            // Cek jika zoom level kurang dari 15
+            polygon.setStyle({
+                color: color || "blue", // Kembalikan warna polygon saat mouse keluar
+                fillOpacity: 0.5, // Kembalikan transparansi
+                weight: 1, // Kembalikan ketebalan garis ke normal
+            });
+        }
     });
 
-    // Cek apakah kecamatan memiliki marker di kecMarker
-
-    // Event click untuk menampilkan modal kecamatan
-    kecPolygon.on("click", function () {
-        $("#kecamatanModal" + id).modal("show"); // Menampilkan modal dengan ID spesifik
+    // Event click untuk RT
+    polygon.on("click", function () {
+        map.fitBounds(polygon.getBounds());
+        $("#rtModal" + id).modal("show"); // Pastikan modal ini ada di HTML
     });
 
-    // Mengembalikan objek polygon
-    return kecPolygon;
+    polygon.bindPopup(` ${name}`); // Menampilkan nama RT di popup
+    rTPolygons.push(polygon); // Simpan polygon ke array untuk dipakai pada fitBounds
 }
+// UNTUK RT
 
+// UNtuk Kelurahan
+fetch(kelurahanApiUrl)
+    .then((response) => response.json()) // Mengubah respons menjadi JSON
+    .then((data) => {
+        // Mengiterasi data kelurahan dan membuat layer
+        data.forEach((kelurahan) => {
+            const name = kelurahan.nama;
+            const id = kelurahan.id;
+            const color = kelurahan.color; // Warna default jika tidak ada
+            const marker = kelurahan.marker;
+
+            const geojson = JSON.parse(kelurahan.koordinat); // Parsing GeoJSON
+
+            // Ambil koordinat dari GeoJSON (format GeoJSON menyimpan lng/lat)
+            const coordinates = geojson.coordinates[0].map((coord) => ({
+                lat: coord[1], // Leaflet memerlukan [lat, lng], GeoJSON [lng, lat]
+                lng: coord[0],
+            }));
+
+            // Membuat polygon kelurahan
+            createKelurahanLayer(name, coordinates, id, color, marker);
+        });
+
+        // Jika ingin memfokuskan peta berdasarkan semua kelurahan, Anda bisa atur bounds peta
+        var bounds = L.latLngBounds();
+        kelurahanPolygons.forEach(function (polygon) {
+            bounds.extend(polygon.getBounds());
+        });
+        map.fitBounds(bounds);
+    })
+    .catch((error) => {
+        console.error("Error fetching kelurahan data:", error);
+    });
 function createKelurahanLayer(name, coordinates, id, color, marker) {
     // Pastikan warna valid
     const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
@@ -369,217 +350,116 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
     // Simpan polygon ke array untuk referensi lebih lanjut
     kelurahanPolygons.push(polygon);
 }
+//TUTUP KELURAHGN REHAN
 
-function createRTLayer(nomor, coordinates, id, color) {
-    // Membuat polygon untuk RT
-    const polygon = L.polygon(
-        coordinates.map((coord) => [coord.lat, coord.lng]), // Mapping lat/lng
-        {
-            color: color || "yellow", // Gunakan color dari database, default ke yellow
-            weight: 2,
-            opacity: 0.65,
-            fillOpacity: 0.3,
-            interactive: true, // Pastikan polygon bisa di-klik
+// --------------------------------------------------------------------------------------------//
+// OPTION MENU MENU
+// URL untuk API kawasan kumuh
+const kawasanKumuhApiUrl = "http://citraku.test/api/kumuh";
+
+// Array untuk menyimpan polygon kawasan kumuh
+const kawasanKumuhPolygons = [];
+
+// Ambil data Kawasan Kumuh dari API
+fetch(kawasanKumuhApiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+        data.forEach((kawasan) => {
+            const name = kawasan.nama; // Mengambil nama kawasan
+            const id = kawasan.id; // ID kawasan
+            const color = kawasan.color; // Warna kawasan
+
+            const geojson = JSON.parse(kawasan.koordinat); // Parsing GeoJSON
+
+            // Memeriksa apakah GeoJSON mengandung koordinat
+            if (
+                geojson &&
+                geojson.coordinates &&
+                geojson.coordinates.length > 0
+            ) {
+                let coordinates = [];
+
+                // Jika ini adalah Polygon
+                if (geojson.type === "Polygon") {
+                    coordinates.push(
+                        geojson.coordinates[0].map((coord) => ({
+                            lat: coord[1],
+                            lng: coord[0],
+                        }))
+                    );
+                }
+                // Jika ini adalah MultiPolygon
+                else if (geojson.type === "MultiPolygon") {
+                    geojson.coordinates.forEach((polygon) => {
+                        coordinates.push(
+                            polygon[0].map((coord) => ({
+                                lat: coord[1],
+                                lng: coord[0],
+                            }))
+                        );
+                    });
+                }
+
+                // Membuat layer Kawasan Kumuh dengan warna dari database
+                if (coordinates.length > 0) {
+                    createKawasanKumuhLayer(name, coordinates, id, color);
+                } else {
+                    console.warn(`No valid coordinates for Kawasan: ${name}`);
+                }
+            } else {
+                console.warn(`No coordinates found for Kawasan: ${name}`);
+            }
+        });
+
+        // Setelah membuat semua polygons, atur bounds
+        if (kawasanKumuhPolygons.length > 0) {
+            const bounds = L.latLngBounds();
+            kawasanKumuhPolygons.forEach((polygon) => {
+                bounds.extend(polygon.getBounds());
+            });
+            map.fitBounds(bounds); // Sesuaikan peta agar muat dengan semua polygon
+        } else {
+            console.warn("No Kawasan Kumuh polygons available to fit bounds");
         }
-    ).addTo(map);
-
-    polygon.bringToFront(); // Memastikan RT di depan
-
-    // Membuat polyline untuk RT
-    const polyline = L.polyline(
-        coordinates.map((coord) => [coord.lat, coord.lng]), // Mapping lat/lng
-        {
-            color: "white",
-            weight: 1,
-            opacity: 1,
-        }
-    ).addTo(map);
-
-    // Menghitung titik centroid polygon
-    const latLngs = polygon.getLatLngs()[0]; // Ambil koordinat polygon
-    const centroid = latLngs.reduce(
-        (acc, latLng) => {
-            acc.lat += latLng.lat;
-            acc.lng += latLng.lng;
-            return acc;
-        },
-        { lat: 0, lng: 0 }
-    );
-
-    centroid.lat /= latLngs.length; // Rata-rata latitude
-    centroid.lng /= latLngs.length; // Rata-rata longitude
-
-    // Menambahkan label nomor RT di pusat polygon
-    const marker = L.marker([centroid.lat, centroid.lng], {
-        icon: L.divIcon({
-            className: "rt-label", // Tambahkan class untuk styling
-            html: `<div style="color: black; font-weight: bold;">&nbsp;</div>`, // Kosongkan label untuk marker
-            iconSize: [30, 30], // Ukuran ikon
-        }),
-    }).addTo(map);
-
-    // Menambahkan tooltip yang akan muncul saat mouse melayang di atas marker
-    marker.bindTooltip(nomor, {
-        permanent: false, // Tooltip hanya muncul saat hover
-        direction: "top", // Arah tooltip
-        className: "rt-tooltip", // Kelas untuk styling tooltip
+    })
+    .catch((error) => {
+        console.error("Error fetching Kawasan Kumuh data:", error);
     });
 
-    // Event hover untuk polygon RT
+// Fungsi untuk membuat layer Kawasan Kumuh dan menambahkannya ke peta
+function createKawasanKumuhLayer(name, coordinates, id, color) {
+    const polygon = L.polygon(coordinates, {
+        color: color || "yellow", // Warna dari database atau default
+        fillOpacity: 0.5,
+    }).addTo(map);
+
     polygon.on("mouseover", function () {
-        if (map.getZoom() < 15) {
-            // Cek jika zoom level kurang dari 15
-            polyline.setStyle({ color: color }); // Ubah warna polyline saat hover
-            polygon.setStyle({ color: color, fillOpacity: 0.5 }); // Ubah warna polygon saat hover
-        }
+        polygon.setStyle({
+            color: color || "yellow", // Ubah warna polygon saat hover
+            fillOpacity: 0.6, // Agak transparan lebih rendah
+            weight: 3, // Tebalkan garis polygon
+        });
     });
 
     polygon.on("mouseout", function () {
-        if (map.getZoom() < 15) {
-            // Cek jika zoom level kurang dari 15
-            polyline.setStyle({ color: "white" }); // Kembalikan warna polyline saat mouse keluar
-            polygon.setStyle({ color: color || "blue", fillOpacity: 0.3 }); // Kembalikan warna polygon saat mouse keluar
-        }
+        polygon.setStyle({
+            color: color || "yellow", // Kembalikan warna polygon saat mouse keluar
+            fillOpacity: 0.5, // Kembalikan transparansi
+            weight: 1, // Kembalikan ketebalan garis ke normal
+        });
     });
 
-    // Event click untuk RT
+    // Event click untuk Kawasan Kumuh
     polygon.on("click", function () {
         map.fitBounds(polygon.getBounds());
         $("#rtModal" + id).modal("show"); // Pastikan modal ini ada di HTML
     });
 
-    // Menyimpan polygon RT ke dalam array rTPolygons
-    rTPolygons.push(polygon);
-}
-function createLayers(kelurahan, rT, area) {
-    // Loop untuk membuat layer kelurahan
-    for (const [name, coordinates] of Object.entries(kelurahan)) {
-        createKelurahanLayer(name, coordinates);
-    }
-
-    // Loop untuk membuat layer RT
-    for (const [name, coordinates] of Object.entries(rT)) {
-        const correspondingArea = area[name]; // Dapatkan area yang sesuai untuk RT
-        if (correspondingArea) {
-            createRTLayer(name, coordinates, correspondingArea);
-        }
-    }
-}
-function updatePolygonVisibility() {
-    const zoomLevel = map.getZoom();
-
-    // Memastikan tampilan default
-    if (zoomLevel < 12) {
-        // Tampilkan kecamatan, sembunyikan kelurahan dan RT
-        kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // Kecamatan terlihat
-            polygon.interactive = true; // Pastikan polygon dapat di-klik
-            polygon.bringToBack(); // Pastikan kecamatan di belakang
-        });
-
-        kelurahanPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kelurahan tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        rTPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        kawasanKumuhPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan kumuh tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        kawasanBanjirPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kawasan banjir tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        // Sembunyikan polyline kelurahan dan kecamatan
-        kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
-        });
-        kelurahanPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kelurahan
-        });
-    } else if (zoomLevel >= 12 && zoomLevel < 15) {
-        // Tampilkan kelurahan, sembunyikan kecamatan dan RT
-        kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        kelurahanPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // Kelurahan terlihat
-            polygon.interactive = true; // Pastikan polygon dapat di-klik
-            polygon.bringToFront(); // Pastikan kelurahan di depan
-        });
-
-        rTPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // RT tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        // Sembunyikan polyline kecamatan, tampilkan polyline kelurahan
-        kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
-        });
-        kelurahanPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 1, weight: 1 }); // Tampilkan polyline kelurahan
-        });
-    } else if (zoomLevel >= 15) {
-        // Tampilkan RT, sembunyikan kecamatan dan kelurahan
-        kecPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kecamatan tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        kelurahanPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 0, fillOpacity: 0 }); // Kelurahan tersembunyi
-            polygon.interactive = false; // Nonaktifkan interaksi
-        });
-
-        rTPolygons.forEach((polygon) => {
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 }); // RT terlihat
-            polygon.interactive = true; // Pastikan polygon dapat di-klik
-            polygon.bringToFront(); // Pastikan RT di depan
-        });
-
-        // Sembunyikan polyline kecamatan dan kelurahan
-        kecPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kecamatan
-        });
-        kelurahanPolylines.forEach((polyline) => {
-            polyline.setStyle({ opacity: 0, weight: 0 }); // Sembunyikan polyline kelurahan
-        });
-    }
-
-    // Pastikan checkbox kelurahan tetap terlihat
-    kelurahanPolygons.forEach((polygon) => {
-        if (polygon.interactive) {
-            // Mengatur polygon kelurahan tetap interaktif jika checkbox tercentang
-            polygon.setStyle({ opacity: 1, fillOpacity: 0.3 });
-        }
-    });
+    polygon.bindPopup(` ${name}`); // Menampilkan nama Kawasan di popup
+    kawasanKumuhPolygons.push(polygon); // Simpan polygon ke array untuk dipakai pada fitBounds
 }
 
-map.on("zoomend", updatePolygonVisibility);
-
-// Memanggil fungsi awal untuk mengatur visibilitas
-updatePolygonVisibility();
-let isKawasanKumuhVisible = false; // Status untuk tampilan kawasan kumuh (default nonaktif)
-let isKelurahanVisible = false; // Status untuk tampilan kelurahan (default nonaktif)
-let isKecamatanVisible = false; // Status untuk tampilan kecamatan (default nonaktif)
-let isKawasanBanjirVisible = false; // Status untuk tampilan kawasan banjir (default nonaktif)
-let isKawasanKebakaranVisible = false; // Status untuk tampilan kawasan banjir (default nonaktif)
-
-const rtApiKawasanKumuh = "http://citraku.test/api/kumuh"; // URL untuk API kawasan kumuh
-const kawasanKumuhPolygons = []; // Array untuk menyimpan polygon kawasan kumuh
-
-
-// Buat kontrol kustom untuk checkbox
+// Memastikan kontrol Kawasan Kumuh sudah terintegrasi
 const controlKawasanKumuh = L.Control.extend({
     options: {
         position: "topright", // Posisi kontrol di peta
@@ -615,7 +495,6 @@ const controlKawasanKumuh = L.Control.extend({
                         <input type="checkbox" id="toggleKawasanKumuh">
                         <span>Kawasan Kumuh</span>
                     </label>
-                   
                 </div>
             </div>
         `;
@@ -627,11 +506,10 @@ const controlKawasanKumuh = L.Control.extend({
         div.querySelector("#toggleKawasanKumuh").addEventListener(
             "change",
             (event) => {
-                isKawasanKumuhVisible = event.target.checked;
+                const isKawasanKumuhVisible = event.target.checked;
                 if (isKawasanKumuhVisible) {
                     kawasanKumuhPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
-                        polygon.setStyle({ color: "yellow", fillOpacity: 0.5 });
                     });
                 } else {
                     kawasanKumuhPolygons.forEach((polygon) => {
@@ -641,13 +519,11 @@ const controlKawasanKumuh = L.Control.extend({
             }
         );
 
-        // Event listener untuk checkbox Kawasan Banjir
-
         // Event listener untuk checkbox Kelurahan
         div.querySelector("#toggleKelurahan").addEventListener(
             "change",
             (event) => {
-                isKelurahanVisible = event.target.checked;
+                const isKelurahanVisible = event.target.checked;
                 if (isKelurahanVisible) {
                     kelurahanPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
@@ -664,7 +540,7 @@ const controlKawasanKumuh = L.Control.extend({
         div.querySelector("#toggleKecamatan").addEventListener(
             "change",
             (event) => {
-                isKecamatanVisible = event.target.checked;
+                const isKecamatanVisible = event.target.checked;
                 if (isKecamatanVisible) {
                     kecPolygons.forEach((polygon) => {
                         map.addLayer(polygon);
@@ -680,70 +556,8 @@ const controlKawasanKumuh = L.Control.extend({
         return div;
     },
 });
-
 // Tambahkan kontrol ke peta
 map.addControl(new controlKawasanKumuh());
-
-// Fetch data dari API kawasan kumuh
-fetch(rtApiKawasanKumuh)
-    .then((response) => response.json())
-    .then((data) => {
-        // Mengiterasi data RT yang dikembalikan oleh API
-        data.forEach((rt) => {
-            const name = rt.nomor; // Mengambil nomor RT
-            const id = rt.id; // Mengambil ID RT
-            const color = rt.color; // Mengambil warna dari database
-
-            try {
-                const geojson = JSON.parse(rt.koordinat); // Parsing GeoJSON
-
-                // Memastikan coordinates ada dan tidak kosong
-                if (geojson.coordinates && geojson.coordinates.length > 0) {
-                    const coordinates = geojson.coordinates[0].map((coord) => ({
-                        lat: coord[1],
-                        lng: coord[0],
-                    }));
-
-                    // Membuat polygon RT
-                    addRTPolygonToMap(name, coordinates, id, color); // Menggunakan warna dari database
-                } else {
-                    console.warn(`No coordinates found for RT: ${name}`); // Peringatan jika tidak ada koordinat
-                }
-            } catch (error) {
-                console.error(`Error parsing GeoJSON for RT ${name}:`, error);
-            }
-        });
-
-        // Mengatur bounds peta berdasarkan RT
-        const bounds = L.latLngBounds();
-        kawasanKumuhPolygons.forEach((polygon) => {
-            bounds.extend(polygon.getBounds());
-        });
-        map.fitBounds(bounds);
-    })
-    .catch((error) => {
-        console.error("Error fetching RT data:", error);
-    });
-
-// Fungsi untuk menambahkan polygon RT ke peta
-function addRTPolygonToMap(name, coordinates, id, color) {
-    const polygonOptions = {
-        color: color || "blue", // Menggunakan warna dari database atau default biru
-        fillOpacity: 0.0,
-    };
-
-    // Buat polygon RT dengan opsi yang sudah diatur
-    const polygon = L.polygon(coordinates, polygonOptions).addTo(map);
-
-    // Simpan polygon ke array untuk manajemen bounds
-    kawasanKumuhPolygons.push(polygon);
-}
-
-// Fetch data kawasan banjir
-
-
-
-
 // Event listener untuk header Jenis Peta
 document
     .getElementById("jenisPetaHeader")
@@ -921,8 +735,6 @@ const controlKelurahan = L.Control.extend({
 
 // Tambahkan kontrol ke peta
 map.addControl(new controlKelurahan());
-
-// Fungsi untuk mengatur tampilan collapse
 function toggleCollapse(headerId, bodyId) {
     const header = document.getElementById(headerId);
     const body = document.getElementById(bodyId);
