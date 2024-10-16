@@ -6,7 +6,7 @@ use App\Http\Controllers\admin\KawasanKumuhController;
 use App\Http\Controllers\admin\KecamatanController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KelurahanController;
-use App\Http\Controllers\Admin\PenangananController;
+use App\Http\Controllers\admin\PenangananController;
 use App\Http\Controllers\Admin\PenanganPermasalahanController;
 use App\Http\Controllers\Admin\PerealisasianController;
 use App\Http\Controllers\admin\PerealisasianPermasalahanController;
