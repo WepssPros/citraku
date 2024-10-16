@@ -1,8 +1,6 @@
-const kecamatanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/api/kecamatan";
-const kelurahanApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl = "https://lightblue-capybara-113853.hostingersite.com/api/rt"; // URL API untuk RT
+const kecamatanApiUrl = "https://citra-ku.com/api/kecamatan";
+const kelurahanApiUrl = "https://citra-ku.com/api/kelurahan"; // URL API untuk kelurahan
+const rtApiUrl = "https://citra-ku.com/api/rt"; // URL API untuk RT
 
 // API CITRA
 
@@ -357,8 +355,7 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
 // --------------------------------------------------------------------------------------------//
 // OPTION MENU MENU
 // URL untuk API kawasan kumuh
-const kawasanKumuhApiUrl =
-    "https://lightblue-capybara-113853.hostingersite.com/api/kumuh";
+const kawasanKumuhApiUrl = "https://citra-ku.com/api/kumuh";
 
 // Array untuk menyimpan polygon kawasan kumuh
 const kawasanKumuhPolygons = [];
