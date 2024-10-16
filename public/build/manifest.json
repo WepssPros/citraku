@@ -1,0 +1,37 @@
+{
+  "_axios-CCb-kr4I.js": {
+    "file": "assets/axios-CCb-kr4I.js",
+    "name": "axios"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Bkz-DX-3.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/css/citrakucostum.css": {
+    "file": "assets/citrakucostum-QvndHPIe.css",
+    "src": "resources/css/citrakucostum.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Qv8jo91D.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_axios-CCb-kr4I.js"
+    ]
+  },
+  "resources/js/citrakucostum.js": {
+    "file": "assets/citrakucostum-CF7erF0Y.js",
+    "name": "citrakucostum",
+    "src": "resources/js/citrakucostum.js",
+    "isEntry": true
+  },
+  "resources/js/citrakudashboard.js": {
+    "file": "assets/citrakudashboard-DhXRXl_L.js",
+    "name": "citrakudashboard",
+    "src": "resources/js/citrakudashboard.js",
+    "isEntry": true
+  }
+}
