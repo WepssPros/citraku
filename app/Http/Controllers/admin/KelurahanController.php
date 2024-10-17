@@ -36,47 +36,60 @@ class KelurahanController extends Controller
         $validatedData = $request->validate([
             'kecamatan_id' => 'required|integer|exists:kecamatans,id', // Pastikan kecamatan_id ada di tabel kecamatans
             'nama' => 'required|string|max:255', // Nama kelurahan
-            'geojson_file' => 'required|file|mimes:json', // Pastikan file GeoJSON diupload
+            'geojson_file' => 'nullable|file|mimes:json', // File GeoJSON opsional
             'marker' => 'nullable|boolean', // Marker opsional
             'color' => 'nullable|string|max:7', // Warna opsional, format hex
-            'luas_wilayah' => 'nullable|string', // Luas wilayah opsional
-            'persentase' => 'nullable|string', // Persentase opsional
-            'jml_kelurahan' => 'nullable|integer', // Jumlah kelurahan opsional
-            'jumlah_rt' => 'nullable|integer', // Jumlah RT opsional
         ]);
 
-        // Membaca file GeoJSON
-        $geojsonPath = $request->file('geojson_file')->store('geojson'); // Simpan file di folder geojson
-        $geojson = json_decode(file_get_contents(storage_path('app/' . $geojsonPath)), true);
+        // Membuat instance baru dari Kelurahan
+        $kelurahan = new Kelurahan();
 
-        // Mendapatkan koordinat dari file GeoJSON
-        $coordinates = $geojson['features'][0]['geometry']['coordinates'];
+        // Jika ada file GeoJSON yang diupload, proses file tersebut
+        if ($request->hasFile('geojson_file')) {
+            $geojsonPath = $request->file('geojson_file')->store('geojson'); // Simpan file di folder geojson
+            $geojson = json_decode(file_get_contents(storage_path('app/' . $geojsonPath)), true);
 
-        // Jika koordinat adalah LineString, ubah menjadi Polygon jika perlu
-        if ($geojson['features'][0]['geometry']['type'] === 'MultiPolygon') {
-            $coordinates = [$coordinates]; // Mengubahnya menjadi format Polygon
+            // Mendapatkan koordinat dari file GeoJSON
+            $coordinates = $geojson['features'][0]['geometry']['coordinates'];
+
+            // Memastikan bahwa koordinat adalah dalam format Polygon
+            if ($geojson['features'][0]['geometry']['type'] === 'Polygon') {
+                // Simpan data kelurahan dengan format yang benar
+                $kelurahan->koordinat = json_encode([
+                    'type' => 'Polygon',
+                    'coordinates' => [$coordinates[0]], // Simpan semua koordinat dengan satu lapisan tambahan
+                ]);
+            } elseif ($geojson['features'][0]['geometry']['type'] === 'MultiPolygon') {
+                // Jika MultiPolygon, kita ambil hanya koordinat pertama
+                $coordinates = array_slice($coordinates, 0, 1);
+                // Simpan data kelurahan dengan format yang benar
+                $kelurahan->koordinat = json_encode([
+                    'type' => 'Polygon',
+                    'coordinates' => [$coordinates[0][0]], // Simpan semua koordinat dengan satu lapisan tambahan
+                ]);
+            } elseif ($geojson['features'][0]['geometry']['type'] === 'LineString') {
+                // Simpan data kelurahan dengan format yang benar
+                $kelurahan->koordinat = json_encode([
+                    'type' => 'Polygon',
+                    'coordinates' => [$coordinates], // Simpan semua koordinat dengan satu lapisan tambahan
+                ]);
+            } else {
+                return redirect()->back()->withErrors(['geojson_file' => 'GeoJSON tidak valid. Harus Polygon atau MultiPolygon.']);
+            }
         }
 
-        // Menyimpan data kelurahan ke database
-        Kelurahan::create([
-            'kecamatan_id' => $validatedData['kecamatan_id'],
-            'nama' => $validatedData['nama'],
-            'koordinat' => json_encode([ // Menyimpan sebagai JSON
-                'type' => 'MultiPolygon', // Anda bisa mengubahnya sesuai jenis geometrinya
-                'coordinates' => $coordinates,
-            ]), // Pastikan ini tidak ter-escape
-            'marker' => $validatedData['marker'], // Menyimpan marker jika ada
-            'color' => $validatedData['color'], // Menyimpan color jika ada
-            'luas_wilayah' => $validatedData['luas_wilayah'], // Menyimpan luas wilayah jika ada
-            'persentase' => $validatedData['persentase'], // Menyimpan persentase jika ada
-            'jml_kelurahan' => $validatedData['jml_kelurahan'], // Menyimpan jumlah kelurahan jika ada
-            'jumlah_rt' => $validatedData['jumlah_rt'], // Menyimpan jumlah RT jika ada
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Menyimpan data baru ke database
+        $kelurahan->kecamatan_id = $validatedData['kecamatan_id'];
+        $kelurahan->nama = $validatedData['nama'];
+        $kelurahan->color = $validatedData['color'];
+        $kelurahan->marker = $validatedData['marker'];
+        $kelurahan->created_at = now();
+        $kelurahan->updated_at = now();
+        $kelurahan->save(); // Simpan data baru ke database
 
-        return redirect()->route('kelurahan.index')->with('success', 'Kelurahan berhasil disimpan.');
+        return redirect()->route('dashboard.kelurahan.index')->with('success', 'Kelurahan berhasil ditambahkan.');
     }
+
 
 
     /**
@@ -140,6 +153,12 @@ class KelurahanController extends Controller
                 $kelurahan->koordinat = json_encode([
                     'type' => 'Polygon',
                     'coordinates' => [$coordinates[0][0]], // Simpan semua koordinat dengan satu lapisan tambahan
+                ]);
+            } elseif ($geojson['features'][0]['geometry']['type'] === 'LineString') {
+                // Update data kelurahan dengan format yang benar
+                $kelurahan->koordinat = json_encode([
+                    'type' => 'Polygon',
+                    'coordinates' => [$coordinates], // Simpan semua koordinat dengan satu lapisan tambahan
                 ]);
             } else {
                 return redirect()->back()->withErrors(['geojson_file' => 'GeoJSON tidak valid. Harus Polygon atau MultiPolygon.']);
