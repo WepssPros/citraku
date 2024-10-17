@@ -63,7 +63,7 @@ class PerealisasianPermasalahanController extends Controller
 
             ]);
 
-            return redirect()->route('dashboard.perealisasian.index')->with('success', 'Data penanganan berhasil disimpan!');
+            return redirect()->route('dashboard.perealisasian.index')->with('success', 'Data Perealisasian berhasil disimpan!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()]);
         }
@@ -98,6 +98,12 @@ class PerealisasianPermasalahanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // Mencari data penanganan berdasarkan ID
+        $perealisasian = Perealisasian::findOrFail($id);
+
+        // Menghapus data penanganan
+        $perealisasian->delete();
+
+        return redirect()->route('dashboard.perealisasian.index')->with('success', 'Data perealisasian berhasil dihapus!');
     }
 }

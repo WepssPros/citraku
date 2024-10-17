@@ -22,7 +22,7 @@ class RKegiatanPenanganan extends Model
 
     // Define relationships
 
-    public function Perealisasian()
+    public function perealisasian()
     {
         return $this->belongsTo(Perealisasian::class, 'perealisasian_id');
     }

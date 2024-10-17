@@ -155,7 +155,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#"
+                            <a href="{{route('dashboard.perealisasian.create')}}"
                                 class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
                                 <p>Kebutuhan Perealisasian</p>

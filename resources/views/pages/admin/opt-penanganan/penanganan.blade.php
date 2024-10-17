@@ -174,7 +174,7 @@
                                         Rp.{{number_format( $penanganan->KegiatanPenanganans->sum(function($kegiatan) {return $kegiatan->subKegiatanPenanganans->sum('spb_masyarakat');}))}}
                                     </td>
                                     <td>{{$penanganan->opd_program}}</td>
-                                    
+
                                 </tr>
 
                                 @foreach ($penanganan->kegiatanPenanganans as $kegiatan)
@@ -183,7 +183,7 @@
                                     <td>
                                         <a href="{{ route('dashboard.penanganan.edit', $kegiatan->id) }}"
                                             class="btn btn-success">
-                                            <i class="fas fa-plus"></i>
+                                            <i class="fas fa-plus fa-xs"></i>
                                         </a>
                                     </td>
                                     <td>{{$kegiatan->kegiatan->kegiatan}}</td>
@@ -233,7 +233,7 @@
                                     </td>
                                     <td>
                                         <a href="#" class="btn btn-info">
-                                            <i class="fas fa-edit"></i>
+                                            <i class="fas fa-edit fa-xs"></i>
                                         </a>
                                     </td>
 
@@ -261,7 +261,7 @@
                                     <td>Rp.{{number_format($subKegiatan->spb_swasta)}}</td>
                                     <td>Rp.{{number_format($subKegiatan->spb_masyarakat)}}</td>
                                     <td>{{$subKegiatan->opd}}</td>
-                                    
+
                                 </tr>
                                 @endforeach
                                 @endforeach
