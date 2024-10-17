@@ -116,57 +116,27 @@
                                     <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td></td>
                                     <td>
-                                        {{
-                                                number_format(
-                                                    $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
-                                                        return $kegiatan->subKegiatanPenanganans->sum('keb_thn1');
-                                                    })
-                                                )
-                                            }}
+
                                     </td>
 
-                                    <td>{{
-                                            number_format(
-                                                $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
-                                                    return $kegiatan->subKegiatanPenanganans->sum('keb_thn2');
-                                                })
-                                            )
-                                        }}
+                                    <td>
                                     </td>
                                     <td>
-                                        {{
-                                                number_format(
-                                                    $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
-                                                        return $kegiatan->subKegiatanPenanganans->sum('keb_thn3');
-                                                    })
-                                                )
-                                            }}
+
                                     </td>
                                     <td>
-                                        {{
-                                                number_format(
-                                                    $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
-                                                        return $kegiatan->subKegiatanPenanganans->sum('keb_thn4');
-                                                    })
-                                                )
-                                            }}
-                                    </td>
-                                    <td>{{
-                                            number_format(
-                                                $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
-                                                    return $kegiatan->subKegiatanPenanganans->sum('keb_thn5');
-                                                })
-                                            )
-                                        }}
+
                                     </td>
                                     <td>
-                                        {{
+                                    </td>
+                                    <td>
+                                        {{-- {{
                                             number_format(
                                                 $penanganan->KegiatanPenanganans->sum(function($kegiatan) {
                                                     return $kegiatan->subKegiatanPenanganans->sum('keb_total');
                                                 })
                                             )
-                                        }}
+                                        }} --}}
                                     </td>
 
 
@@ -314,13 +284,13 @@
                                     <td>{{$penanganan->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td></td>
-
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_thn1'))}}</td>
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_thn2'))}}</td>
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_thn3'))}}</td>
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_thn4'))}}</td>
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_thn5'))}}</td>
-                                    <td>{{number_format($kegiatan->subKegiatanPenanganans->sum('keb_total'))}}</td>
+                                    
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
                                     <td>{{ $kegiatan->subKegiatanPenanganans->sum('indikasi_thn1')}}</td>
                                     <td>{{ $kegiatan->subKegiatanPenanganans->sum('indikasi_thn2')}}</td>

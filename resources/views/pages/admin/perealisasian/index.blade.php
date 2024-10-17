@@ -44,7 +44,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Database MEMORANDUM PROGRAM DAN KEGIATAN perealisasian KUMUH KOTA JAMBI
+                        <h3 class="card-title">Database MEMORANDUM PROGRAM DAN KEGIATAN PENANGANAN KUMUH KOTA JAMBI
                             TAHUN 2025 - 2029</h3>
 
                     </div>
@@ -77,9 +77,9 @@
                                     <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
                                     <th rowspan="2">SAT.</th>
-                                    <th colspan="5">Realisasi Penanganan</th>
+                                    <th colspan="5">Kebutuhan Realisasi</th>
                                     <th rowspan="2">Total Volume</th>
-                                    <th colspan="5">Realisasi Biaya</th>
+                                    <th colspan="5">Indikasi Biaya</th>
                                     <th rowspan="2">Jumlah</th>
                                     <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                     <th rowspan="2">OPD PENANGGUNG JAWAB</th>
@@ -98,16 +98,15 @@
                                     <th>2027</th>
                                     <th>2028</th>
                                     <th>2029</th>
-                                    <th>KAB / KOTA</th>
+                                    <th>KAB/KOTA</th>
                                     <th>PROV.</th>
                                     <th>APBN</th>
                                     <th>DAK</th>
-                                    <th>SWASTA / CSR</th>
+                                    <th>SWASTA/CSR</th>
                                     <th>MASYARAKAT</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($perealisasians as $perealisasian)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
@@ -115,59 +114,127 @@
                                     <td>{{$perealisasian->kelurahan->nama}}</td>
                                     <td>{{$perealisasian->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$perealisasian->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
-                                    <td>{{$perealisasian->sat_program}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_program_2025)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_program_2026)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_program_2027)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_program_2028)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_program_2029)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_total_program)}}</td>
-
-                                    <td>{{($perealisasian->r_ind_b_program_2025)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_program_2026)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_program_2027)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_program_2028)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_program_2029)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_total_program)}}</td>
-
-                                    <td>{{($perealisasian->r_sp_kota_program)}}</td>
-                                    <td>{{($perealisasian->r_sp_provinsi_program)}}</td>
-                                    <td>{{($perealisasian->r_sp_apbn_program)}}</td>
-                                    <td>{{($perealisasian->r_sp_dak_program)}}</td>
-                                    <td>{{($perealisasian->r_sp_swasta_program)}}</td>
-                                    <td>{{($perealisasian->r_sp_masyarakat_program)}}</td>
-                                    <td>{{$perealisasian->r_opd_program}}</td>
                                     <td></td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
 
-                                </tr>
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{$perealisasian->kegiatan->kegiatan}}</td>
-                                    <td>{{$perealisasian->kelurahan->nama}}</td>
-                                    <td>{{$perealisasian->kelurahan->jumlah_kk }} KK</td>
-                                    <td>{{$perealisasian->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
-                                    <td>{{$perealisasian->sat_kegiatan}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_kegiatan_2025)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_kegiatan_2026)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_kegiatan_2027)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_kegiatan_2028)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_kegiatan_2029)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_total_kegiatan)}}</td>
 
-                                    <td>{{($perealisasian->r_ind_b_kegiatan_2025)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_kegiatan_2026)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_kegiatan_2027)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_kegiatan_2028)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_kegiatan_2029)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_total_kegiatan)}}</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn1');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn2');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
 
-                                    <td>{{($perealisasian->r_sp_kota_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_provinsi_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_apbn_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_dak_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_swasta_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_masyarakat_kegiatan)}}</td>
-                                    <td>{{$perealisasian->r_opd_kegiatan}}</td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn3');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td> {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn4');
+                                                })
+                                            )
+                                        }}</td>
+                                    <td> {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn5');
+                                                })
+                                            )
+                                        }}</td>
+
+                                    <td> {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('indikasi_total');
+                                                })
+                                            )
+                                        }}</td>
+
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_kota');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_provinsi');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_apbn');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_dak');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_swasta');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $perealisasian->R_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->R_subKegiatanPenanganans->sum('spb_masyarakat');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>{{$perealisasian->opd_program}}</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-default" data-bs-toggle="dropdown"
@@ -177,17 +244,17 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item"
-                                                        href="{{ route('dashboard.perealisasian-permasalahan.edit', $perealisasian->id) }}">
+                                                        href="{{ route('dashboard.penanganan-permasalahan.edit', $perealisasian->id) }}">
                                                         <i class="fas fa-edit"></i> Edit
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <button class="dropdown-item text-danger"
-                                                        onclick="confirmDeleteperealisasian({{ $perealisasian->id }})">
+                                                        onclick="confirmDeletePenanganan({{ $perealisasian->id }})">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </button>
-                                                    <form id="delete-form-perealisasian{{ $perealisasian->id }}"
-                                                        action="{{ route('dashboard.perealisasian-permasalahan.destroy', $perealisasian->id) }}"
+                                                    <form id="delete-form-penanganan{{ $perealisasian->id }}"
+                                                        action="{{ route('dashboard.penanganan-permasalahan.destroy', $perealisasian->id) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')
@@ -196,42 +263,75 @@
                                             </ul>
                                         </div>
                                     </td>
-
-
                                 </tr>
+
+                                @foreach ($perealisasian->R_KegiatanPenanganans as $kegiatan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}
-                                    </td>
-                                    <td>{{$perealisasian->subkegiatan->sub_kegiatan}}</td>
+                                    <td>{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
+                                    <td>{{$kegiatan->kegiatan->kegiatan}}</td>
                                     <td>{{$perealisasian->kelurahan->nama}}</td>
                                     <td>{{$perealisasian->kelurahan->jumlah_kk }} KK</td>
                                     <td>{{$perealisasian->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
-                                    <td>{{$perealisasian->sat_sub_kegiatan}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_sub_kegiatan_2025)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_sub_kegiatan_2026)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_sub_kegiatan_2027)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_sub_kegiatan_2028)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_sub_kegiatan_2029)}}</td>
-                                    <td>{{number_format($perealisasian->r_keb_p_total_sub_kegiatan)}}</td>
-
-                                    <td>{{($perealisasian->r_ind_b_sub_kegiatan_2025)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_sub_kegiatan_2026)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_sub_kegiatan_2027)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_sub_kegiatan_2028)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_sub_kegiatan_2029)}}</td>
-                                    <td>{{($perealisasian->r_ind_b_total_sub_kegiatan)}}</td>
-
-                                    <td>{{($perealisasian->r_sp_kota_sub_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_provinsi_sub_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_apbn_sub_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_dak_sub_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_swasta_sub_kegiatan)}}</td>
-                                    <td>{{($perealisasian->r_sp_masyarakat_sub_kegiatan)}}</td>
-                                    <td>{{$perealisasian->r_opd_sub_kegiatan}}</td>
                                     <td></td>
 
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn1')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn2')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn3')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn4')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_thn5')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('indikasi_total')}}</td>
+
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_kota')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_provinsi')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_apbn')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_dak')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_swasta')}}</td>
+                                    <td>{{ $kegiatan->R_subKegiatanPenanganans->sum('spb_masyarakat')}}</td>
+
+
+                                    <td>{{$kegiatan->opd_kegiatan}}</td>
+                                    <td></td>
                                 </tr>
+
+                                @foreach ($kegiatan->R_subKegiatanPenanganans as $subKegiatan)
+                                <tr>
+                                    <td>{{ $loop->parent->parent->iteration }}.{{ $loop->parent->iteration }}.{{ $loop->iteration }}
+                                    </td>
+                                    <td>{{$subKegiatan->subkegiatan->sub_kegiatan}}</td>
+                                    <td>{{$perealisasian->kelurahan->nama}}</td>
+                                    <td>{{$perealisasian->kelurahan->jumlah_kk }} KK</td>
+                                    <td>{{$perealisasian->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
+                                    <td>{{$subKegiatan->sat_sub_kegiatan}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn1)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn2)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn3)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn4)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn5)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_total)}}</td>
+                                    <td>{{($subKegiatan->indikasi_thn1)}}</td>
+                                    <td>{{($subKegiatan->indikasi_thn2)}}</td>
+                                    <td>{{($subKegiatan->indikasi_thn3)}}</td>
+                                    <td>{{($subKegiatan->indikasi_thn4)}}</td>
+                                    <td>{{($subKegiatan->indikasi_thn5)}}</td>
+                                    <td>{{($subKegiatan->indikasi_total)}}</td>
+                                    <td>{{($subKegiatan->spb_kota)}}</td>
+                                    <td>{{($subKegiatan->spb_provinsi)}}</td>
+                                    <td>{{($subKegiatan->spb_apbn)}}</td>
+                                    <td>{{($subKegiatan->spb_dak)}}</td>
+                                    <td>{{($subKegiatan->spb_swasta)}}</td>
+                                    <td>{{($subKegiatan->spb_masyarakat)}}</td>
+                                    <td>{{$subKegiatan->opd}}</td>
+                                    <td></td>
+                                </tr>
+                                @endforeach
+                                @endforeach
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -395,13 +495,13 @@
                         <thead>
                             <tr>
                                 <th rowspan="2">NOMOR</th>
-                                <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
+                                <th rowspan="2">PROGRAM / KEGIATAN / SUB KEGIATAN</th>
                                 <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                 <th colspan="2">Estimasi Outcome</th>
                                 <th rowspan="2">SAT.</th>
-                                <th colspan="5">Kebutuhan perealisasian</th>
+                                <th colspan="5">Kebutuhan Penanganan</th>
                                 <th rowspan="2">Total Volume</th>
-                                <th colspan="5">Penanganan</th>
+                                <th colspan="5">Indikasi Biaya</th>
                                 <th rowspan="2">Jumlah</th>
                                 <th colspan="6">Sumber Pendanaan / Pembiayaan</th>
                                 <th rowspan="2">OPD PENANGGUNG JAWAB</th>
@@ -467,7 +567,7 @@
                             <c r="G1" s="2"><v>SAT.</v></c>
                             <c r="H1" s="2"><v>Kebutuhan Penanganan</v></c>
                             <c r="I1" s="2"><v>Total Volume</v></c>
-                            <c r="J1" s="2"><v>Penanganan</v></c>
+                            <c r="J1" s="2"><v>Indikasi Biaya</v></c>
                             <c r="K1" s="2"><v>Jumlah</v></c>
                             <c r="L1" s="2"><v>Sumber Pendanaan / Pembiayaan</v></c>
                             <c r="M1" s="2"><v>OPD PENANGGUNG JAWAB</v></c>
@@ -524,10 +624,10 @@
 
 </script>
 <script>
-    function confirmDeleteperealisasian(id) {
+    function confirmDeletePenanganan(id) {
         // Panggil SweetAlert
         Swal.fire({
-            title: 'Apakah kamu yakin ingin menghapus perealisasian ini ?',
+            title: 'Apakah kamu yakin ingin menghapus Penanganan ini ?',
             text: "Data yang dihapus tidak bisa dikembalikan!",
             icon: 'warning',
             showCancelButton: true,
@@ -538,7 +638,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 // Submit form jika pengguna menekan tombol 'Ya, hapus!'
-                document.getElementById('delete-form-perealisasian' + id).submit();
+                document.getElementById('delete-form-penanganan' + id).submit();
             }
         });
     }

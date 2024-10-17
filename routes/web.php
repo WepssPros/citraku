@@ -49,10 +49,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             Route::resource('subkegiatan', SubkegiatanController::class);
             Route::resource('penanganan', PenangananController::class);
             Route::resource('penanganan-permasalahan', PenanganPermasalahanController::class);
+
+            Route::resource('perealisasian', PerealisasianController::class);
             Route::resource('perealisasian-permasalahan', PerealisasianPermasalahanController::class);
+
+
             Route::get('/get-kegiatan/{program_id}', [PenanganPermasalahanController::class, 'getKegiatan'])->name('getKegiatan');
             Route::get('/get-sub-kegiatan/{kegiatan_id}', [PenanganPermasalahanController::class, 'getSubKegiatan'])->name('getSubKegiatan');
-            Route::resource('perealisasian', PerealisasianController::class);
+
             Route::resource('tematik', TematikMapController::class);
             Route::resource('blog', BLogController::class);
             Route::resource('permasalahan', PermasalahanController::class);

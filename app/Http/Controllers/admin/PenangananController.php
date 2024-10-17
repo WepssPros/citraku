@@ -9,6 +9,7 @@ use App\Models\Kelurahan;
 use App\Models\Penanganan;
 use App\Models\Program;
 use App\Models\SubKegiatan;
+use App\Models\SubKegiatanPenanganan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -53,12 +54,15 @@ class PenangananController extends Controller
      */
     public function edit(string $id)
     {
+
         // Ambil data KegiatanPenanganan beserta relasi yang diperlukan
         $kegiatanPenanganan = KegiatanPenanganan::with(['penanganan.program', 'kegiatan', 'subKegiatanPenanganans'])
             ->findOrFail($id);
+        $subkegiatans = SubKegiatan::where('kegiatan_id', $kegiatanPenanganan->kegiatan_id)->get();
+
 
         // Kembalikan view dengan data yang diambil
-        return view('pages.admin.penanganan.edit', compact('kegiatanPenanganan'));
+        return view('pages.admin.penanganan.edit', compact('kegiatanPenanganan', 'subkegiatans'));
     }
 
 
@@ -72,51 +76,22 @@ class PenangananController extends Controller
         // Menghapus simbol "Rp" dan pemisah ribuan (.) menggunakan preg_replace
         // Daftar input yang perlu diproses
         $fields = [
-            'ind_b_program_2025',
-            'ind_b_program_2026',
-            'ind_b_program_2027',
-            'ind_b_program_2028',
-            'ind_b_program_2029',
 
-            'ind_b_kegiatan_2025',
-            'ind_b_kegiatan_2026',
-            'ind_b_kegiatan_2027',
-            'ind_b_kegiatan_2028',
-            'ind_b_kegiatan_2029',
+            'indikasi_thn1',
+            'indikasi_thn2',
+            'indikasi_thn3',
+            'indikasi_thn4',
+            'indikasi_thn5',
 
-            'ind_b_sub_kegiatan_2025',
-            'ind_b_sub_kegiatan_2026',
-            'ind_b_sub_kegiatan_2027',
-            'ind_b_sub_kegiatan_2028',
-            'ind_b_sub_kegiatan_2029',
+            'indikasi_total',
 
-            'sp_kota_program',
-            'sp_kota_kegiatan',
-            'sp_kota_sub_kegiatan',
+            'spb_kota',
+            'spb_provinsi',
+            'spb_apbn',
+            'spb_dak',
+            'spb_swasta',
+            'spb_masyarakat',
 
-            'sp_provinsi_program',
-            'sp_provinsi_kegiatan',
-            'sp_provinsi_sub_kegiatan',
-
-            'sp_apbn_program',
-            'sp_apbn_kegiatan',
-            'sp_apbn_sub_kegiatan',
-
-            'sp_dak_program',
-            'sp_dak_kegiatan',
-            'sp_dak_sub_kegiatan',
-
-            'sp_swasta_program',
-            'sp_swasta_kegiatan',
-            'sp_swasta_sub_kegiatan',
-
-            'sp_masyarakat_program',
-            'sp_masyarakat_kegiatan',
-            'sp_masyarakat_sub_kegiatan',
-
-            'ind_b_total_program',
-            'ind_b_total_kegiatan',
-            'ind_b_total_sub_kegiatan',
         ];
 
 
@@ -135,44 +110,44 @@ class PenangananController extends Controller
                 $data[$field] = cleanAndConvert($data[$field]); // Memproses setiap field dan menyimpannya ke dalam $data
             }
         }
+        $data['keb_thn1'] = $request->keb_thn1;
+        $data['keb_thn2'] = $request->keb_thn2;
+        $data['keb_thn3'] = $request->keb_thn3;
+        $data['keb_thn4'] = $request->keb_thn4;
+        $data['keb_thn5'] = $request->keb_thn5;
+
+
+
 
         // Menghitung total untuk program, kegiatan, dan sub-kegiatan
-        $totalProgram = 0;
-        $totalKegiatan = 0;
-        $totalSubKegiatan = 0;
+        $keb_total = 0;
+        $indikasi_total = 0;
 
-        $totalProgram += $data['ind_b_program_2025'] +
-            $data['ind_b_program_2026'] +
-            $data['ind_b_program_2027'] +
-            $data['ind_b_program_2028'] +
-            $data['ind_b_program_2029'];
 
-        $totalKegiatan += $data['ind_b_kegiatan_2025'] +
-            $data['ind_b_kegiatan_2026'] +
-            $data['ind_b_kegiatan_2027'] +
-            $data['ind_b_kegiatan_2028'] +
-            $data['ind_b_kegiatan_2029'];
+        $keb_total += $data['keb_thn1'] +
+            $data['keb_thn2'] +
+            $data['keb_thn3'] +
+            $data['keb_thn4'] +
+            $data['keb_thn5'];
 
-        $totalSubKegiatan += $data['ind_b_sub_kegiatan_2025'] +
-            $data['ind_b_sub_kegiatan_2026'] +
-            $data['ind_b_sub_kegiatan_2027'] +
-            $data['ind_b_sub_kegiatan_2028'] +
-            $data['ind_b_sub_kegiatan_2029'];
+        $indikasi_total += $data['indikasi_thn1'] +
+            $data['indikasi_thn2'] +
+            $data['indikasi_thn3'] +
+            $data['indikasi_thn4'] +
+            $data['indikasi_thn5'];
+
 
         // Menyimpan total ke dalam $data
-        $data['ind_b_total_program'] = $totalProgram;
-        $data['ind_b_total_kegiatan'] = $totalKegiatan;
-        $data['ind_b_total_sub_kegiatan'] = $totalSubKegiatan;
+        $data['keb_total'] = $keb_total;
+        $data['indikasi_total'] = $indikasi_total;
 
-        $data['keb_p_total_program'] = $request->keb_p_program_2025 +  $request->keb_p_program_2026 + $request->keb_p_program_2027 + $request->keb_p_program_2028 + $request->keb_p_program_2029;
-        $data['keb_p_total_kegiatan'] = $request->keb_p_kegiatan_2025 +  $request->keb_p_kegiatan_2026 + $request->keb_p_kegiatan_2027 + $request->keb_p_kegiatan_2028 + $request->keb_p_kegiatan_2029;
-        $data['keb_p_total_sub_kegiatan'] = $request->keb_p_sub_kegiatan_2025 +  $request->keb_p_sub_kegiatan_2026 + $request->keb_p_sub_kegiatan_2027 + $request->keb_p_sub_kegiatan_2028 + $request->keb_p_sub_kegiatan_2029;
 
+        SubKegiatanPenanganan::create($data);
         // Melakukan update pada penanganan
-        $penanganan->update($data);
+        $penanganan->update();
 
 
-        return redirect()->route('dashboard.penanganan.edit', $penanganan->id)->with('success', 'Data berhasil disimpan');
+        return back()->with('success', 'Data berhasil disimpan');
     }
 
 

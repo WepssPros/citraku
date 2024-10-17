@@ -915,7 +915,7 @@
 
 
                                                 <div id="permasalahanList">
-                                                    <table class="table table-bordered">
+                                                    <table class="table table-bordered table-responsive">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
@@ -1470,7 +1470,7 @@
 
 
                                                 <div id="permasalahanList">
-                                                    <table class="table table-bordered">
+                                                    <table class="table table-bordered table-responsive">
                                                         <thead>
                                                             <tr>
                                                                 <th>Nama Lokasi</th>

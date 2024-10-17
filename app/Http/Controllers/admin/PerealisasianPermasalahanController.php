@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use App\Models\Kelurahan;
 use App\Models\Perealisasian;
 use App\Models\Program;
+use App\Models\RKegiatanPenanganan;
 use App\Models\SubKegiatan;
 use Illuminate\Http\Request;
 
@@ -41,24 +42,31 @@ class PerealisasianPermasalahanController extends Controller
         $request->validate([
             'program_id' => 'required|exists:programs,id',
             'kegiatan_id' => 'required|exists:kegiatans,id',
-            'sub_kegiatan_id' => 'required|exists:sub_kegiatans,id',
             'kelurahan_id' => 'required|exists:kelurahans,id',
-            // Tambahkan validasi lainnya sesuai kebutuhan Anda
+            'opd_program' => 'required|string|max:255', // Validasi tambahan
+
         ]);
 
         // Buat data penanganan baru
-        Perealisasian::create([
-            'program_id' => $request->program_id,
-            'kegiatan_id' => $request->kegiatan_id,
-            'sub_kegiatan_id' => $request->sub_kegiatan_id,
-            'kelurahan_id' => $request->kelurahan_id,
-            'sat_program' => $request->sat_program,
-            'sat_kegiatan' => $request->sat_kegiatan,
-            'sat_sub_kegiatan' => $request->sat_sub_kegiatan,
+        try {
+            $perealisasian = Perealisasian::create([
+                'program_id' => $request->program_id,
+                'opd_program' => $request->opd_program,
+                'kelurahan_id' => $request->kelurahan_id,
 
-        ]);
+            ]);
 
-        return redirect()->route('dashboard.perealisasian.index')->with('success', 'Data Perealisasian berhasil disimpan!');
+            RKegiatanPenanganan::create([
+                'perealisasian_id' => $perealisasian->id,
+                'kegiatan_id' => $request->kegiatan_id,
+                'opd_kegiatan' => $request->opd_kegiatan, // Pastikan ini sesuai dengan data yang ingin disimpan
+
+            ]);
+
+            return redirect()->route('dashboard.perealisasian.index')->with('success', 'Data penanganan berhasil disimpan!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()]);
+        }
     }
 
     /**

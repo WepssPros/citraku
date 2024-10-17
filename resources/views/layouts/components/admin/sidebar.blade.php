@@ -139,10 +139,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.perealisasian-permasalahan.create') }}"
+                            <a href="{{route('dashboard.perealisasian-permasalahan.create')}}"
                                 class="nav-link {{ Request::is('dashboard/prealisasian-permasalahan/create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
-                                <p>Buat Perealisasian</p>
+                                <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perelasian -->
+                                <p>Buat Perelasian</p>
                             </a>
                         </li>
                         @endif
@@ -155,7 +155,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('dashboard.perealisasian.create') }}"
+                            <a href="#"
                                 class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
                                 <p>Kebutuhan Perealisasian</p>
@@ -198,6 +198,18 @@
                                     <a href="pages/search/simple.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Laporan Penanganan</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan Perelasasian</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="pages/search/simple.html" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Laporan Perbandingan</p>
                                     </a>
                                 </li>
                             </ul>

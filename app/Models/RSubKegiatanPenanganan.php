@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SubKegiatanPenanganan extends Model
+class RSubKegiatanPenanganan extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'sub_kegiatan_penanganans';
+    protected $table = 'r_sub_kegiatan_penanganans';
 
     protected $fillable = [
         'sub_kegiatan_id',
-        'kegiatan_penanganan_id',
+        'r_kegiatan_penanganan_id',
         'sat_sub_kegiatan',
         'keb_thn1',
         'keb_thn2',
@@ -39,10 +39,7 @@ class SubKegiatanPenanganan extends Model
     ];
 
     // Definisikan relasi
-    public function penanganan()
-    {
-        return $this->belongsTo(Penanganan::class, 'penanganan_id');
-    }
+
 
     public function program()
     {
@@ -61,8 +58,6 @@ class SubKegiatanPenanganan extends Model
 
     public function R_KegiatanPenanganan()
     {
-        return $this->belongsTo(KegiatanPenanganan::class, 'kegiatan_penanganan_id');
+        return $this->belongsTo(RKegiatanPenanganan::class, 'r_kegiatan_penanganan_id');
     }
-
-    // Tambahkan metode atau fungsionalitas tambahan sesuai kebutuhan
 }

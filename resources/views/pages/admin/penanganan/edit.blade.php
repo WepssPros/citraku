@@ -79,27 +79,41 @@
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->jumlah_kk}} KK</td>
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$kegiatanPenanganan->penanganan->sat_program}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2025)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2026)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2027)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2028)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2029)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_total_program)}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2025)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2026)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2027)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2028)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2029)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_total_program)}}</td>
-
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_kota_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_provinsi_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_apbn_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_dak_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_swasta_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_masyarakat_program)}}
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn1')) }}
                                     </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn2')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn3')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn4')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn5')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_total')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_kota')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_provinsi')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_apbn')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_dak')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_swasta')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_masyarakat')) }}
+                                    </td>
+
                                     <td>{{$kegiatanPenanganan->penanganan->opd_program}}</td>
 
                                 </tr>
@@ -109,28 +123,42 @@
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->jumlah_kk}} KK</td>
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$kegiatanPenanganan->penanganan->sat_program}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2025)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2026)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2027)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2028)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2029)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_total_program)}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2025)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2026)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2027)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2028)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2029)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_total_program)}}</td>
-
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_kota_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_provinsi_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_apbn_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_dak_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_swasta_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_masyarakat_program)}}
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn1')) }}
                                     </td>
-                                    <td>{{$kegiatanPenanganan->penanganan->opd_program}}</td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn2')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn3')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn4')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_thn5')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('indikasi_total')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_kota')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_provinsi')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_apbn')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_dak')) }}
+                                    </td>
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_swasta')) }}
+                                    </td>
+
+                                    <td>Rp.{{ number_format($kegiatanPenanganan->subKegiatanPenanganans->sum('spb_masyarakat')) }}
+                                    </td>
+
+                                    <td>{{$kegiatanPenanganan->opd_kegiatan}}</td>
 
                                 </tr>
                                 @foreach ($kegiatanPenanganan->subKegiatanPenanganans as $subKegiatan)
@@ -140,28 +168,28 @@
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->jumlah_kk}} KK</td>
                                     <td>{{$kegiatanPenanganan->penanganan->kelurahan->rt->sum('luas_ha')}}(Ha)</td>
                                     <td>{{$kegiatanPenanganan->penanganan->sat_program}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2025)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2026)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2027)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2028)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_program_2029)}}</td>
-                                    <td>{{number_format($kegiatanPenanganan->penanganan->keb_p_total_program)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn1)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn2)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn3)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn4)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_thn5)}}</td>
+                                    <td>{{number_format($subKegiatan->keb_total)}}</td>
 
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2025)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2026)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2027)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2028)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_program_2029)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->ind_b_total_program)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_thn1)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_thn2)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_thn3)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_thn4)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_thn5)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->indikasi_total)}}</td>
 
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_kota_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_provinsi_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_apbn_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_dak_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_swasta_program)}}</td>
-                                    <td>Rp.{{number_format($kegiatanPenanganan->penanganan->sp_masyarakat_program)}}
+                                    <td>Rp.{{number_format($subKegiatan->spb_kota)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->spb_provinsi)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->spb_apbn)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->spb_dak)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->spb_swasta)}}</td>
+                                    <td>Rp.{{number_format($subKegiatan->spb_masyarakat)}}</td>
                                     </td>
-                                    <td>{{$kegiatanPenanganan->penanganan->opd_program}}</td>
+                                    <td>{{$subKegiatan->opd}}</td>
 
                                 </tr>
                                 @endforeach
@@ -184,553 +212,409 @@
     </div>
     <!-- /.container-fluid -->
 </section>
-{{-- <div class="row">
+<div class="row">
     <div class="col-lg-12">
         <div class="card card-default">
             <div class="card-header">
-                <h3 class="card-title">Perbarui Penanganan Kawasan {{$penanganan->kelurahan->nama}}</h3>
-</div>
-<div class="card-body p-0">
-    <form id="yourFormId" action="{{ route('dashboard.penanganan.update', $penanganan->id) }}" method="POST"
-        enctype="multipart/form-data">
-        @csrf
-        @method('put')
-        <div class="bs-stepper">
-            <div class="bs-stepper-header" role="tablist">
-                <div class="step" data-target="#program-part">
-                    <button type="button" class="step-trigger" role="tab" aria-controls="program-part"
-                        id="program-part-trigger">
-                        <span class="bs-stepper-circle">1</span>
-                        <span class="bs-stepper-label">Kebutuhan Penanganan </span>
-                    </button>
-                </div>
-                <div class="line"></div>
-                <div class="step" data-target="#kegiatan-part">
-                    <button type="button" class="step-trigger" role="tab" aria-controls="kegiatan-part"
-                        id="kegiatan-part-trigger">
-                        <span class="bs-stepper-circle">2</span>
-                        <span class="bs-stepper-label">Indikasi Biaya</span>
-                    </button>
-                </div>
-                <div class="line"></div>
-                <div class="step" data-target="#subKegiatan-part">
-                    <button type="button" class="step-trigger" role="tab" aria-controls="subKegiatan-part"
-                        id="subKegiatan-part-trigger">
-                        <span class="bs-stepper-circle">3</span>
-                        <span class="bs-stepper-label">Sumber Pendanaan / Pembiayaan</span>
-                    </button>
-                </div>
-                <div class="line"></div>
-                <div class="step" data-target="#kawasan-part">
-                    <button type="button" class="step-trigger" role="tab" aria-controls="kawasan-part"
-                        id="kawasan-part-trigger">
-                        <span class="bs-stepper-circle">4</span>
-                        <span class="bs-stepper-label">OPD PENANGGUNG JAWAB</span>
-                    </button>
-                </div>
+                <h3 class="card-title">Perbarui Penanganan Kawasan {{$kegiatanPenanganan->penanganan->kelurahan->nama}}
+                </h3>
             </div>
-            <div class="bs-stepper-content">
-                <!-- Step 1: Info Artikel -->
-                <div id="program-part" class="content" role="tabpanel" aria-labelledby="program-part-trigger">
-                    <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-info"></i> Informasi!</h5>
-                        Data Boleh Di Kosongkan * Optional.
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="keb_p_program_2025">Program</label>
+            <div class="card-body p-0">
+                <form id="yourFormId"
+                    action="{{ route('dashboard.penanganan.update', $kegiatanPenanganan->penanganan->id) }}"
+                    method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('put')
+                    <div class="bs-stepper">
+                        <div class="bs-stepper-header" role="tablist">
+                            <div class="step" data-target="#program-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="program-part"
+                                    id="program-part-trigger">
+                                    <span class="bs-stepper-circle">1</span>
+                                    <span class="bs-stepper-label">Kebutuhan Penanganan </span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="keb_p_program_2025">Tahun 2025 *Program</label>
-                                <input type="text" name="keb_p_program_2025" id="keb_p_program_2025"
-                                    value="{{$penanganan->keb_p_program_2025}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Program Tahun 2025">
+                            <div class="line"></div>
+                            <div class="step" data-target="#kegiatan-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="kegiatan-part"
+                                    id="kegiatan-part-trigger">
+                                    <span class="bs-stepper-circle">2</span>
+                                    <span class="bs-stepper-label">Indikasi Biaya</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="keb_p_program_2026">Tahun 2026 *Program</label>
-                                <input type="text" name="keb_p_program_2026" id="keb_p_program_2026"
-                                    value="{{$penanganan->keb_p_program_2026}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Program Tahun 2026">
+                            <div class="line"></div>
+                            <div class="step" data-target="#subKegiatan-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="subKegiatan-part"
+                                    id="subKegiatan-part-trigger">
+                                    <span class="bs-stepper-circle">3</span>
+                                    <span class="bs-stepper-label">Sumber Pendanaan / Pembiayaan</span>
+                                </button>
                             </div>
-                            <div class="form-group">
-                                <label for="keb_p_program_2027">Tahun 2027 *Program</label>
-                                <input type="text" name="keb_p_program_2027" id="keb_p_program_2027"
-                                    value="{{$penanganan->keb_p_program_2027}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Program Tahun 2027">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_program_2028">Tahun 2028 *Program</label>
-                                <input type="text" name="keb_p_program_2028" id="keb_p_program_2028"
-                                    value="{{$penanganan->keb_p_program_2028}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Program Tahun 2028">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_program_2029">Tahun 2029 *Program</label>
-                                <input type="text" name="keb_p_program_2029" id="keb_p_program_2029"
-                                    value="{{$penanganan->keb_p_program_2029}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Program Tahun 2029">
+                            <div class="line"></div>
+                            <div class="step" data-target="#kawasan-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="kawasan-part"
+                                    id="kawasan-part-trigger">
+                                    <span class="bs-stepper-circle">4</span>
+                                    <span class="bs-stepper-label">OPD PENANGGUNG JAWAB</span>
+                                </button>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2025">Kegiatan</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2025">Tahun 2025 *Kegiatan</label>
-                                <input type="text" name="keb_p_kegiatan_2025" id="keb_p_kegiatan_2025"
-                                    value="{{$penanganan->keb_p_kegiatan_2025}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Kegiatan Tahun 2025">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2026">Tahun 2026 *Kegiatan </label>
-                                <input type="text" name="keb_p_kegiatan_2026" id="keb_p_kegiatan_2026"
-                                    value="{{$penanganan->keb_p_kegiatan_2026}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Kegiatan Tahun 2026">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2027">Tahun 2027 *Kegiatan</label>
-                                <input type="text" name="keb_p_kegiatan_2027" id="keb_p_kegiatan_2027"
-                                    value="{{$penanganan->keb_p_kegiatan_2027}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Kegiatan Tahun 2027">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2028">Tahun 2028 *Kegiatan</label>
-                                <input type="text" name="keb_p_kegiatan_2028" id="keb_p_kegiatan_2028"
-                                    value="{{$penanganan->keb_p_kegiatan_2028}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Kegiatan Tahun 2028">
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_kegiatan_2029">Tahun 2029 *Kegiatan</label>
-                                <input type="text" name="keb_p_kegiatan_2029" id="keb_p_kegiatan_2029"
-                                    value="{{$penanganan->keb_p_kegiatan_2029}}" class="form-control"
-                                    placeholder="Kebutuhhan Penanganan Kegiatan Tahun 2029">
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2025">Sub - Kegiatan</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2025">Tahun 2025 *Sub-Kegiatan</label>
-                                <input type="text" name="keb_p_sub_kegiatan_2025"
-                                    value="{{$penanganan->keb_p_sub_kegiatan_2025}}" id="keb_p_sub_kegiatan_2025"
-                                    class="form-control" placeholder="Kebutuhhan Penanganan Sub Kegiatan Tahun 2025"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2026">Tahun 2026 *Sub-Kegiatan</label>
-                                <input type="text" name="keb_p_sub_kegiatan_2026"
-                                    value="{{$penanganan->keb_p_sub_kegiatan_2026}}" id="keb_p_sub_kegiatan_2026"
-                                    class="form-control" placeholder="Kebutuhhan Penanganan Sub Kegiatan Tahun 2026"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2027">Tahun 2027 *Sub-Kegiatan</label>
-                                <input type="text" name="keb_p_sub_kegiatan_2027"
-                                    value="{{$penanganan->keb_p_sub_kegiatan_2027}}" id="keb_p_sub_kegiatan_2027"
-                                    class="form-control" placeholder="Kebutuhhan Penanganan Sub Kegiatan Tahun 2027"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2028">Tahun 2028 *Sub-Kegiatan</label>
-                                <input type="text" name="keb_p_sub_kegiatan_2028"
-                                    value="{{$penanganan->keb_p_sub_kegiatan_2028}}" id="keb_p_sub_kegiatan_2028"
-                                    class="form-control" placeholder="Kebutuhhan Penanganan Sub Kegiatan Tahun 2028"
-                                    required>
-                            </div>
-                            <div class="form-group">
-                                <label for="keb_p_sub_kegiatan_2029">Tahun 2029 *Sub-Kegiatan</label>
-                                <input type="text" name="keb_p_sub_kegiatan_2029"
-                                    value="{{$penanganan->keb_p_sub_kegiatan_2029}}" id="keb_p_sub_kegiatan_2029"
-                                    class="form-control" placeholder="Kebutuhhan Penanganan Sub Kegiatan Tahun 2029"
-                                    required>
-                            </div>
-                        </div>
+                        <div class="bs-stepper-content">
+                            <!-- Step 1: Info Artikel -->
+                            <div id="program-part" class="content" role="tabpanel"
+                                aria-labelledby="program-part-trigger">
+                                <div class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-info"></i> Informasi!</h5>
+                                    Data Boleh Di Kosongkan * Optional.
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label for="keb_p_program_2025">Program / Kegiatan / Sub Kegiatan Dan
+                                                Unit</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="program_id">Program Terdata</label>
+                                            <select name="program_id" id="program_id" readyonly
+                                                class="form-control selectprogram">
 
-                    </div>
+                                                <option
+                                                    value="{{ $kegiatanPenanganan->penanganan->program->program_id }}">
+                                                    {{ $kegiatanPenanganan->penanganan->program->header }}/{{ $kegiatanPenanganan->penanganan->program->kode }}/{{ $kegiatanPenanganan->penanganan->program->program }}
+                                                </option>
 
-                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
-                    <!-- Tombol Save Lebih Dulu -->
-                    <button type="button" class="btn btn-success" id="saveButton">Save Lebih Dulu ?</button>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="kegiatan_id">Keghiatan Terdata</label>
+                                            <select name="kegiatan_penanganan_id" id="kegiatan_penanganan_id" readyonly
+                                                class="form-control selectprogram">
 
+                                                <option value="{{ $kegiatanPenanganan->id }}">
+                                                    {{ $kegiatanPenanganan->penanganan->program->header }}/{{ $kegiatanPenanganan->kegiatan->kode }}/{{ $kegiatanPenanganan->kegiatan->kegiatan }}
+                                                </option>
 
-                </div>
+                                            </select>
+                                        </div>
 
-                <!-- Step 2: Detail Konten -->
-                <div id="kegiatan-part" class="content" role="tabpanel" aria-labelledby="kegiatan-part-trigger">
-                    <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-info"></i> Informasi!</h5>
-                        Indikasi Biaya Salah Satu Data Boleh Di Kosongkan * Optional. Sesuai Kebutuhan
-                    </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="ind_b_program_2025">Program</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_program_2025">Tahun 2025 *Program</label>
-                                <input type="text" name="ind_b_program_2025" id="ind_b_program_2025"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2025, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_program_2026">Tahun 2026 *Program</label>
-                                <input type="text" name="ind_b_program_2026" id="ind_b_program_2026"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2026, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2026"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_program_2027">Tahun 2027 *Program</label>
-                                <input type="text" name="ind_b_program_2027" id="ind_b_program_2027"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2027, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2027"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_program_2028">Tahun 2028 *Program</label>
-                                <input type="text" name="ind_b_program_2028" id="ind_b_program_2028"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2028, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2028"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_program_2029">Tahun 2029 *Program</label>
-                                <input type="text" name="ind_b_program_2029" id="ind_b_program_2029"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2029, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2029"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <label for="sub_kegiatan_id">Pilih Sub Kegiatan </label>
+                                            <select name="sub_kegiatan_id" id="sub_kegiatan_id" readyonly
+                                                class="form-control selectprogram">
+                                                @foreach ($subkegiatans as $subkegiatan)
+                                                <option value="{{ $subkegiatan->id }}">
+                                                    /{{$subkegiatan->kegiatan->kode}}/{{ $subkegiatan->kode }}/{{ $subkegiatan->sub_kegiatan }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="ind_b_program_2025">Kegiatan</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_kegiatan_2025">Tahun 2025 *Kegiatan</label>
-                                <input type="text" name="ind_b_kegiatan_2025" id="ind_b_kegiatan_2025"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2025, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_kegiatan_2026">Tahun 2026 *Kegiatan</label>
-                                <input type="text" name="ind_b_kegiatan_2026" id="ind_b_kegiatan_2026"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2026, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2026"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_kegiatan_2027">Tahun 2027 *Kegiatan</label>
-                                <input type="text" name="ind_b_kegiatan_2027" id="ind_b_kegiatan_2027"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2027, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2027"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_kegiatan_2028">Tahun 2028 *Kegiatan</label>
-                                <input type="text" name="ind_b_kegiatan_2028" id="ind_b_kegiatan_2028"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2028, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2028"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_kegiatan_2029">Tahun 2029 *Kegiatan</label>
-                                <input type="text" name="ind_b_kegiatan_2029" id="ind_b_kegiatan_2029"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2029, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2029"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
+                                        <div class="form-group">
+                                            <label for="sat_sub_kegiatan">Pilih Satuan</label>
+                                            <select name="sat_sub_kegiatan" id="sat_sub_kegiatan"
+                                                class="form-control select3" required>
+                                                <option value="">Pilih Satuan</option>
+                                                <optgroup label="Pengukuran Unit">
+                                                    <option value="Liter/Detik">Liter/Detik</option>
+                                                    <option value="MÂ³/Hari">MÂ³/Hari</option>
+                                                    <option value="Ton/hari">Ton/hari</option>
+                                                    <option value="Orang">Orang</option>
+                                                    <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    <option value="KM">KM</option>
+                                                    <option value="M">M</option>
+                                                </optgroup>
+
+                                                <!-- Jenis Dokumen -->
+                                                <optgroup label="Jenis Dokumen">
+                                                    <option value="Dokumen">Dokumen</option>
+                                                    <option value="Laporan">Laporan</option>
+                                                    <option value="Publikasi">Publikasi</option>
+                                                    <option value="Berita Acara">Berita Acara</option>
+                                                    <option value="Peta">Peta</option>
+                                                    <option value="Sistem informasi">Sistem informasi</option>
+                                                    <option value="Rekomendasi">Rekomendasi</option>
+                                                    <option value="Pengaduan">Pengaduan</option>
+                                                </optgroup>
+
+                                                <!-- Berdasarkan Geografi/Lokasi -->
+                                                <optgroup label="Berdasarkan Geografi/Lokasi">
+                                                    <option value="Kawasan">Kawasan</option>
+                                                    <option value="Kawasan Genangan">Kawasan Genangan</option>
+                                                    <option value="Kawasan Rawa">Kawasan Rawa</option>
+                                                    <option value="Titik">Titik</option>
+                                                    <option value="Bendungan">Bendungan</option>
+                                                    <option value="Flyover">Flyover</option>
+                                                    <option value="Jembatan">Jembatan</option>
+                                                    <option value="Terowongan / Tunel">Terowongan / Tunel</option>
+                                                    <option value="Underpass">Underpass</option>
+                                                </optgroup>
+
+                                                <!-- Kelembagaan/Organisasi -->
+                                                <optgroup label="Kelembagaan/Organisasi">
+                                                    <option value="Lembaga">Lembaga</option>
+                                                    <option value="Badan Usaha">Badan Usaha</option>
+                                                </optgroup>
+
+                                                <!-- Kegiatan dan Dukungan -->
+                                                <optgroup label="Kegiatan dan Dukungan">
+                                                    <option value="Kegiatan">Kegiatan</option>
+                                                    <option value="Bantuan Teknis">Bantuan Teknis</option>
+                                                    <option value="Prangkat Pendukung">Prangkat Pendukung</option>
+                                                    <option value="Layanan Informasi">Layanan Informasi</option>
+                                                    <option value="Layanan">Layanan</option>
+                                                    <option value="Unit">Unit</option>
+                                                    <option value="Unit Rumah">Unit Rumah</option>
+                                                </optgroup>
+
+                                                <!-- Tipe Subjek -->
+                                                <optgroup label="Tipe Subjek">
+                                                    <option value="Orang">Orang</option>
+                                                    <option value="Keluarga">Keluarga</option>
+                                                    <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    <option value="Unit Rumah">Unit Rumah</option>
+                                                    <option value="Entitas">Entitas</option>
+                                                </optgroup>
+
+                                                <!-- Data Numerik -->
+                                                <optgroup label="Data Numerik">
+                                                    <option value="Persentase">Persentase</option>
+                                                    <option value="Ton">Ton</option>
+                                                    <option value="Ha">Ha</option>
+                                                    <option value="M2">M2</option>
+                                                </optgroup>
+
+                                                <!-- Terkait Proyek -->
+                                                <optgroup label="Terkait Proyek">
+                                                    <option value="Paket Pekerjaan">Paket Pekerjaan</option>
+                                                    <option value="Bangunan Kontruksi">Bangunan Kontruksi</option>
+                                                    <option value="Sistem Drainase Lingkungan">Sistem Drainase
+                                                        Lingkungan
+                                                    </option>
+                                                    <option value="Sistem Drainase Perkotaan">Sistem Drainase Perkotaan
+                                                    </option>
+                                                </optgroup>
+
+                                                <!-- Lainnya -->
+                                                <optgroup label="Lainnya">
+                                                    <option value="Kasus">Kasus</option>
+                                                </optgroup>
 
 
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="ind_b_program_2025">Kegiatan</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_sub_kegiatan_2025">Tahun 2025 *Sub Kegiatan</label>
-                                <input type="text" name="ind_b_sub_kegiatan_2025" id="ind_b_sub_kegiatan_2025"
-                                    value="Rp {{ number_format($penanganan->ind_b_sub_kegiatan_2025, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_sub_kegiatan_2026">Tahun 2026 *Sub Kegiatan</label>
-                                <input type="text" name="ind_b_sub_kegiatan_2026" id="ind_b_sub_kegiatan_2026"
-                                    value="Rp {{ number_format($penanganan->ind_b_sub_kegiatan_2026, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya sub_kegiatan Tahun 2026"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_sub_kegiatan_2027">Tahun 2027 *Sub Kegiatan</label>
-                                <input type="text" name="ind_b_sub_kegiatan_2027" id="ind_b_sub_kegiatan_2027"
-                                    value="Rp {{ number_format($penanganan->ind_b_sub_kegiatan_2027, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya sub_kegiatan Tahun 2027"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_sub_kegiatan_2028">Tahun 2028 *Sub Kegiatan</label>
-                                <input type="text" name="ind_b_sub_kegiatan_2028" id="ind_b_sub_kegiatan_2028"
-                                    value="Rp {{ number_format($penanganan->ind_b_sub_kegiatan_2028, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya sub_kegiatan Tahun 2028"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="ind_b_sub_kegiatan_2029">Tahun 2029 *Sub Kegiatan</label>
-                                <input type="text" name="ind_b_sub_kegiatan_2029" id="ind_b_sub_kegiatan_2029"
-                                    value="Rp {{ number_format($penanganan->ind_b_kegiatan_2029, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2029"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
+                                            </select>
+                                        </div>
 
-                    </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label for="keb_thn1">Kebutuhan Penanganan</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keb_thn1">Tahun 2025 </label>
+                                            <input type="text" name="keb_thn1" id="keb_thn1" value=""
+                                                class="form-control"
+                                                placeholder="Kebutuhhan Penanganan Program Tahun 2025">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keb_thn2">Tahun 2026 </label>
+                                            <input type="text" name="keb_thn2" id="keb_thn2" value=""
+                                                class="form-control"
+                                                placeholder="Kebutuhhan Penanganan Program Tahun 2026">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keb_thn3">Tahun 2027 </label>
+                                            <input type="text" name="keb_thn3" id="keb_thn3" value=""
+                                                class="form-control"
+                                                placeholder="Kebutuhhan Penanganan Program Tahun 2027">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keb_thn4">Tahun 2028 </label>
+                                            <input type="text" name="keb_thn4" id="keb_thn4" value=""
+                                                class="form-control"
+                                                placeholder="Kebutuhhan Penanganan Program Tahun 2028">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="keb_thn5">Tahun 2029 </label>
+                                            <input type="text" name="keb_thn5" id="keb_thn5" value=""
+                                                class="form-control"
+                                                placeholder="Kebutuhhan Penanganan Program Tahun 2029">
+                                        </div>
+                                    </div>
 
-                    <!-- Tombol Save Lebih Dulu -->
-                    <button type="button" class="btn btn-danger" onclick="stepper.previous()">Previous</button>
-                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
-                    <button type="button" class="btn btn-success" id="saveButtonnext">Save Lebih Dulu
-                        ?</button>
-                </div>
 
-                <!-- Step 3: Konfirmasi -->
-                <div id="subKegiatan-part" class="content" role="tabpanel" aria-labelledby="subKegiatan-part-trigger">
-                    <div class="alert alert-info alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h5><i class="icon fas fa-info"></i> Informasi!</h5>
-                        Sumber Pendanaan / Pembiayaan Memperbolehkan Salah Satu Data Boleh Di Kosongkan *
-                        Optional. Sesuai Kebutuhan
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_kota_program">KAB / KOTA</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_kota_program">*Program</label>
-                                <input type="text" name="sp_kota_program" id="sp_kota_program"
-                                    value="Rp {{ number_format($penanganan->sp_kota_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_kota_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_kota_kegiatan" id="sp_kota_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_kota_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_kota_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_kota_sub_kegiatan" id="sp_kota_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->ind_b_program_2027, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
 
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_provinsi_program">PROVINSI</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_provinsi_program">*Program</label>
-                                <input type="text" name="sp_provinsi_program" id="sp_provinsi_program"
-                                    value="Rp {{ number_format($penanganan->sp_provinsi_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_provinsi_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_provinsi_kegiatan" id="sp_provinsi_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_provinsi_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_provinsi_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_provinsi_sub_kegiatan" id="sp_provinsi_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_provinsi_sub_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
 
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_apbn_program">APBN</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_apbn_program">*Program</label>
-                                <input type="text" name="sp_apbn_program" id="sp_apbn_program"
-                                    value="Rp {{ number_format($penanganan->sp_apbn_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_apbn_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_apbn_kegiatan" id="sp_apbn_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_apbn_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_apbn_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_apbn_sub_kegiatan" id="sp_apbn_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_apbn_sub_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_dak_program">DAK (Dana Alokasi Khusus)</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_dak_program">*Program</label>
-                                <input type="text" name="sp_dak_program" id="sp_dak_program"
-                                    value="Rp {{ number_format($penanganan->sp_dak_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_dak_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_dak_kegiatan" id="sp_dak_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_dak_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_dak_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_dak_sub_kegiatan" id="sp_dak_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_dak_sub_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
+                                </div>
 
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_swasta_program">SWASTA / CAR</label>
+                                <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+                                <!-- Tombol Save Lebih Dulu -->
+                                <a href="{{route('dashboard.penanganan.index')}}" type="button"
+                                    class="btn btn-info">Kembali Ke Halaman Penanganan ?</a>
+
+
                             </div>
-                            <div class="form-group">
-                                <label for="sp_swasta_program">*Program</label>
-                                <input type="text" name="sp_swasta_program" id="sp_swasta_program"
-                                    value="Rp {{ number_format($penanganan->sp_swasta_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
+
+                            <!-- Step 2: Detail Konten -->
+                            <div id="kegiatan-part" class="content" role="tabpanel"
+                                aria-labelledby="kegiatan-part-trigger">
+                                <div class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-info"></i> Informasi!</h5>
+                                    Indikasi Biaya Salah Satu Data Boleh Di Kosongkan * Optional. Sesuai Kebutuhan
+                                </div>
+                                <div class="row">
+
+
+
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="indikasi_thn1">Kegiatan</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indikasi_thn1">Tahun 2025 *Sub Kegiatan</label>
+                                            <input type="text" name="indikasi_thn1" id="indikasi_thn1" value="Rp "
+                                                class="form-control" placeholder="Indikasi Biaya Program Tahun 2025"
+                                                onkeyup="formatRupiah(this);" onfocus="this.select();">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indikasi_thn2">Tahun 2026 *Sub Kegiatan</label>
+                                            <input type="text" name="indikasi_thn2" id="indikasi_thn2" value="Rp "
+                                                class="form-control"
+                                                placeholder="Indikasi Biaya sub_kegiatan Tahun 2026"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indikasi_thn3">Tahun 2027 *Sub Kegiatan</label>
+                                            <input type="text" name="indikasi_thn3" id="indikasi_thn3" value="Rp "
+                                                class="form-control"
+                                                placeholder="Indikasi Biaya sub_kegiatan Tahun 2027"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indikasi_thn4">Tahun 2028 *Sub Kegiatan</label>
+                                            <input type="text" name="indikasi_thn4" id="indikasi_thn4" value="Rp "
+                                                class="form-control"
+                                                placeholder="Indikasi Biaya sub_kegiatan Tahun 2028"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="indikasi_thn5">Tahun 2029 *Sub Kegiatan</label>
+                                            <input type="text" name="indikasi_thn5" id="indikasi_thn5" value="Rp "
+                                                class="form-control" placeholder="Indikasi Biaya kegiatan Tahun 2029"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Tombol Save Lebih Dulu -->
+                                <button type="button" class="btn btn-danger"
+                                    onclick="stepper.previous()">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+
                             </div>
-                            <div class="form-group">
-                                <label for="sp_swasta_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_swasta_kegiatan" id="sp_swasta_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_swasta_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
+
+                            <!-- Step 3: Konfirmasi -->
+                            <div id="subKegiatan-part" class="content" role="tabpanel"
+                                aria-labelledby="subKegiatan-part-trigger">
+                                <div class="alert alert-info alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert"
+                                        aria-hidden="true">×</button>
+                                    <h5><i class="icon fas fa-info"></i> Informasi!</h5>
+                                    Sumber Pendanaan / Pembiayaan Memperbolehkan Salah Satu Data Boleh Di Kosongkan *
+                                    Optional. Sesuai Kebutuhan
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="spb_kota">Sumber Pendanaan</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_kota">*Sumber Pendanaan / Kota</label>
+                                            <input type="text" name="spb_kota" id="spb_kota" value="Rp "
+                                                class="form-control" placeholder="Sumber Pendanaan / Kota"
+                                                onkeyup="formatRupiah(this);" onfocus="this.select();">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_provinsi">*Sumber Pendanaan / Provinsi</label>
+                                            <input type="text" name="spb_provinsi" id="spb_provinsi" value="Rp "
+                                                class="form-control" placeholder="Sumber Pendanaan / Provinsi"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_apbn">*Sumber Pendanaan / Anggaran Pendapatan dan Belanja
+                                                Negara.</label>
+                                            <input type="text" name="spb_apbn" id="spb_apbn" value="Rp "
+                                                class="form-control"
+                                                placeholder="Sumber Pendanaan / Anggaran Pendapatan dan Belanja Negara. "
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_dak">*Sumber Pendanaan / Dana Alokasi Khusus</label>
+                                            <input type="text" name="spb_dak" id="spb_dak" value="Rp "
+                                                class="form-control"
+                                                placeholder="Sumber Pendanaan / Dana Alokasi Khusus"
+                                                onkeyup="formatRupiah(this);" onfocus="this.select();">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_swasta">*Sumber Pendanaan / SWASTA / CSA</label>
+                                            <input type="text" name="spb_swasta" id="spb_swasta" value="Rp "
+                                                class="form-control" placeholder="Sumber Pendanaan / SWASTA / CSA"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="spb_masyarakat">*Sumber Pendanaan / Masyarakat</label>
+                                            <input type="text" name="spb_masyarakat" id="spb_masyarakat" value="Rp "
+                                                class="form-control" placeholder="Sumber Pendanaan / Masyarakat"
+                                                onkeyup="formatRupiah(this);">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger"
+                                    onclick="stepper.previous()">Previous</button>
+                                <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
+
                             </div>
-                            <div class="form-group">
-                                <label for="sp_swasta_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_swasta_sub_kegiatan" id="sp_swasta_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_swasta_sub_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <label for="sp_masyarakat_program">MASYARAKAT</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_masyarakat_program">*Program</label>
-                                <input type="text" name="sp_masyarakat_program" id="sp_masyarakat_program"
-                                    value="Rp {{ number_format($penanganan->sp_masyarakat_program, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Program Tahun 2025"
-                                    onkeyup="formatRupiah(this);" onfocus="this.select();">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_masyarakat_kegiatan">*Kegiatan</label>
-                                <input type="text" name="sp_masyarakat_kegiatan" id="sp_masyarakat_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_masyarakat_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Kegiatan"
-                                    onkeyup="formatRupiah(this);">
-                            </div>
-                            <div class="form-group">
-                                <label for="sp_masyarakat_sub_kegiatan">*Sub Kegiatan</label>
-                                <input type="text" name="sp_masyarakat_sub_kegiatan" id="sp_masyarakat_sub_kegiatan"
-                                    value="Rp {{ number_format($penanganan->sp_masyarakat_sub_kegiatan, 0, ',', '.') }}"
-                                    class="form-control" placeholder="Sumber Pendanaan / Pembiayaan Sub Kegiatan"
-                                    onkeyup="formatRupiah(this);">
+                            <div id="kawasan-part" class="content" role="tabpanel"
+                                aria-labelledby="kawasan-part-trigger">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="opd">OPD SUB KEGIATAN</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="header">OPD Header</label>
+                                            <select name="header" id="header" class="form-control">
+                                                <option value="PUPR">PUPR</option>
+                                                <option value="PERKIM">PERKIM</option>
+                                                <option value="LH">LH</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="opd">OPD PENANGGUNG JAWAB</label>
+                                            <input type="text" name="opd" id="opd" value="" class="form-control"
+                                                placeholder="OPD PENANGGUNG JAWAB " onfocus="this.select();">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="stepper.previous()">Previous</button>
+                                <button type="button" class="btn btn-success" id="saveButtonnextlast">Selesai Pengisian
+                                    Data
+                                    ?</button>
                             </div>
                         </div>
                     </div>
-
-
-                    <button type="button" class="btn btn-danger" onclick="stepper.previous()">Previous</button>
-                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Next</button>
-                    <button type="button" class="btn btn-success" id="saveButtonnextstep">Save Lebih Dulu
-                        ?</button>
-                </div>
-                <div id="kawasan-part" class="content" role="tabpanel" aria-labelledby="kawasan-part-trigger">
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="opd_program">OPD PROGRAM</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="opd_program">OPD PENANGGUNG JAWAB</label>
-                                <input type="text" name="opd_program" id="opd_program"
-                                    value="{{$penanganan->opd_program}}" class="form-control"
-                                    placeholder="OPD PENANGGUNG JAWAB " onfocus="this.select();">
-                            </div>
-
-                        </div>
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="opd_kegiatan">OPD KEGIATAN</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="opd_kegiatan">OPD PENANGGUNG JAWAB</label>
-                                <input type="text" name="opd_kegiatan" id="opd_kegiatan"
-                                    value="{{$penanganan->opd_kegiatan}}" class="form-control"
-                                    placeholder="OPD PENANGGUNG JAWAB " onfocus="this.select();">
-                            </div>
-
-                        </div>
-
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label for="opd_sub_kegiatan">OPD SUB KEGIATAN</label>
-                            </div>
-                            <div class="form-group">
-                                <label for="opd_sub_kegiatan">OPD PENANGGUNG JAWAB</label>
-                                <input type="text" name="opd_sub_kegiatan" id="opd_sub_kegiatan"
-                                    value="{{$penanganan->opd_sub_kegiatan}}" class="form-control"
-                                    placeholder="OPD PENANGGUNG JAWAB " onfocus="this.select();">
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-                    <button type="button" class="btn btn-primary" onclick="stepper.previous()">Previous</button>
-                    <button type="button" class="btn btn-success" id="saveButtonnextlast">Selesai Pengisian
-                        Data
-                        ?</button>
-                </div>
+                </form>
             </div>
         </div>
-    </form>
+        <!-- /.card -->
+    </div>
 </div>
-</div>
-<!-- /.card -->
-</div>
-</div> --}}
 
 
 @section('js-script')
