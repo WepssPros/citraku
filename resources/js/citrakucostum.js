@@ -5,7 +5,20 @@ let rtApiUrl = "http://88.222.215.154/api/rt"; // URL API untuk RT
 
 // API CITRA
 // Inisialisasi peta
-var map = L.map("jambi-map").setView([-1.6, 103.6], 14);
+var map = L.map("jambi-map", {
+    center: [-1.6, 103.6],
+    zoom: 14,
+    scrollWheelZoom: false, // Nonaktifkan zoom dengan scroll
+
+    touchZoom: false, // Nonaktifkan zoom dengan touch
+    doubleClickZoom: false, // Nonaktifkan zoom dengan double click
+    boxZoom: false, // Nonaktifkan box zoom
+}).setView([-1.6, 103.6], 14);
+
+// Tambahkan layer peta
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+}).addTo(map);
 
 // Menambahkan layer Google Maps
 var baseMaps = {
@@ -119,7 +132,7 @@ layerControl.onAdd = function (map) {
 
 layerControl.addTo(map);
 
-const rTPolygons = [];
+// const rTPolygons = [];
 const kelurahanPolygons = [];
 // UNTUK RT
 // Ambil data RT dari API
@@ -194,29 +207,30 @@ fetch(rtApiUrl)
 
 // Fungsi untuk membuat layer RT dan menambahkannya ke peta
 function createRTLayer(name, coordinates, id, color) {
+    // Buat polygon dengan opacity 0
     const polygon = L.polygon(coordinates, {
         color: color || "blue", // Warna dari database atau default
         fillOpacity: 0.5,
+        opacity: 0, // Awalnya sembunyikan polygon
     }).addTo(map);
 
+    // Event hover untuk polygon
     polygon.on("mouseover", function () {
         if (map.getZoom() < 15) {
-            // Cek jika zoom level kurang dari 15
             polygon.setStyle({
-                color: color || "blue", // Ubah warna polygon saat hover
-                fillOpacity: 0.6, // Agak transparan lebih rendah
-                weight: 3, // Tebalkan garis polygon
+                color: color || "blue",
+                fillOpacity: 0.6,
+                weight: 3,
             });
         }
     });
 
     polygon.on("mouseout", function () {
         if (map.getZoom() < 15) {
-            // Cek jika zoom level kurang dari 15
             polygon.setStyle({
-                color: color || "blue", // Kembalikan warna polygon saat mouse keluar
-                fillOpacity: 0.5, // Kembalikan transparansi
-                weight: 1, // Kembalikan ketebalan garis ke normal
+                color: color || "blue",
+                fillOpacity: 0.5,
+                weight: 1,
             });
         }
     });
@@ -229,6 +243,20 @@ function createRTLayer(name, coordinates, id, color) {
 
     polygon.bindPopup(` ${name}`); // Menampilkan nama RT di popup
     rTPolygons.push(polygon); // Simpan polygon ke array untuk dipakai pada fitBounds
+
+    // Tambahkan event listener untuk mengontrol visibilitas polygon berdasarkan zoom level
+    map.on("zoomend", function () {
+        if (map.getZoom() < 15) {
+            polygon.setStyle({ opacity: 0 }); // Sembunyikan polygon
+        } else {
+            polygon.setStyle({ opacity: 1 }); // Tampilkan polygon
+        }
+    });
+
+    // Jika zoom level sudah cukup, tampilkan polygon
+    if (map.getZoom() >= 15) {
+        polygon.setStyle({ opacity: 1 }); // Tampilkan polygon jika zoom level >= 15
+    }
 }
 // UNTUK RT
 
@@ -291,7 +319,7 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
     if (marker === 1) {
         const customIcon = L.icon({
             iconUrl: "http://88.222.215.154/frontend/img/logocitraku.png",
-            iconSize: [25, 25], // Ukuran ikon (lebar, tinggi) dalam pixel
+            iconSize: [30, 25], // Ukuran ikon (lebar, tinggi) dalam pixel
             iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
             popupAnchor: [0, -25], // Titik di mana tooltip muncul
         });

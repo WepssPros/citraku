@@ -18,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/kecamatan', [CitrakuAPI::class, 'getAllKecamatan']);
-Route::get('/kelurahan', [CitrakuAPI::class, 'getAllKelurahan']);
-Route::get('/rt', [CitrakuAPI::class, 'getALlRt']);
-Route::get('/kumuh', [CitrakuAPI::class, 'getKawasanKumuh']);
-Route::get('/rawanbanjir', [CitrakuAPI::class, 'getRawanBanjir']);
-Route::get('/rawankebakaran', [CitrakuAPI::class, 'getRawanKebakaran']);
+Route::post('/kecamatan', [CitrakuAPI::class, 'getAllKecamatan']);
+Route::post('/kelurahan', [CitrakuAPI::class, 'getAllKelurahan']);
+Route::post('/rt', [CitrakuAPI::class, 'getALlRt']);
+Route::post('/kumuh', [CitrakuAPI::class, 'getKawasanKumuh']);
+Route::post('/rawanbanjir', [CitrakuAPI::class, 'getRawanBanjir']);
+Route::post('/rawankebakaran', [CitrakuAPI::class, 'getRawanKebakaran']);
 
-Route::get('/get-kelurahan/{kecamatan}', [CitrakuAPI::class, 'getKelurahan'])->name('get-kelurahan');
+Route::post('/get-kelurahan/{kecamatan}', [CitrakuAPI::class, 'getKelurahan'])->name('get-kelurahan');
