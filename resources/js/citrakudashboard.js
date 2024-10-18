@@ -1,12 +1,28 @@
 import L from "leaflet";
-const kecamatanApiUrl = "http://88.222.215.154/api/kecamatan";
+
 const kelurahanApiUrl = "http://88.222.215.154/api/kelurahan"; // URL API untuk kelurahan
 const rtApiUrl = "http://88.222.215.154/api/rt"; // URL API untuk RT
 
 // API CITRA
-
 // Inisialisasi peta
-var map = L.map("jambi-map").setView([-1.6, 103.6], 15);
+// Inisialisasi peta
+var defaultCenter = [-1.6, 103.6]; // Koordinat Jambi
+var defaultZoom = 15; // Level zoom default
+
+// Ambil data dari localStorage
+const savedCenter = JSON.parse(localStorage.getItem("mapCenter"));
+const savedZoom = localStorage.getItem("mapZoom");
+
+if (savedCenter && savedZoom) {
+    // Gunakan posisi dan zoom yang disimpan
+    var map = L.map("jambi-map").setView(
+        [savedCenter.lat, savedCenter.lng],
+        savedZoom
+    );
+} else {
+    // Gunakan nilai default
+    var map = L.map("jambi-map").setView(defaultCenter, defaultZoom);
+}
 
 // Menambahkan layer Google Maps
 var baseMaps = {
@@ -43,11 +59,11 @@ var baseMaps = {
 // Layer peta default
 baseMaps["OpenStreetMap"].addTo(map);
 
-// Mengatur maksimum zoom level
-map.setMaxZoom(15); // Atur batas maksimum zoom out
+// Mengatur maksimum dan minimum zoom level
+map.setMaxZoom(20); // Atur batas maksimum zoom out
 map.setMinZoom(10); // Atur batas minimum zoom in jika diperlukan
 
-// Deklarasi array REYHAN HARUS INGAT
+// Deklarasi array
 const rTPolygons = [];
 const kelurahanPolygons = [];
 const kelurahanPolylines = [];
@@ -55,32 +71,50 @@ const kelurahanPolylines = [];
 // Fungsi untuk menangani scroll zoom hanya di area peta
 let isCtrlPressed = false;
 
+// Mendeteksi apakah tombol 'Ctrl' ditekan
 window.addEventListener("keydown", function (e) {
     if (e.ctrlKey) {
         isCtrlPressed = true;
+        map.scrollWheelZoom.enable(); // Aktifkan zoom dengan scroll saat Ctrl ditekan
     }
 });
 
 window.addEventListener("keyup", function (e) {
     if (e.key === "Control") {
         isCtrlPressed = false;
+        map.scrollWheelZoom.disable(); // Nonaktifkan zoom dengan scroll saat Ctrl dilepas
     }
 });
 
-// Mencegah perilaku scroll default
-map.scrollWheelZoom.disable(); // Nonaktifkan zoom dengan scroll
+// Mencegah perilaku scroll default di luar kontrol 'Ctrl'
+map.scrollWheelZoom.disable(); // Nonaktifkan zoom dengan scroll secara default
 
-// Event listener untuk mouse wheel
-map.getContainer().addEventListener("wheel", function (e) {
-    if (isCtrlPressed) {
-        e.preventDefault(); // Cegah scroll halaman
-
-        if (e.deltaY < 0) {
-            map.zoomIn(); // Zoom in
-        } else {
-            map.zoomOut(); // Zoom out
+// Event listener untuk wheel (scroll) dengan passive: false untuk menangani event secara penuh
+map.getContainer().addEventListener(
+    "wheel",
+    function (e) {
+        if (isCtrlPressed) {
+            e.preventDefault(); // Cegah scroll halaman saat Ctrl ditekan
+            if (e.deltaY < 0) {
+                map.zoomIn(); // Zoom in
+            } else {
+                map.zoomOut(); // Zoom out
+            }
         }
-    }
+    },
+    { passive: false }
+);
+
+// Simpan posisi dan zoom level di localStorage setiap kali peta bergerak
+map.on("moveend", function () {
+    const center = map.getCenter();
+    const zoom = map.getZoom();
+
+    localStorage.setItem(
+        "mapCenter",
+        JSON.stringify({ lat: center.lat, lng: center.lng })
+    );
+    localStorage.setItem("mapZoom", zoom);
 });
 
 // Menambahkan kontrol layer dengan tampilan sederhana
