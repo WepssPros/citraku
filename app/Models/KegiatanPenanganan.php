@@ -36,6 +36,12 @@ class KegiatanPenanganan extends Model
         return $this->hasMany(SubKegiatanPenanganan::class, 'kegiatan_penanganan_id');
     }
 
+    public function r_KegiatanPenanganans()
+    {
+        return $this->hasMany(RKegiatanPenanganan::class, 'kegiatan_id', 'kegiatan_id');
+    }
+
+
 
     // Add any additional methods or functionality as necessary
 }

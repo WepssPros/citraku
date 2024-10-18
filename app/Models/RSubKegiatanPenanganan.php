@@ -60,4 +60,9 @@ class RSubKegiatanPenanganan extends Model
     {
         return $this->belongsTo(RKegiatanPenanganan::class, 'r_kegiatan_penanganan_id');
     }
+
+    public function subKegiatanPenanganans()
+    {
+        return $this->hasMany(SubKegiatanPenanganan::class, 'sub_kegiatan_id', 'sub_kegiatan_id');
+    }
 }

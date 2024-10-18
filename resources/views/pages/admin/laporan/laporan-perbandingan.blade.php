@@ -72,22 +72,22 @@
                             border="1" style="">
                             <thead>
                                 <tr>
-                                    <th rowspan="2">NOMOR</th>
-                                    <th rowspan="2">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
-                                    <th rowspan="2">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
+                                    <th rowspan="3">NOMOR</th>
+                                    <th rowspan="3">PROGRAM/KEGIATAN/SUB KEGIATAN</th>
+                                    <th rowspan="3">DETAIL LOKASI (Kec./Desa/Kel./Kws)</th>
                                     <th colspan="2">Estimasi Outcome</th>
-                                    <th rowspan="2">SAT.</th>
+                                    <th rowspan="3">SAT.</th>
                                     <th colspan="10">Perbandingan Kebutuhan Penanganan & Realisasi</th>
-                                    <th rowspan="2">Total Volume</th>
+                                    <th colspan="1" rowspan="2">Perbandingan Volume</th>
                                     <th colspan="10">Perbandingan Indikasi Biaya Penangann & Realisasi</th>
                                     <th rowspan="2">Jumlah</th>
                                     <th colspan="12">Sumber Pendanaan / Pembiayaan</th>
-                                    <th rowspan="2">OPD PENANGGUNG JAWAB</th>
+                                    <th rowspan="1">OPD PENANGGUNG JAWAB</th>
 
                                 </tr>
                                 <tr>
-                                    <th>Jml. Penduduk Terlayani</th>
-                                    <th>Luas Wilayah Terlayani</th>
+                                    <th rowspan="2">Jml. Penduduk Terlayani</th>
+                                    <th rowspan="2">Luas Wilayah Terlayani</th>
                                     <th colspan="2">2025</th>
                                     <th colspan="2">2026</th>
                                     <th colspan="2">2027</th>
@@ -107,21 +107,70 @@
                                     <th colspan="2">DAK</th>
                                     <th colspan="2">SWASTA/CSR</th>
                                     <th colspan="2">MASYARAKAT</th>
+                                    <th></th>
                                 </tr>
+                                <tr>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+
+                                    <th>Selisih</th>
+
+
+
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+
+                                    <th>Selisih Jumlah</th>
+
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th>Penanganan</th>
+                                    <th>Perealisasian</th>
+                                    <th></th>
+
+                                </tr>
+
+
+
                             </thead>
                             <tbody>
-                                @foreach ($laporanPerbandingan as $laporan)
+
+                                @foreach ($penanganans as $laporan)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $laporan->program_name }}</td> <!-- Program ID dari penanganans -->
-                                    <td>{{ $laporan->kelurahan_name }}</td> <!-- Kelurahan ID dari penanganans -->
-                                    <td> {{number_format($laporan->jumlah_kk)}}.KK</td>
-
-                                    <td>{{$laporan->total_luas_ha}} Ha</td>
+                                    <td>{{ $laporan->program->program }}</td> <!-- Program ID dari penanganans -->
+                                    <td>{{ $laporan->kelurahan->nama }}</td> <!-- Kelurahan ID dari penanganans -->
+                                    <td> {{number_format($laporan->kelurahan->jumlah_kk)}}.KK</td>
+                                    <td>{{$laporan->kelurahan->rt->sum('luas_ha')}} Ha</td>
                                     <!-- Luas wilayah terlayani dari RT -->
                                     <td></td>
+
                                     <td>Kebutuhan penanganan</td>
-                                    <td>Kebutuhan</td>
+                                    <td>Kebutuhan Realsi</td>
                                     <td>Kebutuhan</td>
                                     <td>Kebutuhan</td>
                                     <td>Kebutuhan</td>
@@ -132,7 +181,7 @@
                                     <td>Kebutuhan</td>
 
                                     {{-- total kebutuhan  --}}
-                                    <td>Total Kebutuhhan</td>
+                                    <td>Selisih</td>
 
 
                                     {{-- Biaya  --}}
@@ -174,93 +223,29 @@
                                     <td>opd</td>
                                 </tr>
 
-
-                                {{-- tr ini untuk mengambil data kegiatan  --}}
+                                @foreach ($laporan->KegiatanPenanganans as $kegiatan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $laporan->nama_kegiatan }}</td> <!-- Program ID dari penanganans -->
-                                    <td>{{ $laporan->kelurahan_name }}</td> <!-- Kelurahan ID dari penanganans -->
-                                    <td> {{number_format($laporan->jumlah_kk)}}.KK</td>
+                                    <td>{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
+                                    <td>{{ $kegiatan->kegiatan->kegiatan }}</td> <!-- Program ID dari penanganans -->
+                                    <td>{{ $laporan->kelurahan->nama }}</td> <!-- Kelurahan ID dari penanganans -->
+                                    <td> {{number_format($laporan->kelurahan->jumlah_kk)}}.KK</td>
 
-                                    <td>{{$laporan->total_luas_ha}} Ha</td>
+                                    <td>{{$laporan->kelurahan->rt->sum('luas_ha')}} Ha</td>
                                     <!-- Luas wilayah terlayani dari RT -->
                                     <td></td>
-                                    <td>Kebutuhan </td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-
-                                    {{-- total kebutuhan  --}}
-                                    <td>Total Kebutuhhan</td>
-
-
-                                    {{-- Biaya  --}}
-                                    <td>Biaya Penanganan</td>
-                                    <td>Biaya Realaisasi</td>
-                                    <td>Biaya Penanganan</td>
-                                    <td>Biaya Realaisasi</td>
-                                    <td>Biaya Penanganan</td>
-                                    <td>Biaya Realaisasi</td>
-                                    <td>Biaya Penanganan</td>
-                                    <td>Biaya Realaisasi</td>
-                                    <td>Biaya Penanganan</td>
-                                    <td>Biaya Realaisasi</td>
-
-                                    <td>Hasil Perbandingan</td>
-
-
-                                    {{-- jumlahbiaya  --}}
-
-                                    <td>Kota</td>
-                                    <td>Kota</td>
-
-                                    <td>prv</td>
-                                    <td>prv</td>
-
-                                    <td>APBN</td>
-                                    <td>APBN</td>
-
-                                    <td>DAK</td>
-                                    <td>DAK</td>
-
-                                    <td>SWASTA</td>
-                                    <td>SWASTA</td>
-
-                                    <td>MASYARAKAT</td>
-                                    <td>MASYARAKAT</td>
-
-
-                                    <td>opd</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $laporan->nama_sub_kegiatan }}</td> <!-- Program ID dari penanganans -->
-                                    <td>{{ $laporan->kelurahan_name }}</td> <!-- Kelurahan ID dari penanganans -->
-                                    <td> {{number_format($laporan->jumlah_kk)}}.KK</td>
-
-                                    <td>{{$laporan->total_luas_ha}} Ha</td>
-                                    <!-- Luas wilayah terlayani dari RT -->
                                     <td></td>
-                                    <td>Kebutuhan </td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
-                                    <td>Kebutuhan</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
 
                                     {{-- total kebutuhan  --}}
-                                    <td>Total Kebutuhhan</td>
+                                    <td></td>
 
 
                                     {{-- Biaya  --}}
@@ -301,6 +286,126 @@
 
                                     <td>opd</td>
                                 </tr>
+                                @endforeach
+
+                                @foreach ($kegiatan->SubKegiatanPenanganans as $subkegiatan)
+                                <tr>
+                                    <td>{{ $loop->parent->iteration }}.{{ $loop->parent->iteration }}.{{ $loop->iteration }}
+                                    </td>
+                                    <td>{{ $subkegiatan->subkegiatan->sub_kegiatan }}</td>
+                                    <!-- Program ID dari penanganans -->
+                                    <td>{{ $laporan->kelurahan->nama }}</td> <!-- Kelurahan ID dari penanganans -->
+                                    <td> {{number_format($laporan->kelurahan->jumlah_kk)}}.KK</td>
+
+                                    <td>{{$laporan->kelurahan->rt->sum('luas_ha')}} Ha</td>
+                                    <!-- Luas wilayah terlayani dari RT -->
+
+                                    @if ($subkegiatan->r_subKegiatanPenanganans->isNotEmpty())
+                                    @foreach ($subkegiatan->r_subKegiatanPenanganans as $sub_realisasi)
+                                    <td>{{$subkegiatan->sat_sub_kegiatan}}</td>
+                                    <td>{{ $subkegiatan->keb_thn1 }}</td>
+                                    <td>{{ $sub_realisasi->keb_thn1 }}</td>
+                                    <td>{{ $subkegiatan->keb_thn2 }}</td>
+                                    <td>{{ $sub_realisasi->keb_thn2 }}</td>
+                                    <td>{{ $subkegiatan->keb_thn3 }}</td>
+                                    <td>{{ $sub_realisasi->keb_thn3 }}</td>
+                                    <td>{{ $subkegiatan->keb_thn4 }}</td>
+                                    <td>{{ $sub_realisasi->keb_thn4 }}</td>
+                                    <td>{{ $subkegiatan->keb_thn5 }}</td>
+                                    <td>{{ $sub_realisasi->keb_thn5 }}</td>
+                                    <td>{{$subkegiatan->keb_total - $sub_realisasi->keb_total}}</td>
+                                    @endforeach
+                                    @else
+                                    <td>{{$subkegiatan->sat_sub_kegiatan}}</td>
+                                    <td>{{ $subkegiatan->keb_thn1 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->keb_thn2 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->keb_thn3 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->keb_thn4 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->keb_thn5 }}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    @endif
+
+                                    {{-- total kebutuhan  --}}
+
+
+
+                                    {{-- Biaya  --}}
+                                    @if ($subkegiatan->r_subKegiatanPenanganans->isNotEmpty())
+                                    @foreach ($subkegiatan->r_subKegiatanPenanganans as $sub_realisasi)
+                                    <td>{{ $subkegiatan->indikasi_thn1 }}</td>
+                                    <td>{{ $sub_realisasi->indikasi_thn1 }}</td>
+                                    <td>{{ $subkegiatan->indikasi_thn2 }}</td>
+                                    <td>{{ $sub_realisasi->indikasi_thn2 }}</td>
+                                    <td>{{ $subkegiatan->indikasi_thn3 }}</td>
+                                    <td>{{ $sub_realisasi->indikasi_thn3 }}</td>
+                                    <td>{{ $subkegiatan->indikasi_thn4 }}</td>
+                                    <td>{{ $sub_realisasi->indikasi_thn4 }}</td>
+                                    <td>{{ $subkegiatan->indikasi_thn5 }}</td>
+                                    <td>{{ $sub_realisasi->indikasi_thn5 }}</td>
+                                    <td>{{$subkegiatan->indikasi_total - $sub_realisasi->indikasi_total}}</td>
+                                    @endforeach
+                                    @else
+                                    <td>{{ $subkegiatan->indikasi_thn1 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->indikasi_thn2 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->indikasi_thn3 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->indikasi_thn4 }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->indikasi_thn5 }}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    @endif
+
+
+                                    {{-- jumlahbiaya  --}}
+
+                                    @if ($subkegiatan->r_subKegiatanPenanganans->isNotEmpty())
+                                    @foreach ($subkegiatan->r_subKegiatanPenanganans as $sub_realisasi)
+                                    <td>{{ $subkegiatan->spb_kota }}</td>
+                                    <td>{{ $sub_realisasi->spb_kota }}</td>
+                                    <td>{{ $subkegiatan->spb_provinsi }}</td>
+                                    <td>{{ $sub_realisasi->spb_provinsi }}</td>
+                                    <td>{{ $subkegiatan->spb_apbn }}</td>
+                                    <td>{{ $sub_realisasi->spb_apbn }}</td>
+                                    <td>{{ $subkegiatan->spb_dak }}</td>
+                                    <td>{{ $sub_realisasi->spb_dak }}</td>
+                                    <td>{{ $subkegiatan->spb_swasta }}</td>
+                                    <td>{{ $sub_realisasi->spb_swasta }}</td>
+                                    <td>{{ $subkegiatan->spb_masyarakat }}</td>
+                                    <td>{{ $sub_realisasi->spb_masyarakat }}</td>
+
+                                    @endforeach
+                                    @else
+                                    <td>{{ $subkegiatan->spb_kota }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->spb_provinsi }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->spb_apbn }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->spb_dak }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->spb_swasta }}</td>
+                                    <td>0</td>
+                                    <td>{{ $subkegiatan->spb_masyarakat }}</td>
+                                    <td>0</td>
+
+                                    @endif
+
+
+                                    <td>{{$subkegiatan->opd}}</td>
+                                </tr>
+                                @endforeach
+
+
+                                {{-- tr ini untuk mengambilk  --}}
+
 
 
                                 @endforeach

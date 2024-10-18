@@ -31,40 +31,11 @@ class LaporanController extends Controller
 
     public function laporanPerbandingan()
     {
-        $laporanPerbandingan = DB::table('penanganans')
-            ->join('perealisasians', 'penanganans.program_id', '=', 'perealisasians.program_id')
-            ->join('programs', 'penanganans.program_id', '=', 'programs.id')
-            ->join('kelurahans', 'penanganans.kelurahan_id', '=', 'kelurahans.id')
-            ->leftJoin('rts', 'kelurahans.id', '=', 'rts.kelurahan_id')
-            ->join('kegiatan_penanganans', 'penanganans.id', '=', 'kegiatan_penanganans.penanganan_id')
-            ->join('kegiatans', 'kegiatan_penanganans.kegiatan_id', '=', 'kegiatans.id')
-            ->leftJoin('sub_kegiatan_penanganans', 'kegiatan_penanganans.id', '=', 'sub_kegiatan_penanganans.kegiatan_penanganan_id')
-            ->leftJoin('sub_kegiatans', 'sub_kegiatan_penanganans.sub_kegiatan_id', '=', 'sub_kegiatans.id')
-            ->select(
-                'penanganans.*',
-                'perealisasians.*',
-                'programs.program AS program_name',
-                'kelurahans.nama AS kelurahan_name',
-                'kelurahans.jumlah_kk AS jumlah_kk',
-                DB::raw('SUM(rts.luas_ha) AS total_luas_ha'),
-                'kegiatan_penanganans.*',
-                'kegiatans.kegiatan AS nama_kegiatan',
-                'sub_kegiatan_penanganans.*',
-                'sub_kegiatans.sub_kegiatan AS nama_sub_kegiatan'
-            )
-            ->groupBy(
-                'penanganans.id',
-                'perealisasians.id',
-                'programs.program',
-                'kelurahans.nama',
-                'kelurahans.jumlah_kk',
-                'kegiatan_penanganans.id',
-                'kegiatans.kegiatan',
-                'sub_kegiatan_penanganans.id',
-                'sub_kegiatans.sub_kegiatan'
-            )
-            ->get();
+        // Mengambil penanganans dengan relasi perealisasians berdasarkan program_id yang sama
+        $penanganans = Penanganan::whereHas('perealisasians', function ($query) {
+            $query->whereColumn('penanganans.program_id', 'perealisasians.program_id');
+        })->with('perealisasians')->get();
 
-        return view('pages.admin.laporan.laporan-perbandingan', compact('laporanPerbandingan'));
+        return view('pages.admin.laporan.laporan-perbandingan', compact('penanganans'));
     }
 }

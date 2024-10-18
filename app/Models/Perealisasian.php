@@ -37,5 +37,8 @@ class Perealisasian extends Model
         return $this->hasMany(RKegiatanPenanganan::class, 'perealisasian_id');
     }
 
-    
+    public function penanganan()
+    {
+        return $this->belongsTo(Penanganan::class, 'program_id', 'program_id');
+    }
 }
