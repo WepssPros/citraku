@@ -39,17 +39,18 @@ var baseMaps = {
     ),
 };
 
+// Layer peta default
+baseMaps["Google Street"].addTo(map);
+map.invalidateSize(); // Memperbarui ukuran peta jika diperlukan
+
 // Deklarasi array REYHAN HARUS INGAT
 const rTPolygons = [];
 const kelurahanPolygons = [];
 const kelurahanPolylines = [];
-//
 
 // Fungsi untuk menangani scroll zoom hanya di area peta
-// Variabel untuk mengecek apakah Ctrl ditekan
 let isCtrlPressed = false;
 
-// Event listener untuk mendeteksi penekanan tombol
 window.addEventListener("keydown", function (e) {
     if (e.ctrlKey) {
         isCtrlPressed = true;
@@ -78,9 +79,6 @@ map.getContainer().addEventListener("wheel", function (e) {
     }
 });
 
-// Layer peta default
-baseMaps["OpenStreetMap"].addTo(map);
-map.setView([-1.6, 103.6], 15);
 // Menambahkan kontrol layer dengan tampilan sederhana
 var layerControl = L.control({ position: "topright" });
 
@@ -265,40 +263,34 @@ fetch(kelurahanApiUrl)
     .catch((error) => {
         console.error("Error fetching kelurahan data:", error);
     });
-function createKelurahanLayer(name, coordinates, id, color, marker) {
-    // Pastikan warna valid
-    const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
-
-    // Membuat polygon kelurahan
+function createKelurahanLayer(name, coordinates, id, marker) {
+    // Membuat polygon kelurahan tanpa menambahkannya ke peta
     const polygon = L.polygon(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: polygonColor, // Menggunakan warna dari parameter
+            color: "transparent", // Tidak ada warna pada awalnya
             weight: 2,
-            opacity: 0.65,
-            fillOpacity: 0.3,
+            opacity: 0,
+            fillOpacity: 0,
             interactive: true,
         }
-    ).addTo(map);
+    );
 
-    polygon.bringToFront();
-
-    // Membuat garis polyline untuk batas kelurahan
+    // Membuat garis polyline untuk batas kelurahan tanpa menambahkannya ke peta
     const polyline = L.polyline(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: "white",
+            color: "transparent", // Tidak ada warna pada awalnya
             weight: 1,
-            opacity: 1,
+            opacity: 0,
         }
-    ).addTo(map);
+    );
 
-    // Menentukan centroid polygon menggunakan library Leaflet
-    const centroid = polygon.getBounds().getCenter(); // Mendapatkan titik tengah dari polygon
+    // Simpan polygon ke array untuk referensi lebih lanjut
+    kelurahanPolygons.push(polygon);
 
     // Cek apakah marker harus ditampilkan
     if (marker === 1) {
-        // Pastikan marker hanya ditambahkan jika bernilai true
         // Membuat ikon dari asset gambar
         const customIcon = L.icon({
             iconUrl: "http://88.222.215.154/frontend/img/logocitraku.png",
@@ -306,6 +298,9 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
             iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
             popupAnchor: [0, -25], // Titik di mana tooltip muncul
         });
+
+        // Menentukan centroid polygon menggunakan library Leaflet
+        const centroid = polygon.getBounds().getCenter(); // Mendapatkan titik tengah dari polygon
 
         // Membuat marker di pusat polygon menggunakan icon custom
         const kelurahanMarker = L.marker([centroid.lat, centroid.lng], {
@@ -326,30 +321,9 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
         });
     }
 
-    // Event hover untuk polygon kelurahan
-    polygon.on("mouseover", function () {
-        if (map.getZoom() < 15) {
-            polyline.setStyle({ color: "blue" });
-            polygon.setStyle({ color: polygonColor, fillOpacity: 0.5 }); // Gunakan polygonColor
-        }
-    });
-
-    polygon.on("mouseout", function () {
-        if (map.getZoom() < 15) {
-            polyline.setStyle({ color: "white" });
-            polygon.setStyle({ color: polygonColor, fillOpacity: 0.3 }); // Gunakan polygonColor
-        }
-    });
-
-    // Event click untuk polygon, menampilkan modal informasi
-    polygon.on("click", function () {
-        map.fitBounds(polygon.getBounds());
-        $("#kelurahanModal" + id).modal("show");
-    });
-
-    // Simpan polygon ke array untuk referensi lebih lanjut
-    kelurahanPolygons.push(polygon);
+    // Anda dapat menambahkan metode untuk mengaktifkan polygon dan polyline di masa mendatang
 }
+
 //TUTUP KELURAHGN REHAN
 
 // --------------------------------------------------------------------------------------------//
