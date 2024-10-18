@@ -37,5 +37,10 @@ class Penanganan extends Model
         return $this->hasMany(KegiatanPenanganan::class, 'penanganan_id');
     }
 
+    public function perealisasian()
+    {
+        return $this->hasMany(Perealisasian::class, 'program_id'); // Sesuaikan dengan relasi yang ada
+    }
+
     // Add any additional relationships as necessary
 }

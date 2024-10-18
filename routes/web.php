@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\KawasanKumuhController;
 use App\Http\Controllers\admin\KecamatanController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KelurahanController;
+use App\Http\Controllers\admin\LaporanController;
 use App\Http\Controllers\admin\PenangananController;
 use App\Http\Controllers\admin\PenanganPermasalahanController;
 use App\Http\Controllers\admin\PerealisasianController;
@@ -64,6 +65,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
             Route::resource('rt', RTController::class);
             Route::resource('kelurahan', KelurahanController::class);
             Route::resource('kecamatan', KecamatanController::class);
+
+            // Laporan
+
+            Route::get('laporan/laporan-permasalahan', [LaporanController::class, 'laporanPermasalahan'])->name('laporan.permasalahan');
+            Route::get('laporan/laporan-penanganan', [LaporanController::class, 'laporanPenanganan'])->name('laporan.penanganan');
+            Route::get('laporan/laporan-perealisasian', [LaporanController::class, 'laporanPerealisasian'])->name('laporan.perealisasian');
+            Route::get('laporan/laporan-perbandingan', [LaporanController::class, 'laporanPerbandingan'])->name('laporan.perbandingan');
         });
     });
 });

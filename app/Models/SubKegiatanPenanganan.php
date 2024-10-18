@@ -59,7 +59,7 @@ class SubKegiatanPenanganan extends Model
         return $this->belongsTo(SubKegiatan::class, 'sub_kegiatan_id');
     }
 
-    public function R_KegiatanPenanganan()
+    public function KegiatanPenanganan()
     {
         return $this->belongsTo(KegiatanPenanganan::class, 'kegiatan_penanganan_id');
     }

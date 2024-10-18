@@ -1,4 +1,3 @@
-
 <script src="{{asset('../adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('../adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
@@ -43,7 +42,7 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "responsive": true, "lengthChange": false, "autoWidth": true,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({

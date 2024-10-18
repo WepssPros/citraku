@@ -55,11 +55,11 @@
                             <tbody>
                                 @foreach($permasalahans as $index => $item)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>
+                                    <td rowspan="2">{{ $index + 1 }}</td>
+                                    <td rowspan="2">
                                         <strong>Kelurahan:</strong> {{ $item->kelurahan->nama }}
                                     </td>
-                                    <td>
+                                    <td rowspan="2">
                                         <strong>Permasalahan Utama:</strong> {!! Str::limit($item->permasalahan_utama,
                                         100) !!}
                                     </td>
@@ -70,10 +70,10 @@
                                     <td><img src="{{ Storage::url($item->foto_4) }}" alt="Foto 4" width="100"></td>
                                     <td><img src="{{ Storage::url($item->foto_5) }}" alt="Foto 5" width="100"></td>
                                     <!-- Kategori, Tipologi, dan Karakteristik -->
-                                    <td>{{ $item->kategori_kumuh }}</td>
-                                    <td>{{ $item->tipologi_kumuh }}</td>
-                                    <td style="text-align: center">{{ $item->karakteristik }}</td>
-                                    <td class="td-left">
+                                    <td rowspan="2">{{ $item->kategori_kumuh }}</td>
+                                    <td rowspan="2">{{ $item->tipologi_kumuh }}</td>
+                                    <td rowspan="2" style="text-align: center">{{ $item->karakteristik }}</td>
+                                    <td class="td-left" rowspan="2">
                                         <!-- Tombol Edit -->
                                         <a href="{{ route('dashboard.permasalahan.edit', $item->id) }}"
                                             class="btn btn-sm btn-warning" title="Edit">

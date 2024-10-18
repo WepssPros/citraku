@@ -36,4 +36,6 @@ class Perealisasian extends Model
     {
         return $this->hasMany(RKegiatanPenanganan::class, 'perealisasian_id');
     }
+
+    
 }

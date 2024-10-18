@@ -73,9 +73,9 @@
                 @endif
                 <li class="nav-header">Tematik Kumuh</li>
                 <li
-                    class="nav-item  {{ Request::is('dashboard/perealisasian*') || Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
+                    class="nav-item  {{ Request::is('dashboard/laporan*') || Request::is('dashboard/perealisasian*') || Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'menu-open' : '' }}">
                     <a href="#"
-                        class="nav-link  {{ Request::is('dashboard/perealisasian*') || Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
+                        class="nav-link  {{ Request::is('dashboard/laporan*') || Request::is('dashboard/perealisasian*') || Request::is('dashboard/subpermasalahan*') || Request::is('dashboard/penanganan*') || Request::is('dashboard/tematik*') || Request::is('dashboard/permasalahan*') || Request::is('dashboard/kawasankumuh*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-bar"></i> <!-- Ikon untuk Tematik Kumuh -->
                         <p>
                             Tematik Kumuh
@@ -140,7 +140,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('dashboard.perealisasian-permasalahan.create')}}"
-                                class="nav-link {{ Request::is('dashboard/prealisasian-permasalahan/create') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('dashboard/perealisasian-permasalahan/create') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perelasian -->
                                 <p>Buat Perelasian</p>
                             </a>
@@ -156,7 +156,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{route('dashboard.perealisasian.create')}}"
-                                class="nav-link {{ Request::is('dashboard/perealisasian/create') ? 'active' : '' }}">
+                                class="nav-link {{ Request::is('dashboard/perealisasian/create')   ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-plus-square"></i> <!-- Ikon untuk Buat Perealisasian -->
                                 <p>Kebutuhan Perealisasian</p>
                             </a>
@@ -189,25 +189,29 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
+                                    <a href="{{route('dashboard.laporan.permasalahan')}}"
+                                        class="nav-link {{ Request::is('dashboard/laporan/laporan-permasalahan') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Laporan Permasalahan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
+                                    <a href="{{route('dashboard.laporan.penanganan')}}"
+                                        class="nav-link {{ Request::is('dashboard/laporan/laporan-penanganan') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Laporan Penanganan</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
+                                    <a href="{{route('dashboard.laporan.perealisasian')}}"
+                                        class="nav-link {{ Request::is('dashboard/laporan/laporan-perealisasian') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Laporan Perelasasian</p>
+                                        <p>Laporan Perealisasian</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pages/search/simple.html" class="nav-link">
+                                    <a href="{{route('dashboard.laporan.perbandingan')}}"
+                                        class="nav-link {{ Request::is('dashboard/laporan/laporan-perbandingan') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Laporan Perbandingan</p>
                                     </a>

@@ -597,7 +597,6 @@
                                     <div class="tab-content">
                                         <div class="active tab-pane" id="KeLpermasalahanUtamaRT{{$kel->id}}">
                                             <!-- Post -->
-
                                             @forelse ($kel->permasalahan as $permasalahan)
                                             <div class="post">
                                                 <div class="user-block">

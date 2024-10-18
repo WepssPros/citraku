@@ -5,10 +5,10 @@
     <div class="col-lg-12">
         <div class="card card-default">
             <div class="card-header">
-                <h3 class="card-title">Buat Penanganan</h3>
+                <h3 class="card-title">Buat Perealisasian</h3>
             </div>
             <div class="card-body p-0">
-                <form action="{{ route('dashboard.penanganan-permasalahan.store') }}" method="POST"
+                <form action="{{ route('dashboard.perealisasian-permasalahan.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <div class="bs-stepper">

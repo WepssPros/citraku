@@ -37,64 +37,66 @@
                             font-weight: 500;
                         }
 
+                        .limited-text {
+                         
+                            overflow: hidden;
+                           
+                        }
+
                     </style>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped table-responsive">
-
+                        <table id="example2" class="table table-bordered table-striped table-responsive">
                             <thead>
                                 <tr>
-                                    <th rowspan="2">NO</th>
-                                    <th rowspan="2">Kelurahan</th>
-                                    <th colspan="10">Sub Permasalahan</th>
-                                    <th rowspan="2">Action</th>
-                                </tr>
-                                @foreach ($subpermasalahans as $header)
-                                <tr>
-                                    <th>{{$header->header_no_1}}</th>
-                                    <th>{{$header->header_no_2}}</th>
-                                    <th>{{$header->header_no_3}}</th>
-                                    <th>{{$header->header_no_4}}</th>
-                                    <th>{{$header->header_no_5}}</th>
-                                    <th>{{$header->header_no_6}} </th>
-                                    <th>{{$header->header_no_7}}</th>
-                                    <th>{{$header->header_no_8}}</th>
-                                    <th>{{$header->header_no_9}}</th>
-                                    <th>{{$header->header_no_10}}</th>
-                                </tr>
-                                @endforeach
+                                    <th>NO</th>
+                                    <th>Kelurahan</th>
+                                    <th>Bangunan Hunian</th>
+                                    <th>Jalan Lingkungan</th>
+                                    <th>Air Minum</th>
+                                    <th>Drainase Lingkungan</th>
+                                    <th>Persampahan</th>
+                                    <th>Proteksi Kebakaran</th>
+                                    <th>Air Limbah</th>
+                                    <th>Legalitas Dan Status Lahan</th>
+                                    <th>Sosial Dan Ekonomi</th>
+                                    <th>Pertimbangan Lain</th>
 
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
+
                                 @foreach ($subpermasalahans as $index => $sub)
                                 <tr>
-                                    <td>{{ $index + 1 }}</td> <!-- Menampilkan nomor otomatis -->
-                                    <td>{{ $sub->kelurahan->nama }}</td>
-                                    <td>{!! Str::limit($sub->text_1, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_2, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_3, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_4, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_5, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_6, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_7, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_8, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_9, 100) !!}</td>
-                                    <td>{!! Str::limit($sub->text_10, 100) !!}</td>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td class="limited-text">{{$sub->kelurahan->nama }}</td>
+                                    <td class="limited-text">{{$sub->text_1}} </td>
+                                    <td class="limited-text">{{$sub->text_2}} </td>
+                                    <td class="limited-text">{{$sub->text_3}} </td>
+                                    <td class="limited-text">{{$sub->text_4}} </td>
+                                    <td class="limited-text">{{$sub->text_5}} </td>
+                                    <td class="limited-text">{{$sub->text_6}} </td>
+                                    <td class="limited-text">{{$sub->text_7}} </td>
+                                    <td class="limited-text">{{$sub->text_8}} </td>
+                                    <td class="limited-text">{{$sub->text_9}} </td>
+                                    <td class="limited-text">{{$sub->text_10}} </td>
 
-
+                                    <!-- Tombol Edit dan Delete -->
                                     <td class="td-left">
                                         <!-- Tombol Edit -->
                                         <a href="{{ route('dashboard.subpermasalahan.edit', $sub->id) }}"
                                             class="btn btn-sm btn-warning" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
+
                                         <!-- Tombol Delete -->
                                         <form action="{{ route('dashboard.subpermasalahan.destroy', $sub->id) }}"
                                             method="POST" style="display: inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-danger" title="Delete"
-                                                onclick="return confirm('Are you sure you want to delete this RT?')">
+                                                onclick="return confirm('Are you sure you want to delete this item?')">
                                                 <i class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -115,3 +117,20 @@
     <!-- /.container-fluid -->
 </section>
 @endsection
+<script>
+    $(function () {
+    $("#example2").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": true,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
