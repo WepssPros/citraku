@@ -20,7 +20,10 @@
         function updateLogo() {
             if ($(window).width() < 992) {
                 // Ganti nilai 992 sesuai dengan breakpoint tablet yang Anda gunakan
-                $("#navbar-logo").attr("src", "/frontend/img/logobapeda.png"); // Ganti dengan path yang sesuai
+                $("#navbar-logo").attr(
+                    "src",
+                    "/frontend/img/logotextcitradark.png"
+                ); // Ganti dengan path yang sesuai
             } else {
                 $("#navbar-logo").attr(
                     "src",
