@@ -64,11 +64,16 @@
                                         100) !!}
                                     </td>
                                     <!-- Foto-foto -->
-                                    <td><img src="{{ Storage::url($item->foto_1) }}" alt="Foto 1" width="100"></td>
-                                    <td><img src="{{ Storage::url($item->foto_2) }}" alt="Foto 2" width="100"></td>
-                                    <td><img src="{{ Storage::url($item->foto_3) }}" alt="Foto 3" width="100"></td>
-                                    <td><img src="{{ Storage::url($item->foto_4) }}" alt="Foto 4" width="100"></td>
-                                    <td><img src="{{ Storage::url($item->foto_5) }}" alt="Foto 5" width="100"></td>
+                                    <td><img src="{{ asset('storage/' . $item->foto_1) }}" alt="Foto 1" width="100">
+                                    </td>
+                                    <td><img src="{{ asset('storage/' . $item->foto_2) }}" alt="Foto 2" width="100">
+                                    </td>
+                                    <td><img src="{{ asset('storage/' . $item->foto_3) }}" alt="Foto 3" width="100">
+                                    </td>
+                                    <td><img src="{{ asset('storage/' . $item->foto_4) }}" alt="Foto 4" width="100">
+                                    </td>
+                                    <td><img src="{{ asset('storage/' . $item->foto_5) }}" alt="Foto 5" width="100">
+                                    </td>
                                     <!-- Kategori, Tipologi, dan Karakteristik -->
                                     <td>{{ $item->kategori_kumuh }}</td>
                                     <td>{{ $item->tipologi_kumuh }}</td>
