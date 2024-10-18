@@ -200,7 +200,10 @@
                                     <td>{{ $laporan->kelurahan->nama }}</td>
                                     <td>{{ number_format($laporan->kelurahan->jumlah_kk) }}.KK</td>
                                     <td>{{ $laporan->kelurahan->rt->sum('luas_ha') }} Ha</td>
-                                    <td></td>
+                                    <td>Satuan</td>
+
+                                    @if ($kegiatan->r_KegiatanPenanganans->isNotEmpty())
+                                    @foreach ($kegiatan->r_KegiatanPenanganans as $relasi_k)
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -214,7 +217,36 @@
                                     <td></td>
 
                                     {{-- untuk biaya --}}
-                                    @foreach ($kegiatan->r_KegiatanPenanganans as $realisasi)
+
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn1')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn1')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn2')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn2')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn3')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn3')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn4')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn4')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn5')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn5')}}</td>
+                                    <td>
+                                        {{$kegiatan->subKegiatanPenanganans->sum('indikasi_total') - $relasi_k->r_subKegiatanPenanganans->sum('indikasi_total')}}
+                                    </td>
+
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_kota')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_kota')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_provinsi')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_provinsi')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_apbn')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_apbn')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_dak')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_dak')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_swasta')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_swasta')}}</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_masyarakat')}}</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_masyarakat')}}</td>
+
+                                    @endforeach
+                                    @else
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -227,19 +259,36 @@
                                     <td></td>
                                     <td></td>
 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    @endforeach
+                                    {{-- untuk biaya --}}
+
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn1')}}</td>
+                                    <td>0</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn2')}}</td>
+                                    <td>0</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('indikasi_thn3')}}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn4')}}</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('indikasi_thn5')}}</td>
+                                    <td>
+                                        {{$kegiatan->subKegiatanPenanganans->sum('indikasi_total') - 0}}
+                                    </td>
+
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_kota')}}</td>
+                                    <td>0</td>
+                                    <td>{{$kegiatan->subKegiatanPenanganans->sum('spb_provinsi')}}</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_apbn')}}</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_dak')}}</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_swasta')}}</td>
+                                    <td>0</td>
+                                    <td>{{$relasi_k->r_subKegiatanPenanganans->sum('spb_masyarakat')}}</td>
+
+                                    @endif
                                     <td>{{$kegiatan->opd_kegiatan}}</td>
                                 </tr>
 
@@ -293,39 +342,39 @@
                                     <td>{{$relasi->spb_masyarakat}}</td>
                                     @endforeach
                                     @else
+                                    <td>{{number_format($subkegiatan->keb_thn1)}}</td>
                                     <td>0</td>
+                                    <td>{{number_format($subkegiatan->keb_thn2)}}</td>
                                     <td>0</td>
+                                    <td>{{number_format($subkegiatan->keb_thn3)}}</td>
                                     <td>0</td>
+                                    <td>{{number_format($subkegiatan->keb_thn4)}}</td>
                                     <td>0</td>
+                                    <td>{{number_format($subkegiatan->keb_thn5)}}</td>
                                     <td>0</td>
+                                    <td>{{number_format($subkegiatan->keb_total - 0)}}</td>
+                                    <td>{{$subkegiatan->indikasi_thn1}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->indikasi_thn2}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->indikasi_thn3}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->indikasi_thn4}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->indikasi_thn5}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->indikasi_total - 0}}</td>
+                                    <td>{{$subkegiatan->spb_kota}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->spb_provinsi}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->spb_apbn}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->spb_dak}}</td>
                                     <td>0</td>
+                                    <td>{{$subkegiatan->spb_swasta}}</td>
                                     <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0</td>
+                                    <td>{{$subkegiatan->spb_masyarakat}}</td>
                                     <td>0</td>
 
                                     @endif
@@ -333,6 +382,11 @@
                                     <td>{{$subkegiatan->opd}}</td>
                                 </tr>
                                 @endforeach
+
+
+
+
+
                                 @endforeach
                                 @endforeach
                             </tbody>
