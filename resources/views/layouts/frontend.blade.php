@@ -15,7 +15,7 @@
             rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
-        {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />  --}}
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
             integrity="sha512-7Zx/EDskkFev7KcnfowrZ5YFE5VhsuG0fTfq0S5U7zJYYk+lSrxRU05nSa1Ooq+S0Snt2n4YO5XwjhDzh5Gwtw=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
