@@ -80,7 +80,7 @@ map.getContainer().addEventListener("wheel", function (e) {
 
 // Layer peta default
 baseMaps["OpenStreetMap"].addTo(map);
-
+map.setView([-1.6, 103.6], 15);
 // Menambahkan kontrol layer dengan tampilan sederhana
 var layerControl = L.control({ position: "topright" });
 
