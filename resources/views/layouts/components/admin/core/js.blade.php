@@ -2,11 +2,9 @@
 <script src="{{asset('../adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
 
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
 
 
+<script src="{{asset('../../adminlte/plugins/leaflet/leaflet.js')}}"></script>
 {{-- datatables  --}}
 <script src="{{asset('../../adminlte/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('../../adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
