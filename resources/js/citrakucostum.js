@@ -40,7 +40,7 @@ var baseMaps = {
 };
 
 // Layer peta default
-baseMaps["Google Street"].addTo(map);
+baseMaps["OpenStreetMap"].addTo(map);
 
 // Mengatur maksimum zoom level
 map.setMaxZoom(15); // Atur batas maksimum zoom out
