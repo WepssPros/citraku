@@ -1,7 +1,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <link rel="stylesheet" href="{{asset('../adminlte/plugins/fontawesome-free/css/all.min.css')}}">
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-{{-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />  --}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Leaflet Google Plugin -->
+<script src="https://unpkg.com/leaflet-google/dist/leaflet-google.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-easybutton@2/src/easy-button.css">
 
 {{-- <!-- DataTables -->  --}}
