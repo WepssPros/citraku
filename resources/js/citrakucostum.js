@@ -1,6 +1,6 @@
-const kecamatanApiUrl = "http://citraku.test/api/kecamatan";
-const kelurahanApiUrl = "http://citraku.test/api/kelurahan"; // URL API untuk kelurahan
-const rtApiUrl = "http://citraku.test/api/rt"; // URL API untuk RT
+const kecamatanApiUrl = "http://88.222.215.154/api/kecamatan";
+const kelurahanApiUrl = "http://88.222.215.154/api/kelurahan"; // URL API untuk kelurahan
+const rtApiUrl = "http://88.222.215.154/api/rt"; // URL API untuk RT
 
 // API CITRA
 
@@ -301,7 +301,7 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
         // Pastikan marker hanya ditambahkan jika bernilai true
         // Membuat ikon dari asset gambar
         const customIcon = L.icon({
-            iconUrl: "http://citraku.test/frontend/img/logocitraku.png",
+            iconUrl: "http://88.222.215.154/frontend/img/logocitraku.png",
             iconSize: [25, 25], // Ukuran ikon (lebar, tinggi) dalam pixel
             iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
             popupAnchor: [0, -25], // Titik di mana tooltip muncul
@@ -355,7 +355,7 @@ function createKelurahanLayer(name, coordinates, id, color, marker) {
 // --------------------------------------------------------------------------------------------//
 // OPTION MENU MENU
 // URL untuk API kawasan kumuh
-const kawasanKumuhApiUrl = "http://citraku.test/api/kumuh";
+const kawasanKumuhApiUrl = "http://88.222.215.154/api/kumuh";
 
 // Array untuk menyimpan polygon kawasan kumuh
 const kawasanKumuhPolygons = [];
