@@ -146,16 +146,14 @@ fetch(rtApiUrl)
 
             try {
                 const geojson = JSON.parse(rt.koordinat);
+                let coordinates = [];
 
-                // Memeriksa apakah GeoJSON mengandung koordinat
                 if (
                     geojson &&
                     geojson.coordinates &&
                     geojson.coordinates.length > 0
                 ) {
-                    let coordinates = [];
-
-                    // Jika ini adalah Polygon
+                    // Mengonversi koordinat
                     if (geojson.type === "Polygon") {
                         coordinates.push(
                             geojson.coordinates[0].map((coord) => ({
@@ -163,9 +161,7 @@ fetch(rtApiUrl)
                                 lng: coord[0],
                             }))
                         );
-                    }
-                    // Jika ini adalah MultiPolygon
-                    else if (geojson.type === "MultiPolygon") {
+                    } else if (geojson.type === "MultiPolygon") {
                         geojson.coordinates.forEach((polygon) => {
                             coordinates.push(
                                 polygon[0].map((coord) => ({
@@ -176,34 +172,26 @@ fetch(rtApiUrl)
                         });
                     }
 
-                    // Membuat layer RT dengan warna dari database
+                    // Membuat layer RT
                     if (coordinates.length > 0) {
                         createRTLayer(name, coordinates, id, color);
-                    } else {
-                        console.warn(`No valid coordinates for RT: ${name}`);
                     }
-                } else {
-                    console.warn(`No coordinates found for RT: ${name}`);
                 }
-            } catch (error) {
-                console.error(`Error parsing GeoJSON for RT ${name}:`, error);
+            } catch {
+                console.warn(`Error parsing GeoJSON for RT ${name}`);
             }
         });
 
-        // Setelah membuat semua polygons, atur bounds
+        // Mengatur bounds setelah membuat semua polygons
         if (rTPolygons.length > 0) {
             const bounds = L.latLngBounds();
             rTPolygons.forEach((polygon) => {
                 bounds.extend(polygon.getBounds());
             });
-            map.fitBounds(bounds); // Sesuaikan peta agar muat dengan semua polygon
-        } else {
-            console.warn("No RT polygons available to fit bounds");
+            map.fitBounds(bounds);
         }
     })
-    .catch((error) => {
-        console.error("Error fetching RT data:", error);
-    });
+    .catch((error) => console.warn("Error fetching RT data:", error));
 
 // Fungsi untuk membuat layer RT dan menambahkannya ke peta
 function createRTLayer(name, coordinates, id, color) {
