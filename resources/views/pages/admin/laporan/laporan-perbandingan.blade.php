@@ -151,6 +151,10 @@
                                     <td>{{ number_format($laporan->kelurahan->jumlah_kk) }}.KK</td>
                                     <td>{{ $laporan->kelurahan->rt->sum('luas_ha') }} Ha</td>
                                     <td></td>
+
+
+                                    @if ($laporan->perealisasians->isNotEmpty())
+                                    @foreach ($laporan->perealisasians as $relasi_p)
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -163,7 +167,227 @@
                                     <td></td>
                                     <td></td>
 
-                                    {{-- --}}
+                                    {{-- untuk biaya --}}
+
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_thn1');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn1');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_thn2');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn2');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_thn3');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn3');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_thn4');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn4');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_thn5');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn5');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('indikasi_total');
+                                                })
+                                            )
+                                        }}
+                                        -
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_total');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_kota');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_kota');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_provinsi');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_provinsi');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_apbn');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_apbn');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_dak');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_dak');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_swasta');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_swasta');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $laporan->KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->subKegiatanPenanganans->sum('spb_masyarakat');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_masyarakat');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+
+                                    @endforeach
+                                    @else
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -176,18 +400,129 @@
                                     <td></td>
                                     <td></td>
 
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    {{-- untuk biaya --}}
+
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn1');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn2');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn3');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn4');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_thn5');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('indikasi_total');
+                                                })
+                                            )
+                                        }} - 0
+                                    </td>
+
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_kota');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_provinsi');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_apbn');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_dak');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_swasta');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    <td>
+                                        {{
+                                            (
+                                                $relasi_p->r_KegiatanPenanganans->sum(function($kegiatan) {
+                                                    return $kegiatan->r_subKegiatanPenanganans->sum('spb_masyarakat');
+                                                })
+                                            )
+                                        }}
+                                    </td>
+                                    <td>0</td>
+                                    @endif
 
                                     <td>{{$laporan->opd_program}}</td>
 
@@ -195,8 +530,8 @@
 
                                 @foreach ($laporan->KegiatanPenanganans as $kegiatan)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $laporan->program->program }}</td>
+                                    <td>{{ $loop->parent->iteration }}.{{ $loop->iteration }}</td>
+                                    <td>{{ $kegiatan->kegiatan->kegiatan }}</td>
                                     <td>{{ $laporan->kelurahan->nama }}</td>
                                     <td>{{ number_format($laporan->kelurahan->jumlah_kk) }}.KK</td>
                                     <td>{{ $laporan->kelurahan->rt->sum('luas_ha') }} Ha</td>
