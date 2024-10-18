@@ -397,27 +397,9 @@ fetch(kawasanKumuhApiUrl)
                 // Membuat layer Kawasan Kumuh dengan warna dari database
                 if (coordinates.length > 0) {
                     createKawasanKumuhLayer(name, coordinates, id, color);
-                } else {
-                    console.warn(`No valid coordinates for Kawasan: ${name}`);
                 }
-            } else {
-                console.warn(`No coordinates found for Kawasan: ${name}`);
             }
         });
-
-        // Setelah membuat semua polygons, atur bounds
-        if (kawasanKumuhPolygons.length > 0) {
-            const bounds = L.latLngBounds();
-            kawasanKumuhPolygons.forEach((polygon) => {
-                bounds.extend(polygon.getBounds());
-            });
-            map.fitBounds(bounds); // Sesuaikan peta agar muat dengan semua polygon
-        } else {
-            console.warn("No Kawasan Kumuh polygons available to fit bounds");
-        }
-    })
-    .catch((error) => {
-        console.error("Error fetching Kawasan Kumuh data:", error);
     });
 
 // Fungsi untuk membuat layer Kawasan Kumuh dan menambahkannya ke peta
