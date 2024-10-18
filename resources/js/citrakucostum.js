@@ -40,8 +40,11 @@ var baseMaps = {
 };
 
 // Layer peta default
-baseMaps["Google Street"].addTo(map);
-map.invalidateSize(); // Memperbarui ukuran peta jika diperlukan
+baseMaps["OpenStreetMap"].addTo(map);
+
+// Mengatur maksimum zoom level
+map.setMaxZoom(15); // Atur batas maksimum zoom out
+map.setMinZoom(10); // Atur batas minimum zoom in jika diperlukan
 
 // Deklarasi array REYHAN HARUS INGAT
 const rTPolygons = [];
@@ -263,34 +266,40 @@ fetch(kelurahanApiUrl)
     .catch((error) => {
         console.error("Error fetching kelurahan data:", error);
     });
-function createKelurahanLayer(name, coordinates, id, marker) {
-    // Membuat polygon kelurahan tanpa menambahkannya ke peta
+function createKelurahanLayer(name, coordinates, id, color, marker) {
+    // Pastikan warna valid
+    const polygonColor = color ? color.trim() : "green"; // Menggunakan color dari parameter, default ke green
+
+    // Membuat polygon kelurahan
     const polygon = L.polygon(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: "transparent", // Tidak ada warna pada awalnya
+            color: polygonColor, // Menggunakan warna dari parameter
             weight: 2,
-            opacity: 0,
-            fillOpacity: 0,
+            opacity: 0.65,
+            fillOpacity: 0.3,
             interactive: true,
         }
-    );
+    ).addTo(map);
 
-    // Membuat garis polyline untuk batas kelurahan tanpa menambahkannya ke peta
+    polygon.bringToFront();
+
+    // Membuat garis polyline untuk batas kelurahan
     const polyline = L.polyline(
         coordinates.map((coord) => [coord.lat, coord.lng]),
         {
-            color: "transparent", // Tidak ada warna pada awalnya
+            color: "white",
             weight: 1,
-            opacity: 0,
+            opacity: 1,
         }
-    );
+    ).addTo(map);
 
-    // Simpan polygon ke array untuk referensi lebih lanjut
-    kelurahanPolygons.push(polygon);
+    // Menentukan centroid polygon menggunakan library Leaflet
+    const centroid = polygon.getBounds().getCenter(); // Mendapatkan titik tengah dari polygon
 
     // Cek apakah marker harus ditampilkan
     if (marker === 1) {
+        // Pastikan marker hanya ditambahkan jika bernilai true
         // Membuat ikon dari asset gambar
         const customIcon = L.icon({
             iconUrl: "http://88.222.215.154/frontend/img/logocitraku.png",
@@ -298,9 +307,6 @@ function createKelurahanLayer(name, coordinates, id, marker) {
             iconAnchor: [12.5, 25], // Titik yang akan digunakan untuk mengaitkan ikon dengan marker
             popupAnchor: [0, -25], // Titik di mana tooltip muncul
         });
-
-        // Menentukan centroid polygon menggunakan library Leaflet
-        const centroid = polygon.getBounds().getCenter(); // Mendapatkan titik tengah dari polygon
 
         // Membuat marker di pusat polygon menggunakan icon custom
         const kelurahanMarker = L.marker([centroid.lat, centroid.lng], {
@@ -321,9 +327,30 @@ function createKelurahanLayer(name, coordinates, id, marker) {
         });
     }
 
-    // Anda dapat menambahkan metode untuk mengaktifkan polygon dan polyline di masa mendatang
-}
+    // Event hover untuk polygon kelurahan
+    polygon.on("mouseover", function () {
+        if (map.getZoom() < 15) {
+            polyline.setStyle({ color: "blue" });
+            polygon.setStyle({ color: polygonColor, fillOpacity: 0.5 }); // Gunakan polygonColor
+        }
+    });
 
+    polygon.on("mouseout", function () {
+        if (map.getZoom() < 15) {
+            polyline.setStyle({ color: "white" });
+            polygon.setStyle({ color: polygonColor, fillOpacity: 0.3 }); // Gunakan polygonColor
+        }
+    });
+
+    // Event click untuk polygon, menampilkan modal informasi
+    polygon.on("click", function () {
+        map.fitBounds(polygon.getBounds());
+        $("#kelurahanModal" + id).modal("show");
+    });
+
+    // Simpan polygon ke array untuk referensi lebih lanjut
+    kelurahanPolygons.push(polygon);
+}
 //TUTUP KELURAHGN REHAN
 
 // --------------------------------------------------------------------------------------------//
