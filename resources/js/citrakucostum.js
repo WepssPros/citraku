@@ -1,3 +1,5 @@
+import L from "leaflet";
+
 const kecamatanApiUrl = "http://88.222.215.154/api/kecamatan";
 const kelurahanApiUrl = "http://88.222.215.154/api/kelurahan"; // URL API untuk kelurahan
 const rtApiUrl = "http://88.222.215.154/api/rt"; // URL API untuk RT
