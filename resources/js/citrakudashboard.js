@@ -49,6 +49,7 @@ map.setMinZoom(10); // Atur batas minimum zoom in jika diperlukan
 
 // Deklarasi array REYHAN HARUS INGAT
 
+
 // Fungsi untuk menangani scroll zoom hanya di area peta
 let isCtrlPressed = false;
 
